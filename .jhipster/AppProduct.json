@@ -1,0 +1,59 @@
+{
+  "angularJSSuffix": "mySuffix",
+  "applications": "*",
+  "changelogDate": "20231016021954",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "app_product",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "unit",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "AppProduct",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "appCategory",
+      "relationshipName": "category",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "appProductImage",
+      "relationshipName": "images",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "appCart",
+      "otherEntityRelationshipName": "products",
+      "ownerSide": false,
+      "relationshipName": "carts",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

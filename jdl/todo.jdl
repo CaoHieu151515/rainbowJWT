@@ -1,0 +1,159 @@
+entity AppUser {
+    id Long,
+    name String,
+    gender String,
+    dob ZonedDateTime,
+    status String
+}
+
+entity AppCategory {
+    id Long,
+    name String
+}
+
+entity AppPayment {
+    id Long,
+    method String,
+    status String,
+    amount BigDecimal,
+    note String
+}
+
+entity LinkAccountUser {
+    id Long
+}
+
+entity AppProduct {
+    id Long,
+    name String,
+    price BigDecimal,
+    unit Integer,
+    description String,
+    status String
+}
+
+entity AppProductImage {
+    id Long,
+    imageUrl String
+}
+
+entity AppCourse {
+    id Long,
+    name String,
+    level String,
+    image String
+}
+
+entity AppLesson {
+    id Long
+}
+
+entity AppLessonVideo {
+    id Long,
+    videoUrl String
+}
+
+entity AppAvailableCourse {
+    id Long
+}
+
+entity AppQuestion {
+    id Long,
+    questionName String,
+    questionText String
+}
+
+entity AppMultipleChoiceAnswer {
+    id Long,
+    answerText String,
+    isCorrect Boolean
+}
+
+entity AppOrder {
+    id Long,
+    total BigDecimal,
+    createdAt ZonedDateTime,
+    status String,
+    paymentID Long
+}
+
+entity AppOrderItem {
+    id Long,
+    quantity Integer,
+    price BigDecimal,
+    unit String,
+    note String
+}
+
+entity AppPostImage {
+    id Long,
+    imageUrl String
+}
+
+entity AppCart {
+    id Long,
+    quantity Integer
+}
+
+entity AppPost {
+    id Long,
+    title String,
+    content String,
+    author String,
+    dateWritten ZonedDateTime,
+    publishedDate ZonedDateTime,
+    isFeatured Boolean
+}
+
+entity AppLessonInfo {
+    id Long,
+    description String,
+    pdfUrl String
+}
+
+// Định nghĩa các mối quan hệ
+
+relationship OneToMany {
+    AppLesson{lessons} to AppQuestion{lesson},
+    AppQuestion{questions} to AppMultipleChoiceAnswer{question},
+    AppCourse{courses} to AppLesson{course},
+    AppUser{orders} to AppOrder{user},
+    AppOrder{orderItems} to AppOrderItem{order},
+    AppLesson{lessonInfos} to AppLessonInfo{lesson},
+    AppLessonInfo{videos} to AppLessonVideo{lessonInfo},
+    AppPost{images} to AppPostImage{post},
+    AppUser{posts} to AppPost{user},
+    AppOrder{payments} to AppPayment{order}
+}
+
+relationship ManyToOne {
+    AppProduct{category} to AppCategory,
+    AppProduct{images} to AppProductImage,
+    LinkAccountUser{user} to User,
+    LinkAccountUser{appUser} to AppUser,
+    AppAvailableCourse{courses} to AppCourse
+
+}
+
+relationship OneToOne {
+    AppCart{user} to AppUser{cart},
+    AppOrderItem{product} to AppProduct
+}
+
+relationship ManyToMany {
+    AppCart{products} to AppProduct{carts},
+    AppUser{courses} to AppCourse{users},
+    AppUser{availableCourses} to AppAvailableCourse{users}
+}
+
+// Sử dụng Data Transfer Objects (DTO)
+dto * with mapstruct
+
+// Cấu hình phân trang
+paginate AppOrder, AppUser, AppProduct with infinite-scroll
+
+// Cấu hình dịch vụ
+service all with serviceImpl
+
+// Cấu hình hậu tố cho React
+angularSuffix * with mySuffix

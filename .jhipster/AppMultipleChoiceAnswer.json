@@ -1,0 +1,36 @@
+{
+  "angularJSSuffix": "mySuffix",
+  "applications": "*",
+  "changelogDate": "20231016022001",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "app_multiple_choice_answer",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "answerText",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isCorrect",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "AppMultipleChoiceAnswer",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "appQuestion",
+      "otherEntityRelationshipName": "questions",
+      "relationshipName": "question",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

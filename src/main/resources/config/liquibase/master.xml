@@ -11,7 +11,40 @@
     <property name="datetimeType" value="datetime(6)" dbms="mysql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021950_added_entity_AppUser.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021951_added_entity_AppCategory.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021952_added_entity_AppPayment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021953_added_entity_LinkAccountUser.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021954_added_entity_AppProduct.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021955_added_entity_AppProductImage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021956_added_entity_AppCourse.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021957_added_entity_AppLesson.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021958_added_entity_AppLessonVideo.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021959_added_entity_AppAvailableCourse.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022000_added_entity_AppQuestion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022001_added_entity_AppMultipleChoiceAnswer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022002_added_entity_AppOrder.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022003_added_entity_AppOrderItem.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022004_added_entity_AppPostImage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022005_added_entity_AppCart.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022006_added_entity_AppPost.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022007_added_entity_AppLessonInfo.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20231016021950_added_entity_constraints_AppUser.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021952_added_entity_constraints_AppPayment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021953_added_entity_constraints_LinkAccountUser.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021954_added_entity_constraints_AppProduct.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021957_added_entity_constraints_AppLesson.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021958_added_entity_constraints_AppLessonVideo.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016021959_added_entity_constraints_AppAvailableCourse.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022000_added_entity_constraints_AppQuestion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022001_added_entity_constraints_AppMultipleChoiceAnswer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022002_added_entity_constraints_AppOrder.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022003_added_entity_constraints_AppOrderItem.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022004_added_entity_constraints_AppPostImage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022005_added_entity_constraints_AppCart.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022006_added_entity_constraints_AppPost.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231016022007_added_entity_constraints_AppLessonInfo.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

@@ -1,0 +1,34 @@
+{
+  "angularJSSuffix": "mySuffix",
+  "applications": "*",
+  "changelogDate": "20231016021959",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "app_available_course",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "AppAvailableCourse",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "appCourse",
+      "relationshipName": "courses",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "appUser",
+      "otherEntityRelationshipName": "availableCourses",
+      "ownerSide": false,
+      "relationshipName": "users",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,42 @@
+{
+  "angularJSSuffix": "mySuffix",
+  "applications": "*",
+  "changelogDate": "20231016022007",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "app_lesson_info",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pdfUrl",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "AppLessonInfo",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "appLessonVideo",
+      "otherEntityRelationshipName": "lessonInfo",
+      "relationshipName": "videos",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "appLesson",
+      "otherEntityRelationshipName": "lessonInfos",
+      "relationshipName": "lesson",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity AppUser.
+    -->
+    <changeSet id="20231016021950-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="app_user_id"
+                                 baseTableName="rel_app_user__courses"
+                                 constraintName="fk_rel_app_user__courses__app_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="app_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="courses_id"
+                                 baseTableName="rel_app_user__courses"
+                                 constraintName="fk_rel_app_user__courses__courses_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="app_course"/>
+
+        <addForeignKeyConstraint baseColumnNames="app_user_id"
+                                 baseTableName="rel_app_user__available_courses"
+                                 constraintName="fk_rel_app_user__available_courses__app_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="app_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="available_courses_id"
+                                 baseTableName="rel_app_user__available_courses"
+                                 constraintName="fk_rel_app_user__available_courses__available_courses_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="app_available_course"/>
+    </changeSet>
+</databaseChangeLog>

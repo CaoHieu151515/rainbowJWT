@@ -1,0 +1,71 @@
+{
+  "angularJSSuffix": "mySuffix",
+  "applications": "*",
+  "changelogDate": "20231016021950",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "app_user",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "gender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dob",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "AppUser",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "appOrder",
+      "otherEntityRelationshipName": "user",
+      "relationshipName": "orders",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "appPost",
+      "otherEntityRelationshipName": "user",
+      "relationshipName": "posts",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "appCourse",
+      "otherEntityRelationshipName": "users",
+      "ownerSide": true,
+      "relationshipName": "courses",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "appAvailableCourse",
+      "otherEntityRelationshipName": "users",
+      "ownerSide": true,
+      "relationshipName": "availableCourses",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "appCart",
+      "otherEntityRelationshipName": "user",
+      "ownerSide": false,
+      "relationshipName": "cart",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

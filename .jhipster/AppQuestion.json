@@ -1,0 +1,42 @@
+{
+  "angularJSSuffix": "mySuffix",
+  "applications": "*",
+  "changelogDate": "20231016022000",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "app_question",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "questionName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "questionText",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "AppQuestion",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "appMultipleChoiceAnswer",
+      "otherEntityRelationshipName": "question",
+      "relationshipName": "questions",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "appLesson",
+      "otherEntityRelationshipName": "lessons",
+      "relationshipName": "lesson",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}
