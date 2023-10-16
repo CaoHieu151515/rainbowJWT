@@ -33,6 +33,10 @@
     {
       "fieldName": "isFeatured",
       "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "confirm",
+      "fieldType": "Boolean"
     }
   ],
   "fluentMethods": true,

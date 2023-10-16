@@ -10,10 +10,12 @@ export interface IAppPostMySuffix {
   dateWritten?: string | null;
   publishedDate?: string | null;
   isFeatured?: boolean | null;
+  confirm?: boolean | null;
   images?: IAppPostImageMySuffix[] | null;
   user?: IAppUserMySuffix | null;
 }
 
 export const defaultValue: Readonly<IAppPostMySuffix> = {
   isFeatured: false,
+  confirm: false,
 };

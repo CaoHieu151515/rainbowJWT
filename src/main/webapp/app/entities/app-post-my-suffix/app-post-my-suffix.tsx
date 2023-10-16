@@ -58,6 +58,7 @@ export const AppPostMySuffix = () => {
                 <th>Date Written</th>
                 <th>Published Date</th>
                 <th>Is Featured</th>
+                <th>Confirm</th>
                 <th>User</th>
                 <th />
               </tr>
@@ -78,6 +79,7 @@ export const AppPostMySuffix = () => {
                     {appPost.publishedDate ? <TextFormat type="date" value={appPost.publishedDate} format={APP_DATE_FORMAT} /> : null}
                   </td>
                   <td>{appPost.isFeatured ? 'true' : 'false'}</td>
+                  <td>{appPost.confirm ? 'true' : 'false'}</td>
                   <td>{appPost.user ? <Link to={`/app-user-my-suffix/${appPost.user.id}`}>{appPost.user.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

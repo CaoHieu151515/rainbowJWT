@@ -54,6 +54,9 @@ class AppPostResourceIT {
     private static final Boolean DEFAULT_IS_FEATURED = false;
     private static final Boolean UPDATED_IS_FEATURED = true;
 
+    private static final Boolean DEFAULT_CONFIRM = false;
+    private static final Boolean UPDATED_CONFIRM = true;
+
     private static final String ENTITY_API_URL = "/api/app-posts";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -87,7 +90,8 @@ class AppPostResourceIT {
             .author(DEFAULT_AUTHOR)
             .dateWritten(DEFAULT_DATE_WRITTEN)
             .publishedDate(DEFAULT_PUBLISHED_DATE)
-            .isFeatured(DEFAULT_IS_FEATURED);
+            .isFeatured(DEFAULT_IS_FEATURED)
+            .confirm(DEFAULT_CONFIRM);
         return appPost;
     }
 
@@ -104,7 +108,8 @@ class AppPostResourceIT {
             .author(UPDATED_AUTHOR)
             .dateWritten(UPDATED_DATE_WRITTEN)
             .publishedDate(UPDATED_PUBLISHED_DATE)
-            .isFeatured(UPDATED_IS_FEATURED);
+            .isFeatured(UPDATED_IS_FEATURED)
+            .confirm(UPDATED_CONFIRM);
         return appPost;
     }
 
@@ -133,6 +138,7 @@ class AppPostResourceIT {
         assertThat(testAppPost.getDateWritten()).isEqualTo(DEFAULT_DATE_WRITTEN);
         assertThat(testAppPost.getPublishedDate()).isEqualTo(DEFAULT_PUBLISHED_DATE);
         assertThat(testAppPost.getIsFeatured()).isEqualTo(DEFAULT_IS_FEATURED);
+        assertThat(testAppPost.getConfirm()).isEqualTo(DEFAULT_CONFIRM);
     }
 
     @Test
@@ -171,7 +177,8 @@ class AppPostResourceIT {
             .andExpect(jsonPath("$.[*].author").value(hasItem(DEFAULT_AUTHOR)))
             .andExpect(jsonPath("$.[*].dateWritten").value(hasItem(sameInstant(DEFAULT_DATE_WRITTEN))))
             .andExpect(jsonPath("$.[*].publishedDate").value(hasItem(sameInstant(DEFAULT_PUBLISHED_DATE))))
-            .andExpect(jsonPath("$.[*].isFeatured").value(hasItem(DEFAULT_IS_FEATURED.booleanValue())));
+            .andExpect(jsonPath("$.[*].isFeatured").value(hasItem(DEFAULT_IS_FEATURED.booleanValue())))
+            .andExpect(jsonPath("$.[*].confirm").value(hasItem(DEFAULT_CONFIRM.booleanValue())));
     }
 
     @Test
@@ -191,7 +198,8 @@ class AppPostResourceIT {
             .andExpect(jsonPath("$.author").value(DEFAULT_AUTHOR))
             .andExpect(jsonPath("$.dateWritten").value(sameInstant(DEFAULT_DATE_WRITTEN)))
             .andExpect(jsonPath("$.publishedDate").value(sameInstant(DEFAULT_PUBLISHED_DATE)))
-            .andExpect(jsonPath("$.isFeatured").value(DEFAULT_IS_FEATURED.booleanValue()));
+            .andExpect(jsonPath("$.isFeatured").value(DEFAULT_IS_FEATURED.booleanValue()))
+            .andExpect(jsonPath("$.confirm").value(DEFAULT_CONFIRM.booleanValue()));
     }
 
     @Test
@@ -219,7 +227,8 @@ class AppPostResourceIT {
             .author(UPDATED_AUTHOR)
             .dateWritten(UPDATED_DATE_WRITTEN)
             .publishedDate(UPDATED_PUBLISHED_DATE)
-            .isFeatured(UPDATED_IS_FEATURED);
+            .isFeatured(UPDATED_IS_FEATURED)
+            .confirm(UPDATED_CONFIRM);
         AppPostDTO appPostDTO = appPostMapper.toDto(updatedAppPost);
 
         restAppPostMockMvc
@@ -240,6 +249,7 @@ class AppPostResourceIT {
         assertThat(testAppPost.getDateWritten()).isEqualTo(UPDATED_DATE_WRITTEN);
         assertThat(testAppPost.getPublishedDate()).isEqualTo(UPDATED_PUBLISHED_DATE);
         assertThat(testAppPost.getIsFeatured()).isEqualTo(UPDATED_IS_FEATURED);
+        assertThat(testAppPost.getConfirm()).isEqualTo(UPDATED_CONFIRM);
     }
 
     @Test
@@ -339,6 +349,7 @@ class AppPostResourceIT {
         assertThat(testAppPost.getDateWritten()).isEqualTo(DEFAULT_DATE_WRITTEN);
         assertThat(testAppPost.getPublishedDate()).isEqualTo(UPDATED_PUBLISHED_DATE);
         assertThat(testAppPost.getIsFeatured()).isEqualTo(UPDATED_IS_FEATURED);
+        assertThat(testAppPost.getConfirm()).isEqualTo(DEFAULT_CONFIRM);
     }
 
     @Test
@@ -359,7 +370,8 @@ class AppPostResourceIT {
             .author(UPDATED_AUTHOR)
             .dateWritten(UPDATED_DATE_WRITTEN)
             .publishedDate(UPDATED_PUBLISHED_DATE)
-            .isFeatured(UPDATED_IS_FEATURED);
+            .isFeatured(UPDATED_IS_FEATURED)
+            .confirm(UPDATED_CONFIRM);
 
         restAppPostMockMvc
             .perform(
@@ -379,6 +391,7 @@ class AppPostResourceIT {
         assertThat(testAppPost.getDateWritten()).isEqualTo(UPDATED_DATE_WRITTEN);
         assertThat(testAppPost.getPublishedDate()).isEqualTo(UPDATED_PUBLISHED_DATE);
         assertThat(testAppPost.getIsFeatured()).isEqualTo(UPDATED_IS_FEATURED);
+        assertThat(testAppPost.getConfirm()).isEqualTo(UPDATED_CONFIRM);
     }
 
     @Test

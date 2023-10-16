@@ -120,6 +120,7 @@
             <column name="is_featured" type="BIT"/>
             <column name="published_date" type="datetime(6)"/>
             <column name="title" type="VARCHAR(255)"/>
+            <column name="confirm" type="BIT"/>
             <column name="user_id" type="BIGINT"/>
         </createTable>
     </changeSet>

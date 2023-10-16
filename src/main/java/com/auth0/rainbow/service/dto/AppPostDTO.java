@@ -3,6 +3,7 @@ package com.auth0.rainbow.service.dto;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the {@link com.auth0.rainbow.domain.AppPost} entity.
@@ -24,7 +25,11 @@ public class AppPostDTO implements Serializable {
 
     private Boolean isFeatured;
 
+    private Boolean confirm;
+
     private AppUserDTO user;
+
+    private Set<AppPostImageDTO> images;
 
     public Long getId() {
         return id;
@@ -82,12 +87,28 @@ public class AppPostDTO implements Serializable {
         this.isFeatured = isFeatured;
     }
 
+    public Boolean getConfirm() {
+        return confirm;
+    }
+
+    public void setConfirm(Boolean confirm) {
+        this.confirm = confirm;
+    }
+
     public AppUserDTO getUser() {
         return user;
     }
 
     public void setUser(AppUserDTO user) {
         this.user = user;
+    }
+
+    public Set<AppPostImageDTO> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<AppPostImageDTO> images) {
+        this.images = images;
     }
 
     @Override
@@ -122,7 +143,9 @@ public class AppPostDTO implements Serializable {
             ", dateWritten='" + getDateWritten() + "'" +
             ", publishedDate='" + getPublishedDate() + "'" +
             ", isFeatured='" + getIsFeatured() + "'" +
+            ", confirm='" + getConfirm() + "'" +
             ", user=" + getUser() +
+            ", imageUrls=" + getImages() + // Thêm thông tin về imageUrls
             "}";
     }
 }

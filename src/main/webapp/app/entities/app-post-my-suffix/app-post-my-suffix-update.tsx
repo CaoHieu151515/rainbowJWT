@@ -122,6 +122,7 @@ export const AppPostMySuffixUpdate = () => {
                 check
                 type="checkbox"
               />
+              <ValidatedField label="Confirm" id="app-post-my-suffix-confirm" name="confirm" data-cy="confirm" check type="checkbox" />
               <ValidatedField id="app-post-my-suffix-user" name="user" data-cy="user" label="User" type="select">
                 <option value="" key="0" />
                 {appUsers

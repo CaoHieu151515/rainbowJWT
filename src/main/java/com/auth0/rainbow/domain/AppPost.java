@@ -40,7 +40,10 @@ public class AppPost implements Serializable {
     @Column(name = "is_featured")
     private Boolean isFeatured;
 
-    @OneToMany(mappedBy = "post")
+    @Column(name = "confirm")
+    private Boolean confirm;
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "post" }, allowSetters = true)
     private Set<AppPostImage> images = new HashSet<>();
 
@@ -141,6 +144,19 @@ public class AppPost implements Serializable {
         this.isFeatured = isFeatured;
     }
 
+    public Boolean getConfirm() {
+        return this.confirm;
+    }
+
+    public AppPost confirm(Boolean confirm) {
+        this.setConfirm(confirm);
+        return this;
+    }
+
+    public void setConfirm(Boolean confirm) {
+        this.confirm = confirm;
+    }
+
     public Set<AppPostImage> getImages() {
         return this.images;
     }
@@ -215,6 +231,7 @@ public class AppPost implements Serializable {
             ", dateWritten='" + getDateWritten() + "'" +
             ", publishedDate='" + getPublishedDate() + "'" +
             ", isFeatured='" + getIsFeatured() + "'" +
+            ", confirm='" + getConfirm() + "'" +
             "}";
     }
 }

@@ -56,6 +56,10 @@ export const AppPostMySuffixDetail = () => {
             <span id="isFeatured">Is Featured</span>
           </dt>
           <dd>{appPostEntity.isFeatured ? 'true' : 'false'}</dd>
+          <dt>
+            <span id="confirm">Confirm</span>
+          </dt>
+          <dd>{appPostEntity.confirm ? 'true' : 'false'}</dd>
           <dt>User</dt>
           <dd>{appPostEntity.user ? appPostEntity.user.id : ''}</dd>
         </dl>
