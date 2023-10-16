@@ -40,7 +40,7 @@ public class AppUserServiceImpl implements AppUserService {
         log.debug("Request to save AppUser : {}", appUserDTO);
         AppUser appUser = appUserMapper.toEntity(appUserDTO);
         appUser = appUserRepository.save(appUser);
-        return appUserMapper.toDto(appUser);
+        return appUserMapper.toAppUserDTO(appUser);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class AppUserServiceImpl implements AppUserService {
         log.debug("Request to update AppUser : {}", appUserDTO);
         AppUser appUser = appUserMapper.toEntity(appUserDTO);
         appUser = appUserRepository.save(appUser);
-        return appUserMapper.toDto(appUser);
+        return appUserMapper.toAppUserDTO(appUser);
     }
 
     @Override
@@ -63,18 +63,18 @@ public class AppUserServiceImpl implements AppUserService {
                 return existingAppUser;
             })
             .map(appUserRepository::save)
-            .map(appUserMapper::toDto);
+            .map(appUserMapper::toAppUserDTO);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Page<AppUserDTO> findAll(Pageable pageable) {
         log.debug("Request to get all AppUsers");
-        return appUserRepository.findAll(pageable).map(appUserMapper::toDto);
+        return appUserRepository.findAll(pageable).map(appUserMapper::toAppUserDTO);
     }
 
     public Page<AppUserDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return appUserRepository.findAllWithEagerRelationships(pageable).map(appUserMapper::toDto);
+        return appUserRepository.findAllWithEagerRelationships(pageable).map(appUserMapper::toAppUserDTO);
     }
 
     /**
@@ -87,7 +87,7 @@ public class AppUserServiceImpl implements AppUserService {
         return StreamSupport
             .stream(appUserRepository.findAll().spliterator(), false)
             .filter(appUser -> appUser.getCart() == null)
-            .map(appUserMapper::toDto)
+            .map(appUserMapper::toAppUserDTO)
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -95,7 +95,7 @@ public class AppUserServiceImpl implements AppUserService {
     @Transactional(readOnly = true)
     public Optional<AppUserDTO> findOne(Long id) {
         log.debug("Request to get AppUser : {}", id);
-        return appUserRepository.findOneWithEagerRelationships(id).map(appUserMapper::toDto);
+        return appUserRepository.findOneWithEagerRelationships(id).map(appUserMapper::toAppUserDTO);
     }
 
     @Override

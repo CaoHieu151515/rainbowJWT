@@ -1,14 +1,20 @@
 package com.auth0.rainbow.service;
 
 import com.auth0.rainbow.config.Constants;
+import com.auth0.rainbow.domain.AppUser;
 import com.auth0.rainbow.domain.Authority;
+import com.auth0.rainbow.domain.LinkAccountUser;
 import com.auth0.rainbow.domain.User;
+import com.auth0.rainbow.repository.AppUserRepository;
 import com.auth0.rainbow.repository.AuthorityRepository;
+import com.auth0.rainbow.repository.LinkAccountUserRepository;
 import com.auth0.rainbow.repository.UserRepository;
 import com.auth0.rainbow.security.AuthoritiesConstants;
 import com.auth0.rainbow.security.SecurityUtils;
 import com.auth0.rainbow.service.dto.AdminUserDTO;
 import com.auth0.rainbow.service.dto.UserDTO;
+import com.auth0.rainbow.service.mapper.AppUserMapper;
+import com.auth0.rainbow.service.mapper.UserMapper;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -36,12 +42,26 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final AppUserRepository appUserRepository;
+
+    private final LinkAccountUserRepository linkAccountUserRepository;
+
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+    public UserService(
+        UserRepository userRepository,
+        PasswordEncoder passwordEncoder,
+        AuthorityRepository authorityRepository,
+        UserMapper userMapper,
+        AppUserMapper appUserMapper,
+        AppUserRepository appUserRepository,
+        LinkAccountUserRepository linkAccountUserRepository
+    ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
+        this.appUserRepository = appUserRepository;
+        this.linkAccountUserRepository = linkAccountUserRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -99,6 +119,11 @@ public class UserService {
                 }
             });
         User newUser = new User();
+
+        LinkAccountUser linkAccountUser = new LinkAccountUser();
+        AppUser appuser = new AppUser();
+        appuser.setName(userDTO.getFirstName());
+
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(userDTO.getLogin().toLowerCase());
         // new user gets initially a generated password
@@ -118,6 +143,14 @@ public class UserService {
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
+
+        appUserRepository.save(appuser);
+
+        linkAccountUser.setAppUser(appuser);
+        linkAccountUser.setUser(newUser);
+
+        linkAccountUserRepository.save(linkAccountUser);
+
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }

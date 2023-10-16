@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-RainbowApp<rainbow>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.auth0.rainbow.RainbowApp",
+            "projectName": "rainbow",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

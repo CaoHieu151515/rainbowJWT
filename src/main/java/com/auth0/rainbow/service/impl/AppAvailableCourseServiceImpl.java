@@ -40,7 +40,7 @@ public class AppAvailableCourseServiceImpl implements AppAvailableCourseService 
         log.debug("Request to save AppAvailableCourse : {}", appAvailableCourseDTO);
         AppAvailableCourse appAvailableCourse = appAvailableCourseMapper.toEntity(appAvailableCourseDTO);
         appAvailableCourse = appAvailableCourseRepository.save(appAvailableCourse);
-        return appAvailableCourseMapper.toDto(appAvailableCourse);
+        return appAvailableCourseMapper.toAvaiCourseDTO(appAvailableCourse);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class AppAvailableCourseServiceImpl implements AppAvailableCourseService 
         log.debug("Request to update AppAvailableCourse : {}", appAvailableCourseDTO);
         AppAvailableCourse appAvailableCourse = appAvailableCourseMapper.toEntity(appAvailableCourseDTO);
         appAvailableCourse = appAvailableCourseRepository.save(appAvailableCourse);
-        return appAvailableCourseMapper.toDto(appAvailableCourse);
+        return appAvailableCourseMapper.toAvaiCourseDTO(appAvailableCourse);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class AppAvailableCourseServiceImpl implements AppAvailableCourseService 
                 return existingAppAvailableCourse;
             })
             .map(appAvailableCourseRepository::save)
-            .map(appAvailableCourseMapper::toDto);
+            .map(appAvailableCourseMapper::toAvaiCourseDTO);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class AppAvailableCourseServiceImpl implements AppAvailableCourseService 
         return appAvailableCourseRepository
             .findAll()
             .stream()
-            .map(appAvailableCourseMapper::toDto)
+            .map(appAvailableCourseMapper::toAvaiCourseDTO)
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -81,7 +81,7 @@ public class AppAvailableCourseServiceImpl implements AppAvailableCourseService 
     @Transactional(readOnly = true)
     public Optional<AppAvailableCourseDTO> findOne(Long id) {
         log.debug("Request to get AppAvailableCourse : {}", id);
-        return appAvailableCourseRepository.findById(id).map(appAvailableCourseMapper::toDto);
+        return appAvailableCourseRepository.findById(id).map(appAvailableCourseMapper::toAvaiCourseDTO);
     }
 
     @Override
