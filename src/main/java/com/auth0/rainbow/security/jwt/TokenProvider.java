@@ -96,6 +96,15 @@ public class TokenProvider {
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 
+    public String refreshToken(String token, boolean rememberMe) {
+        if (validateToken(token)) {
+            Authentication authentication = getAuthentication(token);
+            return createToken(authentication, rememberMe);
+        } else {
+            throw new IllegalArgumentException("Invalid token");
+        }
+    }
+
     public boolean validateToken(String authToken) {
         try {
             jwtParser.parseClaimsJws(authToken);

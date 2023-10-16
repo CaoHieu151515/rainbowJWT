@@ -45,6 +45,22 @@ public class UserJWTController {
         return new ResponseEntity<>(new JWTToken(jwt), httpHeaders, HttpStatus.OK);
     }
 
+    @PostMapping("/refresh-token")
+    public ResponseEntity<String> refreshToken(@RequestHeader("Authorization") String authorizationHeader) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            String token = authorizationHeader.substring(7);
+            String newToken = tokenProvider.refreshToken(token, false); // Thay đổi thành true nếu muốn sử dụng remember-me
+
+            if (newToken != null) {
+                return ResponseEntity.ok(newToken);
+            } else {
+                return ResponseEntity.badRequest().body("Invalid token");
+            }
+        } else {
+            return ResponseEntity.badRequest().body("Authorization header is missing or invalid");
+        }
+    }
+
     /**
      * Object to return as body in JWT Authentication.
      */
