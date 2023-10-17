@@ -141,7 +141,7 @@ public class AppPostResource {
         return appPostService.findAll();
     }
 
-    @GetMapping("/app-posts - feature")
+    @GetMapping("/app-posts/feature")
     public List<AppPostDTO> getAllFeatureAppPosts() {
         log.debug("REST request to get all AppPosts");
         return appPostService.findAllfeature();
