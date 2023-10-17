@@ -33,8 +33,6 @@ public interface LinkAccountUserMapper extends EntityMapper<LinkAccountUserDTO, 
     @Mapping(target = "id", source = "id")
     AppUserDTO toDtoAppUserId(AppUser appUser);
 
-    LinkAccountUser toEntity(LinkAccountUserDTO linkAccountUserDTO);
-
     @Named("toLinkPostDTO")
     @Mappings({ @Mapping(target = "appUser", source = "appUser", qualifiedByName = "mapToAppUserPost") })
     LinkAccountUserDTO toLinkPostDTO(LinkAccountUser linkAccountUser);

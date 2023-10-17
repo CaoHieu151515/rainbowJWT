@@ -1,5 +1,6 @@
 package com.auth0.rainbow.web.rest;
 
+import com.auth0.rainbow.domain.AppOrder;
 import com.auth0.rainbow.repository.AppOrderRepository;
 import com.auth0.rainbow.service.AppOrderService;
 import com.auth0.rainbow.service.dto.AppOrderDTO;
@@ -11,6 +12,7 @@ import java.util.Objects;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -147,6 +149,13 @@ public class AppOrderResource {
         Page<AppOrderDTO> page = appOrderService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/generate-unique-random-number")
+    public ResponseEntity<Long> generateUniqueRandomNumber() {
+        List<AppOrder> appOrders = appOrderRepository.findAll();
+        Long randomNumber = RandomNumberGenerator.generateUniqueRandomNumber(appOrders);
+        return ResponseEntity.ok(randomNumber);
     }
 
     /**
