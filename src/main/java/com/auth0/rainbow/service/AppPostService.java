@@ -39,6 +39,8 @@ public interface AppPostService {
      */
     List<AppPostDTO> findAll();
 
+    List<AppPostDTO> findAllfeature();
+
     /**
      * Get the "id" appPost.
      *

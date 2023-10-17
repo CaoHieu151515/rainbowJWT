@@ -8,6 +8,7 @@ import com.auth0.rainbow.service.dto.AppPostDTO;
 import com.auth0.rainbow.service.dto.AppPostImageDTO;
 import com.auth0.rainbow.service.mapper.AppPostImageMapper;
 import com.auth0.rainbow.service.mapper.AppPostMapper;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +53,7 @@ public class AppPostServiceImpl implements AppPostService {
         log.debug("Request to update AppPost : {}", appPostDTO);
         AppPost appPost = appPostMapper.toEntity(appPostDTO);
         appPost = appPostRepository.save(appPost);
-        return appPostMapper.toDto(appPost);
+        return appPostMapper.toPOSTDTO(appPost);
     }
 
     @Override
@@ -67,7 +68,7 @@ public class AppPostServiceImpl implements AppPostService {
                 return existingAppPost;
             })
             .map(appPostRepository::save)
-            .map(appPostMapper::toDto);
+            .map(appPostMapper::toPOSTDTO);
     }
 
     @Override
@@ -92,6 +93,21 @@ public class AppPostServiceImpl implements AppPostService {
         // appPostDTO.setImages(appPostImageDTOs);
         // return Optional.ofNullable(appPostDTO);
 
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<AppPostDTO> findAllfeature() {
+        log.debug("Request to get all AppPosts");
+        List<AppPost> postList = new ArrayList<>(appPostRepository.findByIsFeaturedTrue());
+
+        for (AppPost a : postList) {
+            if (a.getIsFeatured() != true) {
+                postList.remove(a);
+            }
+        }
+
+        return postList.stream().map(appPostMapper::toPOSTDTO).collect(Collectors.toCollection(LinkedList::new));
     }
 
     @Override

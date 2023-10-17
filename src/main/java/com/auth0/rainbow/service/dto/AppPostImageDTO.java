@@ -1,11 +1,13 @@
 package com.auth0.rainbow.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A DTO for the {@link com.auth0.rainbow.domain.AppPostImage} entity.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class AppPostImageDTO implements Serializable {
 
@@ -13,6 +15,7 @@ public class AppPostImageDTO implements Serializable {
 
     private String imageUrl;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private AppPostDTO post;
 
     public Long getId() {

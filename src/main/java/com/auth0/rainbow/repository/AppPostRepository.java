@@ -18,4 +18,6 @@ import org.springframework.stereotype.Repository;
 public interface AppPostRepository extends JpaRepository<AppPost, Long> {
     @Query("SELECT DISTINCT p FROM AppPost p LEFT JOIN FETCH p.images")
     Set<AppPost> findAllWithImages();
+
+    List<AppPost> findByIsFeaturedTrue();
 }

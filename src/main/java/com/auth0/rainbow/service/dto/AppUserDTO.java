@@ -1,5 +1,6 @@
 package com.auth0.rainbow.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -8,6 +9,7 @@ import java.util.Set;
 /**
  * A DTO for the {@link com.auth0.rainbow.domain.AppUser} entity.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class AppUserDTO implements Serializable {
 
@@ -21,8 +23,10 @@ public class AppUserDTO implements Serializable {
 
     private String status;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<AppCourseDTO> courses;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<AppAvailableCourseDTO> availableCourses;
 
     public Long getId() {
