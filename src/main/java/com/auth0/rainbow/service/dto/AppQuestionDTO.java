@@ -27,7 +27,7 @@ public class AppQuestionDTO implements Serializable {
         this.multiChoice = multiChoice;
     }
 
-    // private AppLessonDTO lesson;
+    private AppLessonDTO lesson;
 
     public Long getId() {
         return id;
@@ -53,13 +53,13 @@ public class AppQuestionDTO implements Serializable {
         this.questionText = questionText;
     }
 
-    // public AppLessonDTO getLesson() {
-    //     return lesson;
-    // }
+    public AppLessonDTO getLesson() {
+        return lesson;
+    }
 
-    // public void setLesson(AppLessonDTO lesson) {
-    //     this.lesson = lesson;
-    // }
+    public void setLesson(AppLessonDTO lesson) {
+        this.lesson = lesson;
+    }
 
     @Override
     public boolean equals(Object o) {

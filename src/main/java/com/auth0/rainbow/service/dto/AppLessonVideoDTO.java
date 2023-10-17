@@ -13,7 +13,7 @@ public class AppLessonVideoDTO implements Serializable {
 
     private String videoUrl;
 
-    // private AppLessonInfoDTO lessonInfo;
+    private AppLessonInfoDTO lessonInfo;
 
     public Long getId() {
         return id;
@@ -31,13 +31,13 @@ public class AppLessonVideoDTO implements Serializable {
         this.videoUrl = videoUrl;
     }
 
-    // public AppLessonInfoDTO getLessonInfo() {
-    //     return lessonInfo;
-    // }
+    public AppLessonInfoDTO getLessonInfo() {
+        return lessonInfo;
+    }
 
-    // public void setLessonInfo(AppLessonInfoDTO lessonInfo) {
-    //     this.lessonInfo = lessonInfo;
-    // }
+    public void setLessonInfo(AppLessonInfoDTO lessonInfo) {
+        this.lessonInfo = lessonInfo;
+    }
 
     @Override
     public boolean equals(Object o) {

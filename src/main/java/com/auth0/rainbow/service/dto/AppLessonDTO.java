@@ -14,6 +14,8 @@ public class AppLessonDTO implements Serializable {
 
     private Long id;
 
+    private AppCourseDTO course;
+
     private Set<AppQuestionDTO> appQuestion; // sử dụng tên 'appQuestion' thay vì 'appQuestionDTO'
 
     private Set<AppLessonInfoDTO> appLesonInf;
@@ -44,13 +46,13 @@ public class AppLessonDTO implements Serializable {
         this.id = id;
     }
 
-    // public AppCourseDTO getCourse() {
-    //     return course;
-    // }
+    public AppCourseDTO getCourse() {
+        return course;
+    }
 
-    // public void setCourse(AppCourseDTO course) {
-    //     this.course = course;
-    // }
+    public void setCourse(AppCourseDTO course) {
+        this.course = course;
+    }
 
     @Override
     public boolean equals(Object o) {
