@@ -8,6 +8,7 @@ import java.util.Set;
 /**
  * A DTO for the {@link com.auth0.rainbow.domain.AppPost} entity.
  */
+
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class AppPostDTO implements Serializable {
 

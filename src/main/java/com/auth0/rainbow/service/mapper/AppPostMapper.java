@@ -1,10 +1,8 @@
 package com.auth0.rainbow.service.mapper;
 
-import com.auth0.rainbow.domain.AppCourse;
 import com.auth0.rainbow.domain.AppPost;
 import com.auth0.rainbow.domain.AppPostImage;
 import com.auth0.rainbow.domain.AppUser;
-import com.auth0.rainbow.service.dto.AppCourseDTO;
 import com.auth0.rainbow.service.dto.AppPostDTO;
 import com.auth0.rainbow.service.dto.AppPostImageDTO;
 import com.auth0.rainbow.service.dto.AppUserDTO;
@@ -57,6 +55,8 @@ public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
         appUserDTO.setGender(appUser.getGender());
         appUserDTO.setDob(appUser.getDob());
         appUserDTO.setStatus(appUser.getStatus());
+        appUserDTO.setAvailableCourses(null);
+        appUserDTO.setCourses(null);
         // Thêm các trường khác nếu cần
         return appUserDTO;
     }
