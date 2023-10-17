@@ -2,17 +2,11 @@ package com.auth0.rainbow.service.dto;
 
 import com.auth0.rainbow.domain.AppPost;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.Set;
 
-/**
- * A DTO for the {@link com.auth0.rainbow.domain.AppUser} entity.
- */
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@SuppressWarnings("common-java:DuplicatedBlocks")
-public class AppUserDTO implements Serializable {
+public class AppUserPostDTO {
 
     private Long id;
 
@@ -24,14 +18,15 @@ public class AppUserDTO implements Serializable {
 
     private String status;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private Set<AppPostDTO> userposts;
+    private Set<AppPost> postShare;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private Set<AppCourseDTO> courses;
+    public Set<AppPost> getpostShare() {
+        return postShare;
+    }
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private Set<AppAvailableCourseDTO> availableCourses;
+    public void setpostShare(Set<AppPost> postShare) {
+        this.postShare = postShare;
+    }
 
     public Long getId() {
         return id;
@@ -73,44 +68,20 @@ public class AppUserDTO implements Serializable {
         this.status = status;
     }
 
-    public Set<AppCourseDTO> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(Set<AppCourseDTO> courses) {
-        this.courses = courses;
-    }
-
-    public Set<AppAvailableCourseDTO> getAvailableCourses() {
-        return availableCourses;
-    }
-
-    public void setAvailableCourses(Set<AppAvailableCourseDTO> availableCourses) {
-        this.availableCourses = availableCourses;
-    }
-
-    public Set<AppPostDTO> getUserposts() {
-        return userposts;
-    }
-
-    public void setUserposts(Set<AppPostDTO> userposts) {
-        this.userposts = userposts;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AppUserDTO)) {
+        if (!(o instanceof AppUserPostDTO)) {
             return false;
         }
 
-        AppUserDTO appUserDTO = (AppUserDTO) o;
+        AppUserPostDTO AppUserPostDTO = (AppUserPostDTO) o;
         if (this.id == null) {
             return false;
         }
-        return Objects.equals(this.id, appUserDTO.id);
+        return Objects.equals(this.id, AppUserPostDTO.id);
     }
 
     @Override
@@ -127,8 +98,6 @@ public class AppUserDTO implements Serializable {
             ", gender='" + getGender() + "'" +
             ", dob='" + getDob() + "'" +
             ", status='" + getStatus() + "'" +
-            ", courses=" + getCourses() +
-            ", availableCourses=" + getAvailableCourses() +
             "}";
     }
 }

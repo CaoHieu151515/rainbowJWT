@@ -43,7 +43,7 @@ public class AppOrder implements Serializable {
     @JsonIgnoreProperties(value = { "order" }, allowSetters = true)
     private Set<AppPayment> payments = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = { "orders", "posts", "courses", "availableCourses", "cart" }, allowSetters = true)
     private AppUser user;
 

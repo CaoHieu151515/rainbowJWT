@@ -47,7 +47,7 @@ public class AppPost implements Serializable {
     @JsonIgnoreProperties(value = { "post" }, allowSetters = true)
     private Set<AppPostImage> images = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "orders", "posts", "courses", "availableCourses", "cart" }, allowSetters = true)
     private AppUser user;
 

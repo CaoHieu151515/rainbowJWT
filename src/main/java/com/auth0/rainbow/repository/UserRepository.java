@@ -26,5 +26,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @EntityGraph(attributePaths = "authorities")
     Optional<User> findOneWithAuthoritiesByEmailIgnoreCase(String email);
 
+    User findOneById(Long id);
     Page<User> findAllByIdNotNullAndActivatedIsTrue(Pageable pageable);
 }

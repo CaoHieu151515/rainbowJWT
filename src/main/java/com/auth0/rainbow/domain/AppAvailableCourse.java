@@ -21,11 +21,11 @@ public class AppAvailableCourse implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = { "courses", "users" }, allowSetters = true)
     private AppCourse courses;
 
-    @ManyToMany(mappedBy = "availableCourses")
+    @ManyToMany(mappedBy = "availableCourses", fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "orders", "posts", "courses", "availableCourses", "cart" }, allowSetters = true)
     private Set<AppUser> users = new HashSet<>();
 

@@ -53,7 +53,7 @@ public class AppPostServiceImpl implements AppPostService {
         log.debug("Request to update AppPost : {}", appPostDTO);
         AppPost appPost = appPostMapper.toEntity(appPostDTO);
         appPost = appPostRepository.save(appPost);
-        return appPostMapper.toPOSTDTO(appPost);
+        return appPostMapper.toDto(appPost);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class AppPostServiceImpl implements AppPostService {
                 return existingAppPost;
             })
             .map(appPostRepository::save)
-            .map(appPostMapper::toPOSTDTO);
+            .map(appPostMapper::toDto);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class AppPostServiceImpl implements AppPostService {
     @Transactional(readOnly = true)
     public Optional<AppPostDTO> findOne(Long id) {
         log.debug("Request to get AppPost : {}", id);
-        return appPostRepository.findById(id).map(appPostMapper::toPOSTDTO);
+        return appPostRepository.findById(id).map(appPostMapper::toDto);
         // AppPost appPost = appPostRepository.findById(id).orElse(null);
         // Set<AppPostImage> appPostImages = appPostRepository.findImagesByPostId(id);
         // Set<AppPostImageDTO> appPostImageDTOs = appPostImages.stream()

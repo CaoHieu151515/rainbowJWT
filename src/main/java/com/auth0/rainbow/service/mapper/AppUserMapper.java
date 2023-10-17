@@ -2,9 +2,11 @@ package com.auth0.rainbow.service.mapper;
 
 import com.auth0.rainbow.domain.AppAvailableCourse;
 import com.auth0.rainbow.domain.AppCourse;
+import com.auth0.rainbow.domain.AppPost;
 import com.auth0.rainbow.domain.AppUser;
 import com.auth0.rainbow.service.dto.AppAvailableCourseDTO;
 import com.auth0.rainbow.service.dto.AppCourseDTO;
+import com.auth0.rainbow.service.dto.AppPostDTO;
 import com.auth0.rainbow.service.dto.AppUserDTO;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -22,6 +24,8 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
 
     AppCourseMapper appCoursemap = Mappers.getMapper(AppCourseMapper.class);
 
+    AppPostMapper othMapper = Mappers.getMapper(AppPostMapper.class);
+
     @Mapping(target = "courses", source = "courses", qualifiedByName = "appCourseIdSet")
     @Mapping(target = "availableCourses", source = "availableCourses", qualifiedByName = "appAvailableCourseIdSet")
     AppUserDTO toDto(AppUser s);
@@ -35,9 +39,40 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
     @Mapping(target = "id", source = "id")
     AppCourseDTO toDtoAppCourseId(AppCourse appCourse);
 
+    @Named("appAvailableCourseId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    AppAvailableCourseDTO toDtoAppAvailableCourseId(AppAvailableCourse appAvailableCourse);
+
+    @Named("toUserPostDTO")
+    @Mappings({ @Mapping(target = "userposts", source = "posts", qualifiedByName = "mapToUserSet") })
+    AppUserDTO toUserPostDTO(AppUser appUser);
+
+    @Named("mapToUserSet")
+    static Set<AppPostDTO> mapToUserSet(Set<AppPost> appPost) {
+        return appPost
+            .stream()
+            .map(userposts -> {
+                if (userposts == null) {
+                    return null;
+                }
+                userposts.setUser(null);
+                return AppPostMapper.INSTANCE.toPOSTDTO(userposts);
+            })
+            .collect(Collectors.toSet());
+    }
+
     @Named("appCourseIdSet")
     default Set<AppCourseDTO> toDtoAppCourseIdSet(Set<AppCourse> appCourse) {
+        if (appCourse == null) {
+            return null;
+        }
         return appCourse.stream().map(this::toDtoAppCourseId).collect(Collectors.toSet());
+    }
+
+    @Named("appAvailableCourseIdSet")
+    default Set<AppAvailableCourseDTO> toDtoAppAvailableCourseIdSet(Set<AppAvailableCourse> appAvailableCourse) {
+        return appAvailableCourse.stream().map(this::toDtoAppAvailableCourseId).collect(Collectors.toSet());
     }
 
     @Named("toAppUserDTO")
@@ -75,14 +110,39 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
             })
             .collect(Collectors.toSet());
     }
+    // @Named("toAppUserPostDTO")
+    // @Mappings(
+    //     {
+    //         // Map các trường khác ở đây
+    //         @Mapping(target = "courses", source = "courses", qualifiedByName = "mapToAppCoursePostSet"),
+    //         @Mapping(target = "availableCourses", source = "availableCourses", qualifiedByName = "mapToAppAvailableCoursePostSet"),
+    //     }
+    // )
+    // AppUserDTO toAppUserPostDTO(AppUser appUser);
 
-    @Named("appAvailableCourseId")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    AppAvailableCourseDTO toDtoAppAvailableCourseId(AppAvailableCourse appAvailableCourse);
+    // @Named("mapToAppCoursePostSet")
+    // static Set<AppCourseDTO> mapToAppCourseSet(Set<AppCourse> appCourses) {
+    //     return appCourses
+    //         .stream()
+    //         .map(appCourse -> {
+    //             if (appCourse == null) {
+    //                 return null;
+    //             }
+    //             return null;
+    //         })
+    //         .collect(Collectors.toSet());
+    // }
 
-    @Named("appAvailableCourseIdSet")
-    default Set<AppAvailableCourseDTO> toDtoAppAvailableCourseIdSet(Set<AppAvailableCourse> appAvailableCourse) {
-        return appAvailableCourse.stream().map(this::toDtoAppAvailableCourseId).collect(Collectors.toSet());
-    }
+    // @Named("mapToAppAvailableCoursePostSet")
+    // static Set<AppAvailableCourseDTO> mapToAppAvailableCourseSet(Set<AppAvailableCourse> appAvailableCourses) {
+    //     return appAvailableCourses
+    //         .stream()
+    //         .map(appAvailableCourse -> {
+    //             if (appAvailableCourse == null) {
+    //                 return null;
+    //             }
+    //             return AppAvailableCourseMapper.INSTANCE.toAvaiCourseDTO(appAvailableCourse);
+    //         })
+    //         .collect(Collectors.toSet());
+    // }
 }

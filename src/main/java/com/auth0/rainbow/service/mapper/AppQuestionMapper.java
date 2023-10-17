@@ -1,11 +1,7 @@
 package com.auth0.rainbow.service.mapper;
 
-import com.auth0.rainbow.domain.AppCourse;
-import com.auth0.rainbow.domain.AppLesson;
 import com.auth0.rainbow.domain.AppMultipleChoiceAnswer;
 import com.auth0.rainbow.domain.AppQuestion;
-import com.auth0.rainbow.service.dto.AppCourseDTO;
-import com.auth0.rainbow.service.dto.AppLessonDTO;
 import com.auth0.rainbow.service.dto.AppMultipleChoiceAnswerDTO;
 import com.auth0.rainbow.service.dto.AppQuestionDTO;
 import java.util.Set;

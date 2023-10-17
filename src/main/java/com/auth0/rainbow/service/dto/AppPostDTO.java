@@ -1,5 +1,6 @@
 package com.auth0.rainbow.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -8,7 +9,7 @@ import java.util.Set;
 /**
  * A DTO for the {@link com.auth0.rainbow.domain.AppPost} entity.
  */
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class AppPostDTO implements Serializable {
 
@@ -28,6 +29,7 @@ public class AppPostDTO implements Serializable {
 
     private Boolean confirm;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private AppUserDTO user;
 
     private Set<AppPostImageDTO> images;

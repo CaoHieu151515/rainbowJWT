@@ -1,7 +1,10 @@
 package com.auth0.rainbow.service.impl;
 
+import com.auth0.rainbow.domain.AppUser;
 import com.auth0.rainbow.domain.LinkAccountUser;
+import com.auth0.rainbow.repository.AppUserRepository;
 import com.auth0.rainbow.repository.LinkAccountUserRepository;
+import com.auth0.rainbow.repository.UserRepository;
 import com.auth0.rainbow.service.LinkAccountUserService;
 import com.auth0.rainbow.service.dto.LinkAccountUserDTO;
 import com.auth0.rainbow.service.mapper.LinkAccountUserMapper;
@@ -11,6 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,10 +30,19 @@ public class LinkAccountUserServiceImpl implements LinkAccountUserService {
     private final LinkAccountUserRepository linkAccountUserRepository;
 
     private final LinkAccountUserMapper linkAccountUserMapper;
+    private final AppUserRepository appUserRepository;
+    private final UserRepository userRepository;
 
-    public LinkAccountUserServiceImpl(LinkAccountUserRepository linkAccountUserRepository, LinkAccountUserMapper linkAccountUserMapper) {
+    public LinkAccountUserServiceImpl(
+        LinkAccountUserRepository linkAccountUserRepository,
+        LinkAccountUserMapper linkAccountUserMapper,
+        AppUserRepository appUserRepository,
+        UserRepository userRepository
+    ) {
         this.linkAccountUserRepository = linkAccountUserRepository;
         this.linkAccountUserMapper = linkAccountUserMapper;
+        this.appUserRepository = appUserRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -37,15 +50,31 @@ public class LinkAccountUserServiceImpl implements LinkAccountUserService {
         log.debug("Request to save LinkAccountUser : {}", linkAccountUserDTO);
         LinkAccountUser linkAccountUser = linkAccountUserMapper.toEntity(linkAccountUserDTO);
         linkAccountUser = linkAccountUserRepository.save(linkAccountUser);
-        return linkAccountUserMapper.toLinkDTO(linkAccountUser);
+        return linkAccountUserMapper.toDto(linkAccountUser);
     }
 
     @Override
     public LinkAccountUserDTO update(LinkAccountUserDTO linkAccountUserDTO) {
         log.debug("Request to update LinkAccountUser : {}", linkAccountUserDTO);
         LinkAccountUser linkAccountUser = linkAccountUserMapper.toEntity(linkAccountUserDTO);
+        AppUser appuser = new AppUser();
+        if (linkAccountUser.getAppUser() == null) {
+            linkAccountUser.setAppUser(null);
+        } else {
+            Optional<AppUser> optionalAppUser = appUserRepository.findOneWithEagerRelationships(linkAccountUser.getAppUser().getId());
+            appuser = optionalAppUser.get();
+        }
+
+        if (linkAccountUser.getUser() == null) {
+            linkAccountUser.setUser(null);
+        } else linkAccountUser.setUser(userRepository.findOneById(linkAccountUser.getUser().getId()));
+
         linkAccountUser = linkAccountUserRepository.save(linkAccountUser);
-        return linkAccountUserMapper.toLinkDTO(linkAccountUser);
+        if (linkAccountUser.getAppUser() == null && linkAccountUser.getUser() == null) {
+            delete(linkAccountUser.getId());
+        }
+
+        return linkAccountUserMapper.toDto(linkAccountUser);
     }
 
     @Override
@@ -60,7 +89,7 @@ public class LinkAccountUserServiceImpl implements LinkAccountUserService {
                 return existingLinkAccountUser;
             })
             .map(linkAccountUserRepository::save)
-            .map(linkAccountUserMapper::toLinkDTO);
+            .map(linkAccountUserMapper::toDto);
     }
 
     @Override
@@ -79,6 +108,15 @@ public class LinkAccountUserServiceImpl implements LinkAccountUserService {
     public Optional<LinkAccountUserDTO> findOne(Long id) {
         log.debug("Request to get LinkAccountUser : {}", id);
         return linkAccountUserRepository.findById(id).map(linkAccountUserMapper::toDto);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<LinkAccountUserDTO> findOneAppUserPost(Long id) {
+        log.debug("Request to get LinkAccountUser : {}", id);
+        Optional<LinkAccountUser> tem = linkAccountUserRepository.findById(id);
+
+        return tem.map(linkAccountUserMapper::toLinkPostDTO);
     }
 
     @Override

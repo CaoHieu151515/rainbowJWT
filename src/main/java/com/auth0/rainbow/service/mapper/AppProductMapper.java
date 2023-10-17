@@ -18,12 +18,12 @@ public interface AppProductMapper extends EntityMapper<AppProductDTO, AppProduct
     AppProductDTO toDto(AppProduct s);
 
     @Named("appCategoryId")
-    @BeanMapping(ignoreByDefault = true)
+    @BeanMapping(ignoreByDefault = false)
     @Mapping(target = "id", source = "id")
     AppCategoryDTO toDtoAppCategoryId(AppCategory appCategory);
 
     @Named("appProductImageId")
-    @BeanMapping(ignoreByDefault = true)
+    @BeanMapping(ignoreByDefault = false)
     @Mapping(target = "id", source = "id")
     AppProductImageDTO toDtoAppProductImageId(AppProductImage appProductImage);
 }

@@ -42,7 +42,7 @@ public class AppUser implements Serializable {
     @JsonIgnoreProperties(value = { "images", "user" }, allowSetters = true)
     private Set<AppPost> posts = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
         name = "rel_app_user__courses",
         joinColumns = @JoinColumn(name = "app_user_id"),
@@ -51,7 +51,7 @@ public class AppUser implements Serializable {
     @JsonIgnoreProperties(value = { "courses", "users" }, allowSetters = true)
     private Set<AppCourse> courses = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
         name = "rel_app_user__available_courses",
         joinColumns = @JoinColumn(name = "app_user_id"),

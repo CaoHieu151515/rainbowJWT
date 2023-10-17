@@ -1,5 +1,6 @@
 package com.auth0.rainbow.service;
 
+import com.auth0.rainbow.service.dto.AppUserDTO;
 import com.auth0.rainbow.service.dto.LinkAccountUserDTO;
 import java.util.List;
 import java.util.Optional;
@@ -48,6 +49,8 @@ public interface LinkAccountUserService {
     Optional<LinkAccountUserDTO> findOne(Long id);
 
     Optional<LinkAccountUserDTO> findOnedetails(Long id);
+
+    Optional<LinkAccountUserDTO> findOneAppUserPost(Long id);
 
     /**
      * Delete the "id" linkAccountUser.

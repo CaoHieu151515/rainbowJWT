@@ -24,14 +24,30 @@ public interface LinkAccountUserMapper extends EntityMapper<LinkAccountUserDTO, 
     LinkAccountUserDTO toDto(LinkAccountUser s);
 
     @Named("userId")
-    @BeanMapping(ignoreByDefault = true)
+    @BeanMapping(ignoreByDefault = false)
     @Mapping(target = "id", source = "id")
     UserDTO toDtoUserId(User user);
 
     @Named("appUserId")
-    @BeanMapping(ignoreByDefault = true)
+    @BeanMapping(ignoreByDefault = false)
     @Mapping(target = "id", source = "id")
     AppUserDTO toDtoAppUserId(AppUser appUser);
+
+    LinkAccountUser toEntity(LinkAccountUserDTO linkAccountUserDTO);
+
+    @Named("toLinkPostDTO")
+    @Mappings({ @Mapping(target = "appUser", source = "appUser", qualifiedByName = "mapToAppUserPost") })
+    LinkAccountUserDTO toLinkPostDTO(LinkAccountUser linkAccountUser);
+
+    @Named("mapToAppUserPost")
+    static AppUserDTO mapToAppUserPost(AppUser appUser) {
+        if (appUser == null) {
+            return null;
+        }
+        appUser.setAvailableCourses(null);
+        appUser.setCourses(null);
+        return AppUserMapper.INSTANCE.toUserPostDTO(appUser);
+    }
 
     @Named("toLinkDTO")
     @Mappings(

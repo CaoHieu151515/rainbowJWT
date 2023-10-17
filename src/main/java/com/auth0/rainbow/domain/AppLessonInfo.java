@@ -31,7 +31,7 @@ public class AppLessonInfo implements Serializable {
     @JsonIgnoreProperties(value = { "lessonInfo" }, allowSetters = true)
     private Set<AppLessonVideo> videos = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = { "lessons", "lessonInfos", "course" }, allowSetters = true)
     private AppLesson lesson;
 

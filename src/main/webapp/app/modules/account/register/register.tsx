@@ -107,11 +107,11 @@ export const RegisterPage = () => {
           <Alert color="warning">
             <span>If you want to</span>
             <a className="alert-link">sign in</a>
-            <span>
+            {/* <span>
               , you can try the default accounts:
               <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;) <br />- User (login=&quot;user&quot; and
               password=&quot;user&quot;).
-            </span>
+            </span> */}
           </Alert>
         </Col>
       </Row>

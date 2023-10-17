@@ -22,7 +22,7 @@ public class AppLessonVideo implements Serializable {
     @Column(name = "video_url")
     private String videoUrl;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = { "videos", "lesson" }, allowSetters = true)
     private AppLessonInfo lessonInfo;
 

@@ -2,9 +2,11 @@ package com.auth0.rainbow.service.mapper;
 
 import com.auth0.rainbow.domain.AppPost;
 import com.auth0.rainbow.domain.AppPostImage;
+import com.auth0.rainbow.domain.AppQuestion;
 import com.auth0.rainbow.domain.AppUser;
 import com.auth0.rainbow.service.dto.AppPostDTO;
 import com.auth0.rainbow.service.dto.AppPostImageDTO;
+import com.auth0.rainbow.service.dto.AppQuestionDTO;
 import com.auth0.rainbow.service.dto.AppUserDTO;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -18,6 +20,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
     AppPostMapper INSTANCE = Mappers.getMapper(AppPostMapper.class);
+    AppUserMapper other = Mappers.getMapper(AppUserMapper.class);
 
     @Mapping(target = "user", source = "user", qualifiedByName = "appUserId")
     AppPostDTO toDto(AppPost s);
@@ -26,21 +29,13 @@ public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
     AppPostImageDTO toDtoImage(AppPostImage appPostImage);
 
     @Named("appUserId")
-    @BeanMapping(ignoreByDefault = true)
+    @BeanMapping(ignoreByDefault = false)
     @Mapping(target = "id", source = "id")
     AppUserDTO toDtoAppUserId(AppUser appUser);
 
     @Named("toPOSTDTO")
     @Mappings(
         {
-            @Mapping(target = "id", source = "id"),
-            @Mapping(target = "title", source = "title"),
-            @Mapping(target = "content", source = "content"),
-            @Mapping(target = "author", source = "author"),
-            @Mapping(target = "dateWritten", source = "dateWritten"),
-            @Mapping(target = "isFeatured", source = "isFeatured"),
-            @Mapping(target = "confirm", source = "confirm"),
-            // Map các trường khác ở đây
             @Mapping(target = "user", source = "user", qualifiedByName = "mapToUser"),
             @Mapping(target = "images", source = "images", qualifiedByName = "mapToimages"),
         }
@@ -49,6 +44,9 @@ public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
 
     @Named("mapToUser")
     static AppUserDTO mapToUser(AppUser appUser) {
+        if (appUser == null) {
+            return null;
+        }
         AppUserDTO appUserDTO = new AppUserDTO();
         appUserDTO.setId(appUser.getId());
         appUserDTO.setName(appUser.getName());
@@ -57,7 +55,7 @@ public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
         appUserDTO.setStatus(appUser.getStatus());
         appUserDTO.setAvailableCourses(null);
         appUserDTO.setCourses(null);
-        // Thêm các trường khác nếu cần
+
         return appUserDTO;
     }
 
