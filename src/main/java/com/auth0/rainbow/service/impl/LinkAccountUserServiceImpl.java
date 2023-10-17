@@ -85,7 +85,6 @@ public class LinkAccountUserServiceImpl implements LinkAccountUserService {
     @Transactional(readOnly = true)
     public Optional<LinkAccountUserDTO> findOnedetails(Long id) {
         log.debug("Request to get LinkAccountUser : {}", id);
-
         return linkAccountUserRepository.findOneByUserId(id).map(linkAccountUserMapper::toLinkDTO);
     }
 
