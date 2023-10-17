@@ -31,7 +31,7 @@ public interface AppLessonInfoMapper extends EntityMapper<AppLessonInfoDTO, AppL
                 if (lessonvideo == null) {
                     return null;
                 }
-
+                lessonvideo.setLessonInfo(null);
                 return AppLessonVideoMapper.INSTANCE.toDto(lessonvideo);
             })
             .collect(Collectors.toSet());

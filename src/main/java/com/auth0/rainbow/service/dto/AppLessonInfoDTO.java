@@ -1,5 +1,6 @@
 package com.auth0.rainbow.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.Set;
 /**
  * A DTO for the {@link com.auth0.rainbow.domain.AppLessonInfo} entity.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class AppLessonInfoDTO implements Serializable {
 
@@ -16,14 +18,25 @@ public class AppLessonInfoDTO implements Serializable {
 
     private String pdfUrl;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private AppLessonDTO lessonDTO;
+
     private Set<AppLessonVideoDTO> lessonvideo;
 
     public Set<AppLessonVideoDTO> getlessonvideo() {
         return lessonvideo;
     }
 
-    public void setAppAvailableCourses(Set<AppLessonVideoDTO> lessonvideo) {
+    public void setlessonvideo(Set<AppLessonVideoDTO> lessonvideo) {
         this.lessonvideo = lessonvideo;
+    }
+
+    public AppLessonDTO getlessonDTO() {
+        return lessonDTO;
+    }
+
+    public void setlessonDTO(AppLessonDTO lessonDTO) {
+        this.lessonDTO = lessonDTO;
     }
 
     private AppLessonDTO lesson;

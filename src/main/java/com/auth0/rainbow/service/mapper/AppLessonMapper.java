@@ -45,7 +45,7 @@ public interface AppLessonMapper extends EntityMapper<AppLessonDTO, AppLesson> {
                 if (appQuestion == null) {
                     return null;
                 }
-
+                appQuestion.setLesson(null);
                 return AppQuestionMapper.INSTANCE.toChoiceDTO(appQuestion);
             })
             .collect(Collectors.toSet());
@@ -59,7 +59,7 @@ public interface AppLessonMapper extends EntityMapper<AppLessonDTO, AppLesson> {
                 if (appLesonInf == null) {
                     return null;
                 }
-
+                appLesonInf.setLesson(null);
                 return AppLessonInfoMapper.INSTANCE.toVideoDTO(appLesonInf);
             })
             .collect(Collectors.toSet());

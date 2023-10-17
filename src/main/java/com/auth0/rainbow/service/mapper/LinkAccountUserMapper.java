@@ -56,14 +56,6 @@ public interface LinkAccountUserMapper extends EntityMapper<LinkAccountUserDTO, 
 
     @Named("mapToAppuser")
     static AppUserDTO mapToAppuser(AppUser appUser) {
-        // AppUserDTO appUserDTO = new AppUserDTO();
-        // appUserDTO.setId(appUser.getId());
-        // appUserDTO.setName(appUser.getName());
-        // appUserDTO.setGender(appUser.getGender());
-        // appUserDTO.setDob(appUser.getDob());
-        // appUserDTO.setStatus(appUser.getStatus());
-        // appUserDTO.getAvailableCourses();
-        // appUserDTO.getCourses();
         if (appUser == null) {
             return null;
         }

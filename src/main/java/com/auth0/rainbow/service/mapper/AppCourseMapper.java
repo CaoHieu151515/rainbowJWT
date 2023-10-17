@@ -35,6 +35,8 @@ public interface AppCourseMapper extends EntityMapper<AppCourseDTO, AppCourse> {
                 if (appLesson == null) {
                     return null;
                 }
+
+                appLesson.setCourse(null);
                 return AppLessonMapper.INSTANCE.toLessonDTO(appLesson);
             })
             .collect(Collectors.toSet());

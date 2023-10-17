@@ -1,15 +1,9 @@
-package com.auth0.rainbow.service.dto;
+package com.auth0.rainbow.View;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import java.io.Serializable;
+import com.auth0.rainbow.service.dto.AppQuestionDTO;
 import java.util.Objects;
 
-/**
- * A DTO for the {@link com.auth0.rainbow.domain.AppMultipleChoiceAnswer} entity.
- */
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@SuppressWarnings("common-java:DuplicatedBlocks")
-public class AppMultipleChoiceAnswerDTO implements Serializable {
+public class AppMultipleChoiceAnswerView {
 
     private Long id;
 
@@ -17,7 +11,6 @@ public class AppMultipleChoiceAnswerDTO implements Serializable {
 
     private Boolean isCorrect;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private AppQuestionDTO question;
 
     public Long getId() {
@@ -53,22 +46,6 @@ public class AppMultipleChoiceAnswerDTO implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof AppMultipleChoiceAnswerDTO)) {
-            return false;
-        }
-
-        AppMultipleChoiceAnswerDTO appMultipleChoiceAnswerDTO = (AppMultipleChoiceAnswerDTO) o;
-        if (this.id == null) {
-            return false;
-        }
-        return Objects.equals(this.id, appMultipleChoiceAnswerDTO.id);
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(this.id);
     }
@@ -80,7 +57,7 @@ public class AppMultipleChoiceAnswerDTO implements Serializable {
             "id=" + getId() +
             ", answerText='" + getAnswerText() + "'" +
             ", isCorrect='" + getIsCorrect() + "'" +
-            ", question=" + getQuestion() +
+            // ", question=" + getQuestion() +
             "}";
     }
 }

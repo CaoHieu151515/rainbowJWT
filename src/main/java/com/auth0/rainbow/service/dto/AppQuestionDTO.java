@@ -1,6 +1,6 @@
 package com.auth0.rainbow.service.dto;
 
-import com.auth0.rainbow.domain.AppMultipleChoiceAnswer;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
@@ -8,6 +8,7 @@ import java.util.Set;
 /**
  * A DTO for the {@link com.auth0.rainbow.domain.AppQuestion} entity.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class AppQuestionDTO implements Serializable {
 
@@ -27,6 +28,7 @@ public class AppQuestionDTO implements Serializable {
         this.multiChoice = multiChoice;
     }
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private AppLessonDTO lesson;
 
     public Long getId() {

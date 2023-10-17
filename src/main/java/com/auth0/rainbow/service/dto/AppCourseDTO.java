@@ -52,7 +52,7 @@ public class AppCourseDTO implements Serializable {
         this.image = image;
     }
 
-    public Set<AppLessonDTO> getAppLesson() {
+    public Set<AppLessonDTO> getappLesson() {
         return appLesson;
     }
 
@@ -89,7 +89,7 @@ public class AppCourseDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", level='" + getLevel() + "'" +
             ", image='" + getImage() + "'" +
-            ", lesson='" + getAppLesson() + "'" +
+            ", lesson='" + getappLesson() + "'" +
             "}";
     }
 }

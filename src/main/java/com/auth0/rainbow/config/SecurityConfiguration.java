@@ -1,5 +1,7 @@
 package com.auth0.rainbow.config;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import com.auth0.rainbow.security.*;
 import com.auth0.rainbow.security.jwt.*;
 import org.springframework.context.annotation.Bean;
@@ -51,48 +53,43 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // @formatter:off
         http
-            .csrf()
-            .disable()
-            .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
-            .exceptionHandling()
-                .authenticationEntryPoint(problemSupport)
-                .accessDeniedHandler(problemSupport)
-        .and()
-            .headers()
-                .contentSecurityPolicy(jHipsterProperties.getSecurity().getContentSecurityPolicy())
-            .and()
-                .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
-            .and()
-                .permissionsPolicy().policy("camera=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), sync-xhr=()")
-            .and()
-                .frameOptions().sameOrigin()
-        .and()
-            .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-            .authorizeRequests()
-            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-            .antMatchers("/app/**/*.{js,html}").permitAll()
-            .antMatchers("/i18n/**").permitAll()
-            .antMatchers("/content/**").permitAll()
-            .antMatchers("/swagger-ui/**").permitAll()
-            .antMatchers("/test/**").permitAll()
-            .antMatchers("/api/authenticate").permitAll()
-            .antMatchers("/api/register").permitAll()
-            .antMatchers("/api/activate").permitAll()
-            .antMatchers("/api/account/reset-password/init").permitAll()
-            .antMatchers("/api/account/reset-password/finish").permitAll()
-            .antMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/api/**").authenticated()
-            .antMatchers("/management/health").permitAll()
-            .antMatchers("/management/health/**").permitAll()
-            .antMatchers("/management/info").permitAll()
-            .antMatchers("/management/prometheus").permitAll()
-            .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
-        .and()
-            .httpBasic()
-        .and()
-            .apply(securityConfigurerAdapter());
+                .csrf(csrf -> csrf
+                        .disable())
+                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(handling -> handling
+                        .authenticationEntryPoint(problemSupport)
+                        .accessDeniedHandler(problemSupport))
+                .headers(headers -> headers
+                        .contentSecurityPolicy(jHipsterProperties.getSecurity().getContentSecurityPolicy())
+                        .and()
+                        .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
+                        .and()
+                        .permissionsPolicy().policy("camera=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), sync-xhr=()")
+                        .and()
+                        .frameOptions().sameOrigin())
+                .sessionManagement(management -> management
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeRequests(requests -> requests
+                        .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .antMatchers("/app/**/*.{js,html}").permitAll()
+                        .antMatchers("/i18n/**").permitAll()
+                        .antMatchers("/content/**").permitAll()
+                        .antMatchers("/swagger-ui/**").permitAll()
+                        .antMatchers("/test/**").permitAll()
+                        .antMatchers("/api/authenticate").permitAll()
+                        .antMatchers("/api/register").permitAll()
+                        .antMatchers("/api/activate").permitAll()
+                        .antMatchers("/api/account/reset-password/init").permitAll()
+                        .antMatchers("/api/account/reset-password/finish").permitAll()
+                        .antMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                        .antMatchers("/api/**").authenticated()
+                        .antMatchers("/management/health").permitAll()
+                        .antMatchers("/management/health/**").permitAll()
+                        .antMatchers("/management/info").permitAll()
+                        .antMatchers("/management/prometheus").permitAll()
+                        .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN))
+                .httpBasic(withDefaults())
+                .apply(securityConfigurerAdapter());
         return http.build();
         // @formatter:on
     }

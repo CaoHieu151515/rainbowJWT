@@ -2,7 +2,6 @@ package com.auth0.rainbow.service.dto;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,9 +21,9 @@ public class AppUserDTO implements Serializable {
 
     private String status;
 
-    private Set<AppCourseDTO> courses = new HashSet<>();
+    private Set<AppCourseDTO> courses;
 
-    private Set<AppAvailableCourseDTO> availableCourses = new HashSet<>();
+    private Set<AppAvailableCourseDTO> availableCourses;
 
     public Long getId() {
         return id;

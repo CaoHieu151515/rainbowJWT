@@ -1,21 +1,13 @@
-package com.auth0.rainbow.service.dto;
+package com.auth0.rainbow.View;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import java.io.Serializable;
+import com.auth0.rainbow.service.dto.AppLessonInfoDTO;
+import com.auth0.rainbow.service.dto.AppQuestionDTO;
 import java.util.Objects;
 import java.util.Set;
 
-/**
- * A DTO for the {@link com.auth0.rainbow.domain.AppLesson} entity.
- */
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@SuppressWarnings("common-java:DuplicatedBlocks")
-public class AppLessonDTO implements Serializable {
+public class LessonView {
 
     private Long id;
-
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private AppCourseDTO course;
 
     private Set<AppQuestionDTO> appQuestion; // sử dụng tên 'appQuestion' thay vì 'appQuestionDTO'
 
@@ -45,30 +37,6 @@ public class AppLessonDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public AppCourseDTO getCourse() {
-        return course;
-    }
-
-    public void setCourse(AppCourseDTO course) {
-        this.course = course;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof AppLessonDTO)) {
-            return false;
-        }
-
-        AppLessonDTO appLessonDTO = (AppLessonDTO) o;
-        if (this.id == null) {
-            return false;
-        }
-        return Objects.equals(this.id, appLessonDTO.id);
     }
 
     @Override

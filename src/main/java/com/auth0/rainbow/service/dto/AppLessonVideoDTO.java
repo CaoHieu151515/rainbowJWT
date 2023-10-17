@@ -1,11 +1,13 @@
 package com.auth0.rainbow.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A DTO for the {@link com.auth0.rainbow.domain.AppLessonVideo} entity.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class AppLessonVideoDTO implements Serializable {
 
@@ -13,6 +15,7 @@ public class AppLessonVideoDTO implements Serializable {
 
     private String videoUrl;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private AppLessonInfoDTO lessonInfo;
 
     public Long getId() {
@@ -66,7 +69,7 @@ public class AppLessonVideoDTO implements Serializable {
         return "AppLessonVideoDTO{" +
             "id=" + getId() +
             ", videoUrl='" + getVideoUrl() + "'" +      
-            // ", lessonInfo=" + getLessonInfo() +
+            ", lessonInfo=" + getLessonInfo() +
             "}";
     }
 }
