@@ -154,6 +154,13 @@ public class AppCourseResource {
         return ResponseUtil.wrapOrNotFound(appCourseDTO);
     }
 
+    @GetMapping("/app-courses/full-details/{id}")
+    public ResponseEntity<AppCourseDTO> getAppCourseDetails(@PathVariable Long id) {
+        log.debug("REST request to get AppCourse : {}", id);
+        Optional<AppCourseDTO> appCourseDTO = appCourseService.findOneDetails(id);
+        return ResponseUtil.wrapOrNotFound(appCourseDTO);
+    }
+
     /**
      * {@code DELETE  /app-courses/:id} : delete the "id" appCourse.
      *

@@ -47,6 +47,8 @@ public interface AppCourseService {
      */
     Optional<AppCourseDTO> findOne(Long id);
 
+    Optional<AppCourseDTO> findOneDetails(Long id);
+
     /**
      * Delete the "id" appCourse.
      *

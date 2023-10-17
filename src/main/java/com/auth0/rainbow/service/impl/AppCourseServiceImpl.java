@@ -78,6 +78,13 @@ public class AppCourseServiceImpl implements AppCourseService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Optional<AppCourseDTO> findOneDetails(Long id) {
+        log.debug("Request to get AppCourse : {}", id);
+        return appCourseRepository.findById(id).map(appCourseMapper::toCourseDTO);
+    }
+
+    @Override
     public void delete(Long id) {
         log.debug("Request to delete AppCourse : {}", id);
         appCourseRepository.deleteById(id);
