@@ -1,7 +1,9 @@
 package com.auth0.rainbow.service.dto;
 
+import com.auth0.rainbow.domain.AppMultipleChoiceAnswer;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the {@link com.auth0.rainbow.domain.AppQuestion} entity.
@@ -15,7 +17,17 @@ public class AppQuestionDTO implements Serializable {
 
     private String questionText;
 
-    private AppLessonDTO lesson;
+    private Set<AppMultipleChoiceAnswerDTO> multiChoice;
+
+    public Set<AppMultipleChoiceAnswerDTO> getmultiChoice() {
+        return multiChoice;
+    }
+
+    public void setmultiChoice(Set<AppMultipleChoiceAnswerDTO> multiChoice) {
+        this.multiChoice = multiChoice;
+    }
+
+    // private AppLessonDTO lesson;
 
     public Long getId() {
         return id;
@@ -41,13 +53,13 @@ public class AppQuestionDTO implements Serializable {
         this.questionText = questionText;
     }
 
-    public AppLessonDTO getLesson() {
-        return lesson;
-    }
+    // public AppLessonDTO getLesson() {
+    //     return lesson;
+    // }
 
-    public void setLesson(AppLessonDTO lesson) {
-        this.lesson = lesson;
-    }
+    // public void setLesson(AppLessonDTO lesson) {
+    //     this.lesson = lesson;
+    // }
 
     @Override
     public boolean equals(Object o) {
@@ -73,11 +85,12 @@ public class AppQuestionDTO implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "AppQuestionDTO{" +
+        return "AppQuestionDTO{" + 
             "id=" + getId() +
             ", questionName='" + getQuestionName() + "'" +
             ", questionText='" + getQuestionText() + "'" +
-            ", lesson=" + getLesson() +
+            ", MutiChoice='" + getmultiChoice() + "'" +
+            // ", lesson=" + getLesson() +
             "}";
     }
 }

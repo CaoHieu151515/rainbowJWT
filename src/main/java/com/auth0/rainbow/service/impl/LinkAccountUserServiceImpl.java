@@ -70,7 +70,7 @@ public class LinkAccountUserServiceImpl implements LinkAccountUserService {
         return linkAccountUserRepository
             .findAll()
             .stream()
-            .map(linkAccountUserMapper::toLinkDTO)
+            .map(linkAccountUserMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -78,7 +78,15 @@ public class LinkAccountUserServiceImpl implements LinkAccountUserService {
     @Transactional(readOnly = true)
     public Optional<LinkAccountUserDTO> findOne(Long id) {
         log.debug("Request to get LinkAccountUser : {}", id);
-        return linkAccountUserRepository.findById(id).map(linkAccountUserMapper::toLinkDTO);
+        return linkAccountUserRepository.findById(id).map(linkAccountUserMapper::toDto);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<LinkAccountUserDTO> findOnedetails(Long id) {
+        log.debug("Request to get LinkAccountUser : {}", id);
+
+        return linkAccountUserRepository.findOneByUserId(id).map(linkAccountUserMapper::toLinkDTO);
     }
 
     @Override

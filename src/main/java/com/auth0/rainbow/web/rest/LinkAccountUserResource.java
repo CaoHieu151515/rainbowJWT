@@ -155,6 +155,13 @@ public class LinkAccountUserResource {
         return ResponseUtil.wrapOrNotFound(linkAccountUserDTO);
     }
 
+    @GetMapping("/link-account-users/Get-Full-Details/{id}")
+    public ResponseEntity<LinkAccountUserDTO> getLinkAccountUserFull(@PathVariable Long id) {
+        log.debug("REST request to get LinkAccountUser : {}", id);
+        Optional<LinkAccountUserDTO> linkAccountUserDTO = linkAccountUserService.findOnedetails(id);
+        return ResponseUtil.wrapOrNotFound(linkAccountUserDTO);
+    }
+
     /**
      * {@code DELETE  /link-account-users/:id} : delete the "id" linkAccountUser.
      *

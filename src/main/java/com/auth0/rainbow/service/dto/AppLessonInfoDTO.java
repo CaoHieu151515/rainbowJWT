@@ -2,6 +2,7 @@ package com.auth0.rainbow.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the {@link com.auth0.rainbow.domain.AppLessonInfo} entity.
@@ -15,7 +16,17 @@ public class AppLessonInfoDTO implements Serializable {
 
     private String pdfUrl;
 
-    private AppLessonDTO lesson;
+    private Set<AppLessonVideoDTO> lessonvideo;
+
+    public Set<AppLessonVideoDTO> getlessonvideo() {
+        return lessonvideo;
+    }
+
+    public void setAppAvailableCourses(Set<AppLessonVideoDTO> lessonvideo) {
+        this.lessonvideo = lessonvideo;
+    }
+
+    // private AppLessonDTO lesson;
 
     public Long getId() {
         return id;
@@ -41,13 +52,13 @@ public class AppLessonInfoDTO implements Serializable {
         this.pdfUrl = pdfUrl;
     }
 
-    public AppLessonDTO getLesson() {
-        return lesson;
-    }
+    // public AppLessonDTO getLesson() {
+    //     return lesson;
+    // }
 
-    public void setLesson(AppLessonDTO lesson) {
-        this.lesson = lesson;
-    }
+    // public void setLesson(AppLessonDTO lesson) {
+    //     this.lesson = lesson;
+    // }
 
     @Override
     public boolean equals(Object o) {
@@ -77,7 +88,8 @@ public class AppLessonInfoDTO implements Serializable {
             "id=" + getId() +
             ", description='" + getDescription() + "'" +
             ", pdfUrl='" + getPdfUrl() + "'" +
-            ", lesson=" + getLesson() +
+            ", videourl='" + getlessonvideo() + "'" +
+            // ", lesson=" + getLesson() +
             "}";
     }
 }

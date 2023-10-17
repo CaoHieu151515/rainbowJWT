@@ -238,6 +238,8 @@ public class UserService {
         userRepository
             .findOneByLogin(login)
             .ifPresent(user -> {
+                appUserRepository.delete(linkAccountUserRepository.findByUserId(user.getId()).getAppUser());
+                linkAccountUserRepository.delete(linkAccountUserRepository.findByUserId(user.getId()));
                 userRepository.delete(user);
                 log.debug("Deleted User: {}", user);
             });

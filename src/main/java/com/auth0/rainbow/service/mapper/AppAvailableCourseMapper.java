@@ -37,6 +37,6 @@ public interface AppAvailableCourseMapper extends EntityMapper<AppAvailableCours
         if (appCourses == null) {
             return null;
         }
-        return AppCourseMapper.INSTANCE.toDto(appCourses);
+        return AppCourseMapper.INSTANCE.toCourseDTO(appCourses);
     }
 }

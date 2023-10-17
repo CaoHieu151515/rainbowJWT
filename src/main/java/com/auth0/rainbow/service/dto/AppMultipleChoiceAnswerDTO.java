@@ -15,7 +15,7 @@ public class AppMultipleChoiceAnswerDTO implements Serializable {
 
     private Boolean isCorrect;
 
-    private AppQuestionDTO question;
+    // private AppQuestionDTO question;
 
     public Long getId() {
         return id;
@@ -41,13 +41,13 @@ public class AppMultipleChoiceAnswerDTO implements Serializable {
         this.isCorrect = isCorrect;
     }
 
-    public AppQuestionDTO getQuestion() {
-        return question;
-    }
+    // public AppQuestionDTO getQuestion() {
+    //     return question;
+    // }
 
-    public void setQuestion(AppQuestionDTO question) {
-        this.question = question;
-    }
+    // public void setQuestion(AppQuestionDTO question) {
+    //     this.question = question;
+    // }
 
     @Override
     public boolean equals(Object o) {
@@ -77,7 +77,7 @@ public class AppMultipleChoiceAnswerDTO implements Serializable {
             "id=" + getId() +
             ", answerText='" + getAnswerText() + "'" +
             ", isCorrect='" + getIsCorrect() + "'" +
-            ", question=" + getQuestion() +
+            // ", question=" + getQuestion() +
             "}";
     }
 }

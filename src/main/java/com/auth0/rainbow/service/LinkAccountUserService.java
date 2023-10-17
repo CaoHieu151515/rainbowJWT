@@ -47,6 +47,8 @@ public interface LinkAccountUserService {
      */
     Optional<LinkAccountUserDTO> findOne(Long id);
 
+    Optional<LinkAccountUserDTO> findOnedetails(Long id);
+
     /**
      * Delete the "id" linkAccountUser.
      *
