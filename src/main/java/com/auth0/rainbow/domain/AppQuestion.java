@@ -31,6 +31,10 @@ public class AppQuestion implements Serializable {
     @JsonIgnoreProperties(value = { "question" }, allowSetters = true)
     private Set<AppMultipleChoiceAnswer> questions = new HashSet<>();
 
+    @JsonIgnoreProperties(value = { "appQuestion" }, allowSetters = true)
+    @OneToOne(mappedBy = "appQuestion")
+    private AppQuestionVideoInfo appQuestion;
+
     @ManyToOne
     @JsonIgnoreProperties(value = { "lessons", "lessonInfos", "course" }, allowSetters = true)
     private AppLesson lesson;
@@ -104,6 +108,25 @@ public class AppQuestion implements Serializable {
     public AppQuestion removeQuestions(AppMultipleChoiceAnswer appMultipleChoiceAnswer) {
         this.questions.remove(appMultipleChoiceAnswer);
         appMultipleChoiceAnswer.setQuestion(null);
+        return this;
+    }
+
+    public AppQuestionVideoInfo getAppQuestion() {
+        return this.appQuestion;
+    }
+
+    public void setAppQuestion(AppQuestionVideoInfo appQuestionVideoInfo) {
+        if (this.appQuestion != null) {
+            this.appQuestion.setAppQuestion(null);
+        }
+        if (appQuestionVideoInfo != null) {
+            appQuestionVideoInfo.setAppQuestion(this);
+        }
+        this.appQuestion = appQuestionVideoInfo;
+    }
+
+    public AppQuestion appQuestion(AppQuestionVideoInfo appQuestionVideoInfo) {
+        this.setAppQuestion(appQuestionVideoInfo);
         return this;
     }
 

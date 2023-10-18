@@ -1,5 +1,6 @@
 package com.auth0.rainbow.service.dto;
 
+import com.auth0.rainbow.domain.AppQuestionVideoInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.Objects;
@@ -19,6 +20,16 @@ public class AppQuestionDTO implements Serializable {
     private String questionText;
 
     private Set<AppMultipleChoiceAnswerDTO> multiChoice;
+
+    private AppQuestionVideoInfoDTO appQuestionvideo;
+
+    public AppQuestionVideoInfoDTO getAppQuestionvideo() {
+        return appQuestionvideo;
+    }
+
+    public void setAppQuestionvideo(AppQuestionVideoInfoDTO appQuestionvideo) {
+        this.appQuestionvideo = appQuestionvideo;
+    }
 
     public Set<AppMultipleChoiceAnswerDTO> getmultiChoice() {
         return multiChoice;

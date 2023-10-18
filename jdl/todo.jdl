@@ -19,6 +19,12 @@ entity AppPayment {
     note String
 }
 
+entity AppQuestionVideoInfo {
+    id Long,
+    description String,
+    quenstionVideo String
+}
+
 entity LinkAccountUser {
     id Long
 }
@@ -139,7 +145,8 @@ relationship ManyToOne {
 
 relationship OneToOne {
     AppCart{user} to AppUser{cart},
-    AppOrderItem{product} to AppProduct
+    AppOrderItem{product} to AppProduct,
+    AppQuestionVideoInfo{appQuestion} to AppQuestion{appQuestion}
 }
 
 relationship ManyToMany {

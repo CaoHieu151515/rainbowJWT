@@ -29,6 +29,7 @@
     <include file="config/liquibase/changelog/20231016022005_added_entity_AppCart.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20231016022006_added_entity_AppPost.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20231016022007_added_entity_AppLessonInfo.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231018034257_added_entity_AppQuestionVideoInfo.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20231016021950_added_entity_constraints_AppUser.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20231016021952_added_entity_constraints_AppPayment.xml" relativeToChangelogFile="false"/>
@@ -45,6 +46,7 @@
     <include file="config/liquibase/changelog/20231016022005_added_entity_constraints_AppCart.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20231016022006_added_entity_constraints_AppPost.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20231016022007_added_entity_constraints_AppLessonInfo.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231018034257_added_entity_constraints_AppQuestionVideoInfo.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

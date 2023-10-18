@@ -32,6 +32,13 @@
       "relationshipType": "one-to-many"
     },
     {
+      "otherEntityName": "appQuestionVideoInfo",
+      "otherEntityRelationshipName": "appQuestion",
+      "ownerSide": false,
+      "relationshipName": "appQuestion",
+      "relationshipType": "one-to-one"
+    },
+    {
       "otherEntityName": "appLesson",
       "otherEntityRelationshipName": "lessons",
       "relationshipName": "lesson",

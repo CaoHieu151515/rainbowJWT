@@ -1,0 +1,37 @@
+{
+  "angularJSSuffix": "mySuffix",
+  "applications": "*",
+  "changelogDate": "20231018034257",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "app_question_video_info",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "quenstionVideo",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "AppQuestionVideoInfo",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "appQuestion",
+      "otherEntityRelationshipName": "appQuestion",
+      "ownerSide": true,
+      "relationshipName": "appQuestion",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

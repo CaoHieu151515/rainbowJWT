@@ -65,9 +65,6 @@ public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
                 if (appPostImage == null) {
                     return null;
                 }
-                // AppPostImageDTO appPostImageDTO = new AppPostImageDTO();
-                // appPostImageDTO.setId(appPostImage.getId());
-                // appPostImageDTO.setImageUrl(appPostImage.getImageUrl());
                 appPostImage.setPost(null);
                 return AppPostImageMapper.INSTANCE.toDto(appPostImage);
             })

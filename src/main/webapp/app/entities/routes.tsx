@@ -21,6 +21,7 @@ import AppPostImageMySuffix from './app-post-image-my-suffix';
 import AppCartMySuffix from './app-cart-my-suffix';
 import AppPostMySuffix from './app-post-my-suffix';
 import AppLessonInfoMySuffix from './app-lesson-info-my-suffix';
+import AppQuestionVideoInfoMySuffix from './app-question-video-info-my-suffix';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 export default () => {
@@ -46,6 +47,7 @@ export default () => {
         <Route path="app-cart-my-suffix/*" element={<AppCartMySuffix />} />
         <Route path="app-post-my-suffix/*" element={<AppPostMySuffix />} />
         <Route path="app-lesson-info-my-suffix/*" element={<AppLessonInfoMySuffix />} />
+        <Route path="app-question-video-info-my-suffix/*" element={<AppQuestionVideoInfoMySuffix />} />
         {/* jhipster-needle-add-route-path - JHipster will add routes here */}
       </ErrorBoundaryRoutes>
     </div>

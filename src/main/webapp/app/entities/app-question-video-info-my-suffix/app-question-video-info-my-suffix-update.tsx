@@ -8,14 +8,12 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IAppQuestionVideoInfoMySuffix } from 'app/shared/model/app-question-video-info-my-suffix.model';
-import { getEntities as getAppQuestionVideoInfos } from 'app/entities/app-question-video-info-my-suffix/app-question-video-info-my-suffix.reducer';
-import { IAppLessonMySuffix } from 'app/shared/model/app-lesson-my-suffix.model';
-import { getEntities as getAppLessons } from 'app/entities/app-lesson-my-suffix/app-lesson-my-suffix.reducer';
 import { IAppQuestionMySuffix } from 'app/shared/model/app-question-my-suffix.model';
-import { getEntity, updateEntity, createEntity, reset } from './app-question-my-suffix.reducer';
+import { getEntities as getAppQuestions } from 'app/entities/app-question-my-suffix/app-question-my-suffix.reducer';
+import { IAppQuestionVideoInfoMySuffix } from 'app/shared/model/app-question-video-info-my-suffix.model';
+import { getEntity, updateEntity, createEntity, reset } from './app-question-video-info-my-suffix.reducer';
 
-export const AppQuestionMySuffixUpdate = () => {
+export const AppQuestionVideoInfoMySuffixUpdate = () => {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -23,15 +21,14 @@ export const AppQuestionMySuffixUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const appQuestionVideoInfos = useAppSelector(state => state.appQuestionVideoInfo.entities);
-  const appLessons = useAppSelector(state => state.appLesson.entities);
-  const appQuestionEntity = useAppSelector(state => state.appQuestion.entity);
-  const loading = useAppSelector(state => state.appQuestion.loading);
-  const updating = useAppSelector(state => state.appQuestion.updating);
-  const updateSuccess = useAppSelector(state => state.appQuestion.updateSuccess);
+  const appQuestions = useAppSelector(state => state.appQuestion.entities);
+  const appQuestionVideoInfoEntity = useAppSelector(state => state.appQuestionVideoInfo.entity);
+  const loading = useAppSelector(state => state.appQuestionVideoInfo.loading);
+  const updating = useAppSelector(state => state.appQuestionVideoInfo.updating);
+  const updateSuccess = useAppSelector(state => state.appQuestionVideoInfo.updateSuccess);
 
   const handleClose = () => {
-    navigate('/app-question-my-suffix');
+    navigate('/app-question-video-info-my-suffix');
   };
 
   useEffect(() => {
@@ -41,8 +38,7 @@ export const AppQuestionMySuffixUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getAppQuestionVideoInfos({}));
-    dispatch(getAppLessons({}));
+    dispatch(getAppQuestions({}));
   }, []);
 
   useEffect(() => {
@@ -53,9 +49,9 @@ export const AppQuestionMySuffixUpdate = () => {
 
   const saveEntity = values => {
     const entity = {
-      ...appQuestionEntity,
+      ...appQuestionVideoInfoEntity,
       ...values,
-      lesson: appLessons.find(it => it.id.toString() === values.lesson.toString()),
+      appQuestion: appQuestions.find(it => it.id.toString() === values.appQuestion.toString()),
     };
 
     if (isNew) {
@@ -69,16 +65,16 @@ export const AppQuestionMySuffixUpdate = () => {
     isNew
       ? {}
       : {
-          ...appQuestionEntity,
-          lesson: appQuestionEntity?.lesson?.id,
+          ...appQuestionVideoInfoEntity,
+          appQuestion: appQuestionVideoInfoEntity?.appQuestion?.id,
         };
 
   return (
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="rainbowApp.appQuestion.home.createOrEditLabel" data-cy="AppQuestionCreateUpdateHeading">
-            Create or edit a App Question
+          <h2 id="rainbowApp.appQuestionVideoInfo.home.createOrEditLabel" data-cy="AppQuestionVideoInfoCreateUpdateHeading">
+            Create or edit a App Question Video Info
           </h2>
         </Col>
       </Row>
@@ -89,33 +85,53 @@ export const AppQuestionMySuffixUpdate = () => {
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
               {!isNew ? (
-                <ValidatedField name="id" required readOnly id="app-question-my-suffix-id" label="Id" validate={{ required: true }} />
+                <ValidatedField
+                  name="id"
+                  required
+                  readOnly
+                  id="app-question-video-info-my-suffix-id"
+                  label="Id"
+                  validate={{ required: true }}
+                />
               ) : null}
               <ValidatedField
-                label="Question Name"
-                id="app-question-my-suffix-questionName"
-                name="questionName"
-                data-cy="questionName"
+                label="Description"
+                id="app-question-video-info-my-suffix-description"
+                name="description"
+                data-cy="description"
                 type="text"
               />
               <ValidatedField
-                label="Question Text"
-                id="app-question-my-suffix-questionText"
-                name="questionText"
-                data-cy="questionText"
+                label="Quenstion Video"
+                id="app-question-video-info-my-suffix-quenstionVideo"
+                name="quenstionVideo"
+                data-cy="quenstionVideo"
                 type="text"
               />
-              <ValidatedField id="app-question-my-suffix-lesson" name="lesson" data-cy="lesson" label="Lesson" type="select">
+              <ValidatedField
+                id="app-question-video-info-my-suffix-appQuestion"
+                name="appQuestion"
+                data-cy="appQuestion"
+                label="App Question"
+                type="select"
+              >
                 <option value="" key="0" />
-                {appLessons
-                  ? appLessons.map(otherEntity => (
+                {appQuestions
+                  ? appQuestions.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
                       </option>
                     ))
                   : null}
               </ValidatedField>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/app-question-my-suffix" replace color="info">
+              <Button
+                tag={Link}
+                id="cancel-save"
+                data-cy="entityCreateCancelButton"
+                to="/app-question-video-info-my-suffix"
+                replace
+                color="info"
+              >
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">Back</span>
@@ -133,4 +149,4 @@ export const AppQuestionMySuffixUpdate = () => {
   );
 };
 
-export default AppQuestionMySuffixUpdate;
+export default AppQuestionVideoInfoMySuffixUpdate;

@@ -1,0 +1,25 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="Hi (generated)" id="1697601478702-3">
+        <createTable tableName="app_question_video_info">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_question_video_infoPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="quenstion_video" type="VARCHAR(255)"/>
+            <column name="app_question_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697601478702-4">
+        <addUniqueConstraint columnNames="app_question_id" constraintName="UC_APP_QUESTION_VIDEO_INFOAPP_QUESTION_ID_COL" tableName="app_question_video_info"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697601478702-5">
+        <addForeignKeyConstraint baseColumnNames="app_question_id" baseTableName="app_question_video_info" constraintName="FKpb9xf75aibklhuhvc73u5awjb" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_question" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697601478702-1">
+        <dropUniqueConstraint constraintName="UC_JHI_USERLOGIN_COL" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697601478702-2">
+        <addUniqueConstraint columnNames="login" constraintName="UC_JHI_USERLOGIN_COL" tableName="jhi_user"/>
+    </changeSet>
+</databaseChangeLog>
