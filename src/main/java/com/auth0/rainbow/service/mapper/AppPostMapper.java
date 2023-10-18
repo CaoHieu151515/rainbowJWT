@@ -21,12 +21,10 @@ import org.mapstruct.factory.Mappers;
 public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
     AppPostMapper INSTANCE = Mappers.getMapper(AppPostMapper.class);
     AppUserMapper other = Mappers.getMapper(AppUserMapper.class);
+    AppPostImageMapper ortherAppProductImageMapper = Mappers.getMapper(AppPostImageMapper.class);
 
     @Mapping(target = "user", source = "user", qualifiedByName = "appUserId")
     AppPostDTO toDto(AppPost s);
-
-    @Mapping(target = "imageUrl", source = "imageUrl")
-    AppPostImageDTO toDtoImage(AppPostImage appPostImage);
 
     @Named("appUserId")
     @BeanMapping(ignoreByDefault = false)
@@ -61,16 +59,17 @@ public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
 
     @Named("mapToimages")
     static Set<AppPostImageDTO> mapToimages(Set<AppPostImage> appPostImages) {
-        // Thực hiện ánh xạ từ danh sách AppPostImage sang Set AppPostImageDTO
-        // Ví dụ:
         return appPostImages
             .stream()
             .map(appPostImage -> {
-                AppPostImageDTO appPostImageDTO = new AppPostImageDTO();
-                appPostImageDTO.setId(appPostImage.getId());
-                appPostImageDTO.setImageUrl(appPostImage.getImageUrl());
-                // Thêm các trường khác
-                return appPostImageDTO;
+                if (appPostImage == null) {
+                    return null;
+                }
+                // AppPostImageDTO appPostImageDTO = new AppPostImageDTO();
+                // appPostImageDTO.setId(appPostImage.getId());
+                // appPostImageDTO.setImageUrl(appPostImage.getImageUrl());
+                appPostImage.setPost(null);
+                return AppPostImageMapper.INSTANCE.toDto(appPostImage);
             })
             .collect(Collectors.toSet());
     }
