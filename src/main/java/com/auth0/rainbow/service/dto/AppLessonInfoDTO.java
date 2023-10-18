@@ -14,14 +14,24 @@ public class AppLessonInfoDTO implements Serializable {
 
     private Long id;
 
+    private String Name;
+
     private String description;
 
-    private String pdfUrl;
+    private Set<AppLessonPDFDTO> pdfs;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private AppLessonDTO lessonDTO;
 
     private Set<AppLessonVideoDTO> lessonvideo;
+
+    public Set<AppLessonPDFDTO> getpdfs() {
+        return pdfs;
+    }
+
+    public void setpdfs(Set<AppLessonPDFDTO> pdfs) {
+        this.pdfs = pdfs;
+    }
 
     public Set<AppLessonVideoDTO> getlessonvideo() {
         return lessonvideo;
@@ -57,12 +67,12 @@ public class AppLessonInfoDTO implements Serializable {
         this.description = description;
     }
 
-    public String getPdfUrl() {
-        return pdfUrl;
+    public String getName() {
+        return Name;
     }
 
-    public void setPdfUrl(String pdfUrl) {
-        this.pdfUrl = pdfUrl;
+    public void setName(String pdfUrl) {
+        this.Name = pdfUrl;
     }
 
     public AppLessonDTO getLesson() {
@@ -100,7 +110,7 @@ public class AppLessonInfoDTO implements Serializable {
         return "AppLessonInfoDTO{" +
             "id=" + getId() +
             ", description='" + getDescription() + "'" +
-            ", pdfUrl='" + getPdfUrl() + "'" +
+            ", pdfUrl='" + getName() + "'" +
             ", videourl='" + getlessonvideo() + "'" +
             // ", lesson=" + getLesson() +
             "}";

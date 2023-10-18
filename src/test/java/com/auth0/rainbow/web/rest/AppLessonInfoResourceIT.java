@@ -31,11 +31,11 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class AppLessonInfoResourceIT {
 
+    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBB";
+
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
-
-    private static final String DEFAULT_PDF_URL = "AAAAAAAAAA";
-    private static final String UPDATED_PDF_URL = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/app-lesson-infos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -64,7 +64,7 @@ class AppLessonInfoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static AppLessonInfo createEntity(EntityManager em) {
-        AppLessonInfo appLessonInfo = new AppLessonInfo().description(DEFAULT_DESCRIPTION).pdfUrl(DEFAULT_PDF_URL);
+        AppLessonInfo appLessonInfo = new AppLessonInfo().name(DEFAULT_NAME).description(DEFAULT_DESCRIPTION);
         return appLessonInfo;
     }
 
@@ -75,7 +75,7 @@ class AppLessonInfoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static AppLessonInfo createUpdatedEntity(EntityManager em) {
-        AppLessonInfo appLessonInfo = new AppLessonInfo().description(UPDATED_DESCRIPTION).pdfUrl(UPDATED_PDF_URL);
+        AppLessonInfo appLessonInfo = new AppLessonInfo().name(UPDATED_NAME).description(UPDATED_DESCRIPTION);
         return appLessonInfo;
     }
 
@@ -100,8 +100,8 @@ class AppLessonInfoResourceIT {
         List<AppLessonInfo> appLessonInfoList = appLessonInfoRepository.findAll();
         assertThat(appLessonInfoList).hasSize(databaseSizeBeforeCreate + 1);
         AppLessonInfo testAppLessonInfo = appLessonInfoList.get(appLessonInfoList.size() - 1);
+        assertThat(testAppLessonInfo.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testAppLessonInfo.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testAppLessonInfo.getPdfUrl()).isEqualTo(DEFAULT_PDF_URL);
     }
 
     @Test
@@ -137,8 +137,8 @@ class AppLessonInfoResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(appLessonInfo.getId().intValue())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
-            .andExpect(jsonPath("$.[*].pdfUrl").value(hasItem(DEFAULT_PDF_URL)));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
     }
 
     @Test
@@ -153,8 +153,8 @@ class AppLessonInfoResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(appLessonInfo.getId().intValue()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
-            .andExpect(jsonPath("$.pdfUrl").value(DEFAULT_PDF_URL));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
     }
 
     @Test
@@ -176,7 +176,7 @@ class AppLessonInfoResourceIT {
         AppLessonInfo updatedAppLessonInfo = appLessonInfoRepository.findById(appLessonInfo.getId()).get();
         // Disconnect from session so that the updates on updatedAppLessonInfo are not directly saved in db
         em.detach(updatedAppLessonInfo);
-        updatedAppLessonInfo.description(UPDATED_DESCRIPTION).pdfUrl(UPDATED_PDF_URL);
+        updatedAppLessonInfo.name(UPDATED_NAME).description(UPDATED_DESCRIPTION);
         AppLessonInfoDTO appLessonInfoDTO = appLessonInfoMapper.toDto(updatedAppLessonInfo);
 
         restAppLessonInfoMockMvc
@@ -191,8 +191,8 @@ class AppLessonInfoResourceIT {
         List<AppLessonInfo> appLessonInfoList = appLessonInfoRepository.findAll();
         assertThat(appLessonInfoList).hasSize(databaseSizeBeforeUpdate);
         AppLessonInfo testAppLessonInfo = appLessonInfoList.get(appLessonInfoList.size() - 1);
+        assertThat(testAppLessonInfo.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testAppLessonInfo.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testAppLessonInfo.getPdfUrl()).isEqualTo(UPDATED_PDF_URL);
     }
 
     @Test
@@ -286,8 +286,8 @@ class AppLessonInfoResourceIT {
         List<AppLessonInfo> appLessonInfoList = appLessonInfoRepository.findAll();
         assertThat(appLessonInfoList).hasSize(databaseSizeBeforeUpdate);
         AppLessonInfo testAppLessonInfo = appLessonInfoList.get(appLessonInfoList.size() - 1);
+        assertThat(testAppLessonInfo.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testAppLessonInfo.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testAppLessonInfo.getPdfUrl()).isEqualTo(DEFAULT_PDF_URL);
     }
 
     @Test
@@ -302,7 +302,7 @@ class AppLessonInfoResourceIT {
         AppLessonInfo partialUpdatedAppLessonInfo = new AppLessonInfo();
         partialUpdatedAppLessonInfo.setId(appLessonInfo.getId());
 
-        partialUpdatedAppLessonInfo.description(UPDATED_DESCRIPTION).pdfUrl(UPDATED_PDF_URL);
+        partialUpdatedAppLessonInfo.name(UPDATED_NAME).description(UPDATED_DESCRIPTION);
 
         restAppLessonInfoMockMvc
             .perform(
@@ -316,8 +316,8 @@ class AppLessonInfoResourceIT {
         List<AppLessonInfo> appLessonInfoList = appLessonInfoRepository.findAll();
         assertThat(appLessonInfoList).hasSize(databaseSizeBeforeUpdate);
         AppLessonInfo testAppLessonInfo = appLessonInfoList.get(appLessonInfoList.size() - 1);
+        assertThat(testAppLessonInfo.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testAppLessonInfo.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testAppLessonInfo.getPdfUrl()).isEqualTo(UPDATED_PDF_URL);
     }
 
     @Test

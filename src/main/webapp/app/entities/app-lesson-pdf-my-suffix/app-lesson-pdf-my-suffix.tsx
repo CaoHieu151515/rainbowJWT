@@ -7,17 +7,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IAppLessonInfoMySuffix } from 'app/shared/model/app-lesson-info-my-suffix.model';
-import { getEntities } from './app-lesson-info-my-suffix.reducer';
+import { IAppLessonPDFMySuffix } from 'app/shared/model/app-lesson-pdf-my-suffix.model';
+import { getEntities } from './app-lesson-pdf-my-suffix.reducer';
 
-export const AppLessonInfoMySuffix = () => {
+export const AppLessonPDFMySuffix = () => {
   const dispatch = useAppDispatch();
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  const appLessonInfoList = useAppSelector(state => state.appLessonInfo.entities);
-  const loading = useAppSelector(state => state.appLessonInfo.loading);
+  const appLessonPDFList = useAppSelector(state => state.appLessonPDF.entities);
+  const loading = useAppSelector(state => state.appLessonPDF.loading);
 
   useEffect(() => {
     dispatch(getEntities({}));
@@ -29,48 +29,48 @@ export const AppLessonInfoMySuffix = () => {
 
   return (
     <div>
-      <h2 id="app-lesson-info-my-suffix-heading" data-cy="AppLessonInfoHeading">
-        App Lesson Infos
+      <h2 id="app-lesson-pdf-my-suffix-heading" data-cy="AppLessonPDFHeading">
+        App Lesson PDFS
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Refresh list
           </Button>
           <Link
-            to="/app-lesson-info-my-suffix/new"
+            to="/app-lesson-pdf-my-suffix/new"
             className="btn btn-primary jh-create-entity"
             id="jh-create-entity"
             data-cy="entityCreateButton"
           >
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Create a new App Lesson Info
+            &nbsp; Create a new App Lesson PDF
           </Link>
         </div>
       </h2>
       <div className="table-responsive">
-        {appLessonInfoList && appLessonInfoList.length > 0 ? (
+        {appLessonPDFList && appLessonPDFList.length > 0 ? (
           <Table responsive>
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Name</th>
                 <th>Description</th>
+                <th>Pdf Url</th>
                 <th>Lesson</th>
                 <th />
               </tr>
             </thead>
             <tbody>
-              {appLessonInfoList.map((appLessonInfo, i) => (
+              {appLessonPDFList.map((appLessonPDF, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
                   <td>
-                    <Button tag={Link} to={`/app-lesson-info-my-suffix/${appLessonInfo.id}`} color="link" size="sm">
-                      {appLessonInfo.id}
+                    <Button tag={Link} to={`/app-lesson-pdf-my-suffix/${appLessonPDF.id}`} color="link" size="sm">
+                      {appLessonPDF.id}
                     </Button>
                   </td>
-                  <td>{appLessonInfo.name}</td>
-                  <td>{appLessonInfo.description}</td>
+                  <td>{appLessonPDF.description}</td>
+                  <td>{appLessonPDF.pdfUrl}</td>
                   <td>
-                    {appLessonInfo.lesson ? (
-                      <Link to={`/app-lesson-my-suffix/${appLessonInfo.lesson.id}`}>{appLessonInfo.lesson.id}</Link>
+                    {appLessonPDF.lesson ? (
+                      <Link to={`/app-lesson-info-my-suffix/${appLessonPDF.lesson.id}`}>{appLessonPDF.lesson.id}</Link>
                     ) : (
                       ''
                     )}
@@ -79,7 +79,7 @@ export const AppLessonInfoMySuffix = () => {
                     <div className="btn-group flex-btn-group-container">
                       <Button
                         tag={Link}
-                        to={`/app-lesson-info-my-suffix/${appLessonInfo.id}`}
+                        to={`/app-lesson-pdf-my-suffix/${appLessonPDF.id}`}
                         color="info"
                         size="sm"
                         data-cy="entityDetailsButton"
@@ -88,7 +88,7 @@ export const AppLessonInfoMySuffix = () => {
                       </Button>
                       <Button
                         tag={Link}
-                        to={`/app-lesson-info-my-suffix/${appLessonInfo.id}/edit`}
+                        to={`/app-lesson-pdf-my-suffix/${appLessonPDF.id}/edit`}
                         color="primary"
                         size="sm"
                         data-cy="entityEditButton"
@@ -97,7 +97,7 @@ export const AppLessonInfoMySuffix = () => {
                       </Button>
                       <Button
                         tag={Link}
-                        to={`/app-lesson-info-my-suffix/${appLessonInfo.id}/delete`}
+                        to={`/app-lesson-pdf-my-suffix/${appLessonPDF.id}/delete`}
                         color="danger"
                         size="sm"
                         data-cy="entityDeleteButton"
@@ -111,11 +111,11 @@ export const AppLessonInfoMySuffix = () => {
             </tbody>
           </Table>
         ) : (
-          !loading && <div className="alert alert-warning">No App Lesson Infos found</div>
+          !loading && <div className="alert alert-warning">No App Lesson PDFS found</div>
         )}
       </div>
     </div>
   );
 };
 
-export default AppLessonInfoMySuffix;
+export default AppLessonPDFMySuffix;

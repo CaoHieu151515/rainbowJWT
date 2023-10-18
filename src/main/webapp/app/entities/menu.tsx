@@ -63,6 +63,9 @@ const EntitiesMenu = () => {
       <MenuItem icon="asterisk" to="/app-question-video-info-my-suffix">
         App Question Video Info
       </MenuItem>
+      <MenuItem icon="asterisk" to="/app-lesson-pdf-my-suffix">
+        App Lesson PDF
+      </MenuItem>
       {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}
     </>
   );

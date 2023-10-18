@@ -7,9 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { getEntity } from './app-lesson-info-my-suffix.reducer';
+import { getEntity } from './app-lesson-pdf-my-suffix.reducer';
 
-export const AppLessonInfoMySuffixDetail = () => {
+export const AppLessonPDFMySuffixDetail = () => {
   const dispatch = useAppDispatch();
 
   const { id } = useParams<'id'>();
@@ -18,32 +18,32 @@ export const AppLessonInfoMySuffixDetail = () => {
     dispatch(getEntity(id));
   }, []);
 
-  const appLessonInfoEntity = useAppSelector(state => state.appLessonInfo.entity);
+  const appLessonPDFEntity = useAppSelector(state => state.appLessonPDF.entity);
   return (
     <Row>
       <Col md="8">
-        <h2 data-cy="appLessonInfoDetailsHeading">App Lesson Info</h2>
+        <h2 data-cy="appLessonPDFDetailsHeading">App Lesson PDF</h2>
         <dl className="jh-entity-details">
           <dt>
             <span id="id">Id</span>
           </dt>
-          <dd>{appLessonInfoEntity.id}</dd>
-          <dt>
-            <span id="name">Name</span>
-          </dt>
-          <dd>{appLessonInfoEntity.name}</dd>
+          <dd>{appLessonPDFEntity.id}</dd>
           <dt>
             <span id="description">Description</span>
           </dt>
-          <dd>{appLessonInfoEntity.description}</dd>
+          <dd>{appLessonPDFEntity.description}</dd>
+          <dt>
+            <span id="pdfUrl">Pdf Url</span>
+          </dt>
+          <dd>{appLessonPDFEntity.pdfUrl}</dd>
           <dt>Lesson</dt>
-          <dd>{appLessonInfoEntity.lesson ? appLessonInfoEntity.lesson.id : ''}</dd>
+          <dd>{appLessonPDFEntity.lesson ? appLessonPDFEntity.lesson.id : ''}</dd>
         </dl>
-        <Button tag={Link} to="/app-lesson-info-my-suffix" replace color="info" data-cy="entityDetailsBackButton">
+        <Button tag={Link} to="/app-lesson-pdf-my-suffix" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>
         </Button>
         &nbsp;
-        <Button tag={Link} to={`/app-lesson-info-my-suffix/${appLessonInfoEntity.id}/edit`} replace color="primary">
+        <Button tag={Link} to={`/app-lesson-pdf-my-suffix/${appLessonPDFEntity.id}/edit`} replace color="primary">
           <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
         </Button>
       </Col>
@@ -51,4 +51,4 @@ export const AppLessonInfoMySuffixDetail = () => {
   );
 };
 
-export default AppLessonInfoMySuffixDetail;
+export default AppLessonPDFMySuffixDetail;

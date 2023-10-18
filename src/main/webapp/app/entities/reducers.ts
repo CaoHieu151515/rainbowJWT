@@ -17,6 +17,7 @@ import appCart from 'app/entities/app-cart-my-suffix/app-cart-my-suffix.reducer'
 import appPost from 'app/entities/app-post-my-suffix/app-post-my-suffix.reducer';
 import appLessonInfo from 'app/entities/app-lesson-info-my-suffix/app-lesson-info-my-suffix.reducer';
 import appQuestionVideoInfo from 'app/entities/app-question-video-info-my-suffix/app-question-video-info-my-suffix.reducer';
+import appLessonPDF from 'app/entities/app-lesson-pdf-my-suffix/app-lesson-pdf-my-suffix.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const entitiesReducers = {
@@ -39,6 +40,7 @@ const entitiesReducers = {
   appPost,
   appLessonInfo,
   appQuestionVideoInfo,
+  appLessonPDF,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
 };
 

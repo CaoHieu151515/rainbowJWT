@@ -11,11 +11,11 @@
       "fieldType": "Long"
     },
     {
-      "fieldName": "description",
+      "fieldName": "name",
       "fieldType": "String"
     },
     {
-      "fieldName": "pdfUrl",
+      "fieldName": "description",
       "fieldType": "String"
     }
   ],
@@ -29,6 +29,12 @@
       "otherEntityName": "appLessonVideo",
       "otherEntityRelationshipName": "lessonInfo",
       "relationshipName": "videos",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "appLessonPDF",
+      "otherEntityRelationshipName": "lesson",
+      "relationshipName": "pdf",
       "relationshipType": "one-to-many"
     },
     {

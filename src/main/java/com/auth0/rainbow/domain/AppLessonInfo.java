@@ -21,17 +21,21 @@ public class AppLessonInfo implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "description")
     private String description;
-
-    @Column(name = "pdf_url")
-    private String pdfUrl;
 
     @OneToMany(mappedBy = "lessonInfo")
     @JsonIgnoreProperties(value = { "lessonInfo" }, allowSetters = true)
     private Set<AppLessonVideo> videos = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "lesson")
+    @JsonIgnoreProperties(value = { "lesson" }, allowSetters = true)
+    private Set<AppLessonPDF> pdfs = new HashSet<>();
+
+    @ManyToOne
     @JsonIgnoreProperties(value = { "lessons", "lessonInfos", "course" }, allowSetters = true)
     private AppLesson lesson;
 
@@ -50,6 +54,19 @@ public class AppLessonInfo implements Serializable {
         this.id = id;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public AppLessonInfo name(String name) {
+        this.setName(name);
+        return this;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -61,19 +78,6 @@ public class AppLessonInfo implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getPdfUrl() {
-        return this.pdfUrl;
-    }
-
-    public AppLessonInfo pdfUrl(String pdfUrl) {
-        this.setPdfUrl(pdfUrl);
-        return this;
-    }
-
-    public void setPdfUrl(String pdfUrl) {
-        this.pdfUrl = pdfUrl;
     }
 
     public Set<AppLessonVideo> getVideos() {
@@ -104,6 +108,37 @@ public class AppLessonInfo implements Serializable {
     public AppLessonInfo removeVideos(AppLessonVideo appLessonVideo) {
         this.videos.remove(appLessonVideo);
         appLessonVideo.setLessonInfo(null);
+        return this;
+    }
+
+    public Set<AppLessonPDF> getPdfs() {
+        return this.pdfs;
+    }
+
+    public void setPdfs(Set<AppLessonPDF> appLessonPDFS) {
+        if (this.pdfs != null) {
+            this.pdfs.forEach(i -> i.setLesson(null));
+        }
+        if (appLessonPDFS != null) {
+            appLessonPDFS.forEach(i -> i.setLesson(this));
+        }
+        this.pdfs = appLessonPDFS;
+    }
+
+    public AppLessonInfo pdfs(Set<AppLessonPDF> appLessonPDFS) {
+        this.setPdfs(appLessonPDFS);
+        return this;
+    }
+
+    public AppLessonInfo addPdf(AppLessonPDF appLessonPDF) {
+        this.pdfs.add(appLessonPDF);
+        appLessonPDF.setLesson(this);
+        return this;
+    }
+
+    public AppLessonInfo removePdf(AppLessonPDF appLessonPDF) {
+        this.pdfs.remove(appLessonPDF);
+        appLessonPDF.setLesson(null);
         return this;
     }
 
@@ -144,8 +179,8 @@ public class AppLessonInfo implements Serializable {
     public String toString() {
         return "AppLessonInfo{" +
             "id=" + getId() +
+            ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", pdfUrl='" + getPdfUrl() + "'" +
             "}";
     }
 }

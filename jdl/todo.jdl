@@ -60,6 +60,13 @@ entity AppLessonVideo {
     description String
 }
 
+entity AppLessonPDF {
+    id Long,
+    
+    description String,
+    pdfUrl String
+}
+
 entity AppAvailableCourse {
     id Long
 }
@@ -116,8 +123,9 @@ entity AppPost {
 
 entity AppLessonInfo {
     id Long,
-    description String,
-    pdfUrl String
+    Name String,
+    description String
+    
 }
 
 // Định nghĩa các mối quan hệ
@@ -132,7 +140,8 @@ relationship OneToMany {
     AppLessonInfo{videos} to AppLessonVideo{lessonInfo},
     AppPost{images} to AppPostImage{post},
     AppUser{posts} to AppPost{user},
-    AppOrder{payments} to AppPayment{order}
+    AppOrder{payments} to AppPayment{order},
+    AppLessonInfo{pdf} to AppLessonPDF{lesson}
 }
 
 relationship ManyToOne {

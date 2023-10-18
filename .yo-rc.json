@@ -38,14 +38,15 @@
       "AppCart",
       "AppPost",
       "AppLessonInfo",
-      "AppQuestionVideoInfo"
+      "AppQuestionVideoInfo",
+      "AppLessonPDF"
     ],
     "entitySuffix": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.9.4",
     "jwtSecretKey": "OTBhNDliMjhjNDNjYWYwMmViMzk1ZTg5YjcwNjU2ODg3MDYyM2M3OTQ5ZmJjZjk4MzFlYWZhMTUzOTY5MGVmY2I5MjFkYzkxNjdlYzU3MjgzMTRkNDU1NzFjZmExODBhOTk4MDg0MzBjZWE4N2YzOWJhNmRlZmVjZDU0MDQxZjU=",
     "languages": ["en", "fr"],
-    "lastLiquibaseTimestamp": 1697600577000,
+    "lastLiquibaseTimestamp": 1697615638000,
     "messageBroker": false,
     "microfrontend": false,
     "microfrontends": [],

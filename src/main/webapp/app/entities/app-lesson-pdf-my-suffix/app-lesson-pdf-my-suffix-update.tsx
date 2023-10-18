@@ -8,12 +8,12 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IAppLessonMySuffix } from 'app/shared/model/app-lesson-my-suffix.model';
-import { getEntities as getAppLessons } from 'app/entities/app-lesson-my-suffix/app-lesson-my-suffix.reducer';
 import { IAppLessonInfoMySuffix } from 'app/shared/model/app-lesson-info-my-suffix.model';
-import { getEntity, updateEntity, createEntity, reset } from './app-lesson-info-my-suffix.reducer';
+import { getEntities as getAppLessonInfos } from 'app/entities/app-lesson-info-my-suffix/app-lesson-info-my-suffix.reducer';
+import { IAppLessonPDFMySuffix } from 'app/shared/model/app-lesson-pdf-my-suffix.model';
+import { getEntity, updateEntity, createEntity, reset } from './app-lesson-pdf-my-suffix.reducer';
 
-export const AppLessonInfoMySuffixUpdate = () => {
+export const AppLessonPDFMySuffixUpdate = () => {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -21,14 +21,14 @@ export const AppLessonInfoMySuffixUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const appLessons = useAppSelector(state => state.appLesson.entities);
-  const appLessonInfoEntity = useAppSelector(state => state.appLessonInfo.entity);
-  const loading = useAppSelector(state => state.appLessonInfo.loading);
-  const updating = useAppSelector(state => state.appLessonInfo.updating);
-  const updateSuccess = useAppSelector(state => state.appLessonInfo.updateSuccess);
+  const appLessonInfos = useAppSelector(state => state.appLessonInfo.entities);
+  const appLessonPDFEntity = useAppSelector(state => state.appLessonPDF.entity);
+  const loading = useAppSelector(state => state.appLessonPDF.loading);
+  const updating = useAppSelector(state => state.appLessonPDF.updating);
+  const updateSuccess = useAppSelector(state => state.appLessonPDF.updateSuccess);
 
   const handleClose = () => {
-    navigate('/app-lesson-info-my-suffix');
+    navigate('/app-lesson-pdf-my-suffix');
   };
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export const AppLessonInfoMySuffixUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getAppLessons({}));
+    dispatch(getAppLessonInfos({}));
   }, []);
 
   useEffect(() => {
@@ -49,9 +49,9 @@ export const AppLessonInfoMySuffixUpdate = () => {
 
   const saveEntity = values => {
     const entity = {
-      ...appLessonInfoEntity,
+      ...appLessonPDFEntity,
       ...values,
-      lesson: appLessons.find(it => it.id.toString() === values.lesson.toString()),
+      lesson: appLessonInfos.find(it => it.id.toString() === values.lesson.toString()),
     };
 
     if (isNew) {
@@ -65,16 +65,16 @@ export const AppLessonInfoMySuffixUpdate = () => {
     isNew
       ? {}
       : {
-          ...appLessonInfoEntity,
-          lesson: appLessonInfoEntity?.lesson?.id,
+          ...appLessonPDFEntity,
+          lesson: appLessonPDFEntity?.lesson?.id,
         };
 
   return (
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="rainbowApp.appLessonInfo.home.createOrEditLabel" data-cy="AppLessonInfoCreateUpdateHeading">
-            Create or edit a App Lesson Info
+          <h2 id="rainbowApp.appLessonPDF.home.createOrEditLabel" data-cy="AppLessonPDFCreateUpdateHeading">
+            Create or edit a App Lesson PDF
           </h2>
         </Col>
       </Row>
@@ -85,27 +85,27 @@ export const AppLessonInfoMySuffixUpdate = () => {
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
               {!isNew ? (
-                <ValidatedField name="id" required readOnly id="app-lesson-info-my-suffix-id" label="Id" validate={{ required: true }} />
+                <ValidatedField name="id" required readOnly id="app-lesson-pdf-my-suffix-id" label="Id" validate={{ required: true }} />
               ) : null}
-              <ValidatedField label="Name" id="app-lesson-info-my-suffix-name" name="name" data-cy="name" type="text" />
               <ValidatedField
                 label="Description"
-                id="app-lesson-info-my-suffix-description"
+                id="app-lesson-pdf-my-suffix-description"
                 name="description"
                 data-cy="description"
                 type="text"
               />
-              <ValidatedField id="app-lesson-info-my-suffix-lesson" name="lesson" data-cy="lesson" label="Lesson" type="select">
+              <ValidatedField label="Pdf Url" id="app-lesson-pdf-my-suffix-pdfUrl" name="pdfUrl" data-cy="pdfUrl" type="text" />
+              <ValidatedField id="app-lesson-pdf-my-suffix-lesson" name="lesson" data-cy="lesson" label="Lesson" type="select">
                 <option value="" key="0" />
-                {appLessons
-                  ? appLessons.map(otherEntity => (
+                {appLessonInfos
+                  ? appLessonInfos.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
                       </option>
                     ))
                   : null}
               </ValidatedField>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/app-lesson-info-my-suffix" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/app-lesson-pdf-my-suffix" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">Back</span>
@@ -123,4 +123,4 @@ export const AppLessonInfoMySuffixUpdate = () => {
   );
 };
 
-export default AppLessonInfoMySuffixUpdate;
+export default AppLessonPDFMySuffixUpdate;
