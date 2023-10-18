@@ -13,6 +13,8 @@ public class AppLessonVideoDTO implements Serializable {
 
     private Long id;
 
+    private String description;
+
     private String videoUrl;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -24,6 +26,14 @@ public class AppLessonVideoDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getVideoUrl() {

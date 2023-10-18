@@ -34,6 +34,9 @@ class AppLessonVideoResourceIT {
     private static final String DEFAULT_VIDEO_URL = "AAAAAAAAAA";
     private static final String UPDATED_VIDEO_URL = "BBBBBBBBBB";
 
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/app-lesson-videos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -61,7 +64,7 @@ class AppLessonVideoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static AppLessonVideo createEntity(EntityManager em) {
-        AppLessonVideo appLessonVideo = new AppLessonVideo().videoUrl(DEFAULT_VIDEO_URL);
+        AppLessonVideo appLessonVideo = new AppLessonVideo().videoUrl(DEFAULT_VIDEO_URL).description(DEFAULT_DESCRIPTION);
         return appLessonVideo;
     }
 
@@ -72,7 +75,7 @@ class AppLessonVideoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static AppLessonVideo createUpdatedEntity(EntityManager em) {
-        AppLessonVideo appLessonVideo = new AppLessonVideo().videoUrl(UPDATED_VIDEO_URL);
+        AppLessonVideo appLessonVideo = new AppLessonVideo().videoUrl(UPDATED_VIDEO_URL).description(UPDATED_DESCRIPTION);
         return appLessonVideo;
     }
 
@@ -98,6 +101,7 @@ class AppLessonVideoResourceIT {
         assertThat(appLessonVideoList).hasSize(databaseSizeBeforeCreate + 1);
         AppLessonVideo testAppLessonVideo = appLessonVideoList.get(appLessonVideoList.size() - 1);
         assertThat(testAppLessonVideo.getVideoUrl()).isEqualTo(DEFAULT_VIDEO_URL);
+        assertThat(testAppLessonVideo.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
     @Test
@@ -133,7 +137,8 @@ class AppLessonVideoResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(appLessonVideo.getId().intValue())))
-            .andExpect(jsonPath("$.[*].videoUrl").value(hasItem(DEFAULT_VIDEO_URL)));
+            .andExpect(jsonPath("$.[*].videoUrl").value(hasItem(DEFAULT_VIDEO_URL)))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
     }
 
     @Test
@@ -148,7 +153,8 @@ class AppLessonVideoResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(appLessonVideo.getId().intValue()))
-            .andExpect(jsonPath("$.videoUrl").value(DEFAULT_VIDEO_URL));
+            .andExpect(jsonPath("$.videoUrl").value(DEFAULT_VIDEO_URL))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
     }
 
     @Test
@@ -170,7 +176,7 @@ class AppLessonVideoResourceIT {
         AppLessonVideo updatedAppLessonVideo = appLessonVideoRepository.findById(appLessonVideo.getId()).get();
         // Disconnect from session so that the updates on updatedAppLessonVideo are not directly saved in db
         em.detach(updatedAppLessonVideo);
-        updatedAppLessonVideo.videoUrl(UPDATED_VIDEO_URL);
+        updatedAppLessonVideo.videoUrl(UPDATED_VIDEO_URL).description(UPDATED_DESCRIPTION);
         AppLessonVideoDTO appLessonVideoDTO = appLessonVideoMapper.toDto(updatedAppLessonVideo);
 
         restAppLessonVideoMockMvc
@@ -186,6 +192,7 @@ class AppLessonVideoResourceIT {
         assertThat(appLessonVideoList).hasSize(databaseSizeBeforeUpdate);
         AppLessonVideo testAppLessonVideo = appLessonVideoList.get(appLessonVideoList.size() - 1);
         assertThat(testAppLessonVideo.getVideoUrl()).isEqualTo(UPDATED_VIDEO_URL);
+        assertThat(testAppLessonVideo.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 
     @Test
@@ -282,6 +289,7 @@ class AppLessonVideoResourceIT {
         assertThat(appLessonVideoList).hasSize(databaseSizeBeforeUpdate);
         AppLessonVideo testAppLessonVideo = appLessonVideoList.get(appLessonVideoList.size() - 1);
         assertThat(testAppLessonVideo.getVideoUrl()).isEqualTo(UPDATED_VIDEO_URL);
+        assertThat(testAppLessonVideo.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
     @Test
@@ -296,7 +304,7 @@ class AppLessonVideoResourceIT {
         AppLessonVideo partialUpdatedAppLessonVideo = new AppLessonVideo();
         partialUpdatedAppLessonVideo.setId(appLessonVideo.getId());
 
-        partialUpdatedAppLessonVideo.videoUrl(UPDATED_VIDEO_URL);
+        partialUpdatedAppLessonVideo.videoUrl(UPDATED_VIDEO_URL).description(UPDATED_DESCRIPTION);
 
         restAppLessonVideoMockMvc
             .perform(
@@ -311,6 +319,7 @@ class AppLessonVideoResourceIT {
         assertThat(appLessonVideoList).hasSize(databaseSizeBeforeUpdate);
         AppLessonVideo testAppLessonVideo = appLessonVideoList.get(appLessonVideoList.size() - 1);
         assertThat(testAppLessonVideo.getVideoUrl()).isEqualTo(UPDATED_VIDEO_URL);
+        assertThat(testAppLessonVideo.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 
     @Test

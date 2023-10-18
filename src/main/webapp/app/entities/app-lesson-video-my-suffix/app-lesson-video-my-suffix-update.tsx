@@ -89,6 +89,13 @@ export const AppLessonVideoMySuffixUpdate = () => {
               ) : null}
               <ValidatedField label="Video Url" id="app-lesson-video-my-suffix-videoUrl" name="videoUrl" data-cy="videoUrl" type="text" />
               <ValidatedField
+                label="Description"
+                id="app-lesson-video-my-suffix-description"
+                name="description"
+                data-cy="description"
+                type="text"
+              />
+              <ValidatedField
                 id="app-lesson-video-my-suffix-lessonInfo"
                 name="lessonInfo"
                 data-cy="lessonInfo"

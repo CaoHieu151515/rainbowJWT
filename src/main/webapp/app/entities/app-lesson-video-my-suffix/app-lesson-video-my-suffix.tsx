@@ -53,6 +53,7 @@ export const AppLessonVideoMySuffix = () => {
               <tr>
                 <th>Id</th>
                 <th>Video Url</th>
+                <th>Description</th>
                 <th>Lesson Info</th>
                 <th />
               </tr>
@@ -66,6 +67,7 @@ export const AppLessonVideoMySuffix = () => {
                     </Button>
                   </td>
                   <td>{appLessonVideo.videoUrl}</td>
+                  <td>{appLessonVideo.description}</td>
                   <td>
                     {appLessonVideo.lessonInfo ? (
                       <Link to={`/app-lesson-info-my-suffix/${appLessonVideo.lessonInfo.id}`}>{appLessonVideo.lessonInfo.id}</Link>

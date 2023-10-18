@@ -32,6 +32,10 @@ export const AppLessonVideoMySuffixDetail = () => {
             <span id="videoUrl">Video Url</span>
           </dt>
           <dd>{appLessonVideoEntity.videoUrl}</dd>
+          <dt>
+            <span id="description">Description</span>
+          </dt>
+          <dd>{appLessonVideoEntity.description}</dd>
           <dt>Lesson Info</dt>
           <dd>{appLessonVideoEntity.lessonInfo ? appLessonVideoEntity.lessonInfo.id : ''}</dd>
         </dl>

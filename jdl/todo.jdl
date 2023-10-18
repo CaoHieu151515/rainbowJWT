@@ -56,7 +56,8 @@ entity AppLesson {
 
 entity AppLessonVideo {
     id Long,
-    videoUrl String
+    videoUrl String,
+    description String
 }
 
 entity AppAvailableCourse {

@@ -22,7 +22,10 @@ public class AppLessonVideo implements Serializable {
     @Column(name = "video_url")
     private String videoUrl;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Column(name = "description")
+    private String description;
+
+    @ManyToOne
     @JsonIgnoreProperties(value = { "videos", "lesson" }, allowSetters = true)
     private AppLessonInfo lessonInfo;
 
@@ -52,6 +55,19 @@ public class AppLessonVideo implements Serializable {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public AppLessonVideo description(String description) {
+        this.setDescription(description);
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public AppLessonInfo getLessonInfo() {
@@ -92,6 +108,7 @@ public class AppLessonVideo implements Serializable {
         return "AppLessonVideo{" +
             "id=" + getId() +
             ", videoUrl='" + getVideoUrl() + "'" +
+            ", description='" + getDescription() + "'" +
             "}";
     }
 }
