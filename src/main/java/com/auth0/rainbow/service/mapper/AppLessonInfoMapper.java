@@ -1,8 +1,11 @@
 package com.auth0.rainbow.service.mapper;
 
+import com.auth0.rainbow.domain.AppLesson;
 import com.auth0.rainbow.domain.AppLessonInfo;
+import com.auth0.rainbow.domain.AppLessonPDF;
 import com.auth0.rainbow.domain.AppLessonVideo;
 import com.auth0.rainbow.service.dto.AppLessonInfoDTO;
+import com.auth0.rainbow.service.dto.AppLessonPDFDTO;
 import com.auth0.rainbow.service.dto.AppLessonVideoDTO;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,11 +19,16 @@ import org.mapstruct.factory.Mappers;
 public interface AppLessonInfoMapper extends EntityMapper<AppLessonInfoDTO, AppLessonInfo> {
     AppLessonInfoMapper INSTANCE = Mappers.getMapper(AppLessonInfoMapper.class);
     AppLessonVideoMapper othAppLessonVideoMapper = Mappers.getMapper(AppLessonVideoMapper.class);
-
+    AppLessonPDFMapper othAppLessonPDFMapper = Mappers.getMapper(AppLessonPDFMapper.class);
     AppLessonInfoDTO toDto(AppLessonInfo s);
 
     @Named("toVideoDTO")
-    @Mappings({ @Mapping(target = "lessonvideo", source = "videos", qualifiedByName = "mapToVideoSet") })
+    @Mappings(
+        {
+            @Mapping(target = "lessonvideo", source = "videos", qualifiedByName = "mapToVideoSet"),
+            @Mapping(target = "pdfss", source = "pdfs", qualifiedByName = "mapTopdfSet"),
+        }
+    )
     AppLessonInfoDTO toVideoDTO(AppLessonInfo appLessonInfo);
 
     @Named("mapToVideoSet")
@@ -33,6 +41,20 @@ public interface AppLessonInfoMapper extends EntityMapper<AppLessonInfoDTO, AppL
                 }
                 lessonvideo.setLessonInfo(null);
                 return AppLessonVideoMapper.INSTANCE.toDto(lessonvideo);
+            })
+            .collect(Collectors.toSet());
+    }
+
+    @Named("mapTopdfSet")
+    static Set<AppLessonPDFDTO> mapTopdfSet(Set<AppLessonPDF> appLessonPDF) {
+        return appLessonPDF
+            .stream()
+            .map(pdfs -> {
+                if (pdfs == null) {
+                    return null;
+                }
+                pdfs.setLesson(null);
+                return AppLessonPDFMapper.INSTANCE.toDto(pdfs);
             })
             .collect(Collectors.toSet());
     }

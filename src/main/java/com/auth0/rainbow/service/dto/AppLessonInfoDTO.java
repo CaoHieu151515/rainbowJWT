@@ -18,7 +18,7 @@ public class AppLessonInfoDTO implements Serializable {
 
     private String description;
 
-    private Set<AppLessonPDFDTO> pdfs;
+    private Set<AppLessonPDFDTO> pdfss;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private AppLessonDTO lessonDTO;
@@ -26,11 +26,11 @@ public class AppLessonInfoDTO implements Serializable {
     private Set<AppLessonVideoDTO> lessonvideo;
 
     public Set<AppLessonPDFDTO> getpdfs() {
-        return pdfs;
+        return pdfss;
     }
 
-    public void setpdfs(Set<AppLessonPDFDTO> pdfs) {
-        this.pdfs = pdfs;
+    public void setpdfss(Set<AppLessonPDFDTO> pdfss) {
+        this.pdfss = pdfss;
     }
 
     public Set<AppLessonVideoDTO> getlessonvideo() {
