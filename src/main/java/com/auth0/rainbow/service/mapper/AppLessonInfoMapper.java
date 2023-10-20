@@ -49,12 +49,12 @@ public interface AppLessonInfoMapper extends EntityMapper<AppLessonInfoDTO, AppL
     static Set<AppLessonPDFDTO> mapTopdfSet(Set<AppLessonPDF> appLessonPDF) {
         return appLessonPDF
             .stream()
-            .map(pdfs -> {
-                if (pdfs == null) {
+            .map(pdfss -> {
+                if (pdfss == null) {
                     return null;
                 }
-                pdfs.setLesson(null);
-                return AppLessonPDFMapper.INSTANCE.toDto(pdfs);
+                pdfss.setLesson(null);
+                return AppLessonPDFMapper.INSTANCE.toDto(pdfss);
             })
             .collect(Collectors.toSet());
     }

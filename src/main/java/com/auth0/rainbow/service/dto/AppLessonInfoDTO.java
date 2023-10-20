@@ -8,6 +8,7 @@ import java.util.Set;
 /**
  * A DTO for the {@link com.auth0.rainbow.domain.AppLessonInfo} entity.
  */
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class AppLessonInfoDTO implements Serializable {
@@ -18,6 +19,7 @@ public class AppLessonInfoDTO implements Serializable {
 
     private String description;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<AppLessonPDFDTO> pdfss;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -25,7 +27,7 @@ public class AppLessonInfoDTO implements Serializable {
 
     private Set<AppLessonVideoDTO> lessonvideo;
 
-    public Set<AppLessonPDFDTO> getpdfs() {
+    public Set<AppLessonPDFDTO> getpdfss() {
         return pdfss;
     }
 

@@ -46,6 +46,9 @@ public interface AppQuestionMapper extends EntityMapper<AppQuestionDTO, AppQuest
 
     @Named("mapToVideoSet")
     static AppQuestionVideoInfoDTO mapToVideoSet(AppQuestionVideoInfo appQuestionVideoInfo) {
+        if (appQuestionVideoInfo == null) {
+            return null;
+        }
         appQuestionVideoInfo.setAppQuestion(null);
         return AppQuestionVideoInfoMapper.INSTANCE.toDto(appQuestionVideoInfo);
     }

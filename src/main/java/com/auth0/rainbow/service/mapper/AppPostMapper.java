@@ -31,6 +31,40 @@ public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
     @Mapping(target = "id", source = "id")
     AppUserDTO toDtoAppUserId(AppUser appUser);
 
+    @Named("toPOSTUpdateDTO")
+    @Mappings(
+        {
+            @Mapping(target = "user", source = "user", qualifiedByName = "mapToUserUpdate"),
+            @Mapping(target = "images", source = "images", qualifiedByName = "mapToimagesUpdate"),
+        }
+    )
+    AppPostDTO toPOSTUpdateDTO(AppPost AppPost);
+
+    @Named("mapToUserUpdate")
+    static AppUserDTO mapToUserUpdate(AppUser appUser) {
+        if (appUser == null) {
+            return null;
+        }
+        AppUserDTO appUserDTO = new AppUserDTO();
+        appUserDTO.setId(appUser.getId());
+
+        return appUserDTO;
+    }
+
+    @Named("mapToimagesUpdate")
+    static Set<AppPostImageDTO> mapToUserUpdate(Set<AppPostImage> appPostImages) {
+        return appPostImages
+            .stream()
+            .map(appPostImage -> {
+                if (appPostImage == null) {
+                    return null;
+                }
+
+                return AppPostImageMapper.INSTANCE.toDto(appPostImage);
+            })
+            .collect(Collectors.toSet());
+    }
+
     @Named("toPOSTDTO")
     @Mappings(
         {

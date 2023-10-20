@@ -29,10 +29,10 @@ public class AppPostDTO implements Serializable {
 
     private Boolean confirm;
 
+    private Set<AppPostImageDTO> images;
+
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private AppUserDTO user;
-
-    private Set<AppPostImageDTO> images;
 
     public Long getId() {
         return id;
