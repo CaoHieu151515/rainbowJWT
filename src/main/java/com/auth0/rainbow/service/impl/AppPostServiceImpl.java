@@ -2,7 +2,9 @@ package com.auth0.rainbow.service.impl;
 
 import com.auth0.rainbow.domain.AppPost;
 import com.auth0.rainbow.domain.AppPostImage;
+import com.auth0.rainbow.domain.AppUser;
 import com.auth0.rainbow.repository.AppPostRepository;
+import com.auth0.rainbow.repository.AppUserRepository;
 import com.auth0.rainbow.service.AppPostService;
 import com.auth0.rainbow.service.dto.AppPostDTO;
 import com.auth0.rainbow.service.dto.AppPostImageDTO;
@@ -34,10 +36,18 @@ public class AppPostServiceImpl implements AppPostService {
 
     private final AppPostMapper appPostMapper;
 
-    public AppPostServiceImpl(AppPostRepository appPostRepository, AppPostMapper appPostMapper, AppPostImageMapper appPostImageMapper) {
+    private final AppUserRepository appUserRepository;
+
+    public AppPostServiceImpl(
+        AppPostRepository appPostRepository,
+        AppPostMapper appPostMapper,
+        AppPostImageMapper appPostImageMapper,
+        AppUserRepository appUserRepository
+    ) {
         this.appPostRepository = appPostRepository;
         this.appPostImageMapper = appPostImageMapper;
         this.appPostMapper = appPostMapper;
+        this.appUserRepository = appUserRepository;
     }
 
     @Override
@@ -52,6 +62,14 @@ public class AppPostServiceImpl implements AppPostService {
     public AppPostDTO update(AppPostDTO appPostDTO) {
         log.debug("Request to update AppPost : {}", appPostDTO);
         AppPost appPost = appPostMapper.toEntity(appPostDTO);
+
+        Optional<AppUser> optionalEntity = appUserRepository.findOneWithEagerRelationships(appPostDTO.getUser().getId());
+        if (optionalEntity.isPresent()) {
+            log.debug("Request to update AppPost : {}", optionalEntity);
+            AppUser apuser = optionalEntity.get();
+            appPost.setUser(apuser);
+        }
+
         appPost = appPostRepository.save(appPost);
         return appPostMapper.toPOSTDTO(appPost);
     }

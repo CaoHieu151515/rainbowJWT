@@ -25,6 +25,7 @@ public class AppLessonInfoDTO implements Serializable {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private AppLessonDTO lessonDTO;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<AppLessonVideoDTO> lessonvideo;
 
     public Set<AppLessonPDFDTO> getpdfss() {

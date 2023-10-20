@@ -1,5 +1,6 @@
 package com.auth0.rainbow.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -11,6 +12,7 @@ public class AppAvailableCourseDTO implements Serializable {
 
     private Long id;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private AppCourseDTO courses;
 
     public Long getId() {

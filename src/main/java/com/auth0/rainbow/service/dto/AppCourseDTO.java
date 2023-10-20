@@ -1,5 +1,6 @@
 package com.auth0.rainbow.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
@@ -12,12 +13,16 @@ public class AppCourseDTO implements Serializable {
 
     private Long id;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String name;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String level;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String image;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<AppLessonDTO> appLesson;
 
     public Long getId() {
