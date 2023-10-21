@@ -159,6 +159,8 @@ public class UserService {
         if (existingUser.isActivated()) {
             return false;
         }
+        appUserRepository.delete(linkAccountUserRepository.findByUserId(existingUser.getId()).getAppUser());
+        linkAccountUserRepository.delete(linkAccountUserRepository.findByUserId(existingUser.getId()));
         userRepository.delete(existingUser);
         userRepository.flush();
         return true;

@@ -1,8 +1,10 @@
 package com.auth0.rainbow.service;
 
 import com.auth0.rainbow.service.dto.AppPostDTO;
+import com.auth0.rainbow.service.dto.AppPostImageDTO;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service Interface for managing {@link com.auth0.rainbow.domain.AppPost}.
@@ -55,4 +57,6 @@ public interface AppPostService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    AppPostImageDTO saveimage(Set<AppPostImageDTO> images);
 }

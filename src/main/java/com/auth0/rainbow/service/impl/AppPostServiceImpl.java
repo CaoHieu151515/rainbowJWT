@@ -3,6 +3,7 @@ package com.auth0.rainbow.service.impl;
 import com.auth0.rainbow.domain.AppPost;
 import com.auth0.rainbow.domain.AppPostImage;
 import com.auth0.rainbow.domain.AppUser;
+import com.auth0.rainbow.repository.AppPostImageRepository;
 import com.auth0.rainbow.repository.AppPostRepository;
 import com.auth0.rainbow.repository.AppUserRepository;
 import com.auth0.rainbow.service.AppPostService;
@@ -38,25 +39,42 @@ public class AppPostServiceImpl implements AppPostService {
 
     private final AppUserRepository appUserRepository;
 
+    private final AppPostImageRepository appPostImageRepository;
+
     public AppPostServiceImpl(
         AppPostRepository appPostRepository,
         AppPostMapper appPostMapper,
         AppPostImageMapper appPostImageMapper,
-        AppUserRepository appUserRepository
+        AppUserRepository appUserRepository,
+        AppPostImageRepository appPostImageRepository
     ) {
         this.appPostRepository = appPostRepository;
         this.appPostImageMapper = appPostImageMapper;
         this.appPostMapper = appPostMapper;
         this.appUserRepository = appUserRepository;
+        this.appPostImageRepository = appPostImageRepository;
     }
 
     @Override
     public AppPostDTO save(AppPostDTO appPostDTO) {
         log.debug("Request to save AppPost : {}", appPostDTO);
         AppPost appPost = appPostMapper.toEntity(appPostDTO);
+        Optional<AppUser> optionalEntity = appUserRepository.findOneWithEagerRelationships(appPostDTO.getUser().getId());
+        if (optionalEntity.isPresent()) {
+            log.debug("Request to update AppPost : {}", optionalEntity);
+            AppUser apuser = optionalEntity.get();
+            appPost.setUser(apuser);
+        }
         appPost = appPostRepository.save(appPost);
         return appPostMapper.toDto(appPost);
     }
+
+    // @Override
+    // public AppPostImageDTO saveimage(Set<AppPostImageDTO> images);{
+    //     log.debug("Request to save images : {}", images);
+
+    //     return AppPostImageMapper.toDto(images);
+    // }
 
     @Override
     public AppPostDTO update(AppPostDTO appPostDTO) {
@@ -132,5 +150,11 @@ public class AppPostServiceImpl implements AppPostService {
     public void delete(Long id) {
         log.debug("Request to delete AppPost : {}", id);
         appPostRepository.deleteById(id);
+    }
+
+    @Override
+    public AppPostImageDTO saveimage(Set<AppPostImageDTO> images) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'saveimage'");
     }
 }
