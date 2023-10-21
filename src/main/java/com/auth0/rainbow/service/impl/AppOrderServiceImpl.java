@@ -70,10 +70,10 @@ public class AppOrderServiceImpl implements AppOrderService {
         appOrder.setUser(GetCurrentAppUser());
         appOrder.setOrderItems(createOrderItem(appOrderDTO.getorderItemss()));
 
-        List<AppOrder> appOrders = appOrderRepository.findAll();
-        Long randomNumber = RandomNumberGenerator.generateUniqueRandomNumber(appOrders);
+        // List<AppOrder> appOrders = appOrderRepository.findAll();
+        // Long randomNumber = RandomNumberGenerator.generateUniqueRandomNumber(appOrders);
 
-        appOrder.setPaymentID(randomNumber);
+        // appOrder.setPaymentID(randomNumber);
         appOrder = appOrderRepository.save(appOrder);
         return appOrderMapper.toDto(appOrder);
     }
