@@ -7,18 +7,21 @@ import com.auth0.rainbow.service.dto.AppOrderDTO;
 import com.auth0.rainbow.service.dto.AppOrderItemDTO;
 import com.auth0.rainbow.service.dto.AppProductDTO;
 import org.mapstruct.*;
+import org.mapstruct.factory.Mappers;
 
 /**
  * Mapper for the entity {@link AppOrderItem} and its DTO {@link AppOrderItemDTO}.
  */
 @Mapper(componentModel = "spring")
 public interface AppOrderItemMapper extends EntityMapper<AppOrderItemDTO, AppOrderItem> {
+    AppOrderItemMapper INSTANCE = Mappers.getMapper(AppOrderItemMapper.class);
+
     @Mapping(target = "product", source = "product", qualifiedByName = "appProductId")
     @Mapping(target = "order", source = "order", qualifiedByName = "appOrderId")
     AppOrderItemDTO toDto(AppOrderItem s);
 
     @Named("appProductId")
-    @BeanMapping(ignoreByDefault = true)
+    @BeanMapping(ignoreByDefault = false)
     @Mapping(target = "id", source = "id")
     AppProductDTO toDtoAppProductId(AppProduct appProduct);
 

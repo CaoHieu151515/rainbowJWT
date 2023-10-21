@@ -8,10 +8,10 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IAppProductMySuffix } from 'app/shared/model/app-product-my-suffix.model';
-import { getEntities as getAppProducts } from 'app/entities/app-product-my-suffix/app-product-my-suffix.reducer';
 import { IAppOrderMySuffix } from 'app/shared/model/app-order-my-suffix.model';
 import { getEntities as getAppOrders } from 'app/entities/app-order-my-suffix/app-order-my-suffix.reducer';
+import { IAppProductMySuffix } from 'app/shared/model/app-product-my-suffix.model';
+import { getEntities as getAppProducts } from 'app/entities/app-product-my-suffix/app-product-my-suffix.reducer';
 import { IAppOrderItemMySuffix } from 'app/shared/model/app-order-item-my-suffix.model';
 import { getEntity, updateEntity, createEntity, reset } from './app-order-item-my-suffix.reducer';
 
@@ -23,8 +23,8 @@ export const AppOrderItemMySuffixUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const appProducts = useAppSelector(state => state.appProduct.entities);
   const appOrders = useAppSelector(state => state.appOrder.entities);
+  const appProducts = useAppSelector(state => state.appProduct.entities);
   const appOrderItemEntity = useAppSelector(state => state.appOrderItem.entity);
   const loading = useAppSelector(state => state.appOrderItem.loading);
   const updating = useAppSelector(state => state.appOrderItem.updating);
@@ -41,8 +41,8 @@ export const AppOrderItemMySuffixUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getAppProducts({}));
     dispatch(getAppOrders({}));
+    dispatch(getAppProducts({}));
   }, []);
 
   useEffect(() => {
@@ -55,8 +55,8 @@ export const AppOrderItemMySuffixUpdate = () => {
     const entity = {
       ...appOrderItemEntity,
       ...values,
-      product: appProducts.find(it => it.id.toString() === values.product.toString()),
       order: appOrders.find(it => it.id.toString() === values.order.toString()),
+      product: appProducts.find(it => it.id.toString() === values.product.toString()),
     };
 
     if (isNew) {
@@ -71,8 +71,8 @@ export const AppOrderItemMySuffixUpdate = () => {
       ? {}
       : {
           ...appOrderItemEntity,
-          product: appOrderItemEntity?.product?.id,
           order: appOrderItemEntity?.order?.id,
+          product: appOrderItemEntity?.product?.id,
         };
 
   return (
@@ -97,20 +97,20 @@ export const AppOrderItemMySuffixUpdate = () => {
               <ValidatedField label="Price" id="app-order-item-my-suffix-price" name="price" data-cy="price" type="text" />
               <ValidatedField label="Unit" id="app-order-item-my-suffix-unit" name="unit" data-cy="unit" type="text" />
               <ValidatedField label="Note" id="app-order-item-my-suffix-note" name="note" data-cy="note" type="text" />
-              <ValidatedField id="app-order-item-my-suffix-product" name="product" data-cy="product" label="Product" type="select">
+              <ValidatedField id="app-order-item-my-suffix-order" name="order" data-cy="order" label="Order" type="select">
                 <option value="" key="0" />
-                {appProducts
-                  ? appProducts.map(otherEntity => (
+                {appOrders
+                  ? appOrders.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
                       </option>
                     ))
                   : null}
               </ValidatedField>
-              <ValidatedField id="app-order-item-my-suffix-order" name="order" data-cy="order" label="Order" type="select">
+              <ValidatedField id="app-order-item-my-suffix-product" name="product" data-cy="product" label="Product" type="select">
                 <option value="" key="0" />
-                {appOrders
-                  ? appOrders.map(otherEntity => (
+                {appProducts
+                  ? appProducts.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
                       </option>

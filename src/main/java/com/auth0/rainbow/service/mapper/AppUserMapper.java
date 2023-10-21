@@ -2,14 +2,20 @@ package com.auth0.rainbow.service.mapper;
 
 import com.auth0.rainbow.domain.AppAvailableCourse;
 import com.auth0.rainbow.domain.AppCourse;
+import com.auth0.rainbow.domain.AppOrder;
+import com.auth0.rainbow.domain.AppOrderItem;
 import com.auth0.rainbow.domain.AppPost;
 import com.auth0.rainbow.domain.AppUser;
 import com.auth0.rainbow.service.dto.AppAvailableCourseDTO;
 import com.auth0.rainbow.service.dto.AppCourseDTO;
+import com.auth0.rainbow.service.dto.AppOrderDTO;
+import com.auth0.rainbow.service.dto.AppOrderItemDTO;
 import com.auth0.rainbow.service.dto.AppPostDTO;
 import com.auth0.rainbow.service.dto.AppUserDTO;
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.checkerframework.checker.units.qual.A;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
@@ -26,9 +32,46 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
 
     AppPostMapper othMapper = Mappers.getMapper(AppPostMapper.class);
 
+    AppOrderMapper otheOrderMapper = Mappers.getMapper(AppOrderMapper.class);
+
     @Mapping(target = "courses", source = "courses", qualifiedByName = "appCourseIdSet")
     @Mapping(target = "availableCourses", source = "availableCourses", qualifiedByName = "appAvailableCourseIdSet")
+    @Mapping(target = "orders", ignore = true)
     AppUserDTO toDto(AppUser s);
+
+    @Named("toOrderDto")
+    @Mappings(
+        {
+            @Mapping(target = "orders", source = "orders", qualifiedByName = "mapToUserOrderSet"),
+            @Mapping(target = "courses", ignore = true),
+            @Mapping(target = "availableCourses", ignore = true),
+        }
+    )
+    AppUserDTO toOrderDto(AppUser s);
+
+    @Named("mapToUserOrderSet")
+    @BeanMapping(ignoreByDefault = true)
+    Set<AppOrderDTO> mapToUserOrderSet(Set<AppOrder> appOrderItem);
+
+    // @Named("toOrderDto")
+    // @Mappings({
+    //     @Mapping(target = "orders", source = "orders", qualifiedByName = "mapToUserOrderSet"),
+    // })
+    // AppUserDTO toOrderDto(AppUser s);
+
+    // @Named("mapToUserOrderSet")
+    // default Set<AppOrderDTO> mapToUserOrderSet(Set<AppOrder> appOrders) {
+    //     if (appOrders == null) {
+    //         return Collections.emptySet();
+    //     }
+    //     return appOrders.stream()
+    //             .map(order -> {
+    //                 AppOrderDTO orderDTO = AppOrderMapper.INSTANCE.toUserDto(order);
+    //                 orderDTO.setUser(null); // Ngăn chặn ánh xạ đệ quy vô hạn
+    //                 return orderDTO;
+    //             })
+    //             .collect(Collectors.toSet());
+    // }
 
     @Mapping(target = "removeCourses", ignore = true)
     @Mapping(target = "removeAvailableCourses", ignore = true)
@@ -110,39 +153,4 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
             })
             .collect(Collectors.toSet());
     }
-    // @Named("toAppUserPostDTO")
-    // @Mappings(
-    //     {
-    //         // Map các trường khác ở đây
-    //         @Mapping(target = "courses", source = "courses", qualifiedByName = "mapToAppCoursePostSet"),
-    //         @Mapping(target = "availableCourses", source = "availableCourses", qualifiedByName = "mapToAppAvailableCoursePostSet"),
-    //     }
-    // )
-    // AppUserDTO toAppUserPostDTO(AppUser appUser);
-
-    // @Named("mapToAppCoursePostSet")
-    // static Set<AppCourseDTO> mapToAppCourseSet(Set<AppCourse> appCourses) {
-    //     return appCourses
-    //         .stream()
-    //         .map(appCourse -> {
-    //             if (appCourse == null) {
-    //                 return null;
-    //             }
-    //             return null;
-    //         })
-    //         .collect(Collectors.toSet());
-    // }
-
-    // @Named("mapToAppAvailableCoursePostSet")
-    // static Set<AppAvailableCourseDTO> mapToAppAvailableCourseSet(Set<AppAvailableCourse> appAvailableCourses) {
-    //     return appAvailableCourses
-    //         .stream()
-    //         .map(appAvailableCourse -> {
-    //             if (appAvailableCourse == null) {
-    //                 return null;
-    //             }
-    //             return AppAvailableCourseMapper.INSTANCE.toAvaiCourseDTO(appAvailableCourse);
-    //         })
-    //         .collect(Collectors.toSet());
-    // }
 }

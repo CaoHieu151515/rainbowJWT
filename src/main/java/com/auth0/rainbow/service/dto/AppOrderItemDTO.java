@@ -1,5 +1,6 @@
 package com.auth0.rainbow.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -22,6 +23,7 @@ public class AppOrderItemDTO implements Serializable {
 
     private AppProductDTO product;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private AppOrderDTO order;
 
     public Long getId() {

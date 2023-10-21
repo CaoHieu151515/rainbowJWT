@@ -1006,7 +1006,7 @@
                                 <changeLogFile>${project.basedir}/src/main/resources/config/liquibase/master.xml</changeLogFile>
                                 <diffChangeLogFile>${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                                 <driver>com.mysql.cj.jdbc.Driver</driver>
-                                <url>jdbc:mysql://root:123456@monorail.proxy.rlwy.net:44889/rainbow</url>
+                                <url>jdbc:mysql://root:123456@monorail.proxy.rlwy.net:10145/rainbow</url>
                                 <defaultSchemaName>rainbow</defaultSchemaName>
                                 <username>root</username>
                                 <password>123456</password>
@@ -1101,7 +1101,7 @@
                                 <changeLogFile>${project.basedir}/src/main/resources/config/liquibase/master.xml</changeLogFile>
                                 <diffChangeLogFile>${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                                 <driver>com.mysql.cj.jdbc.Driver</driver>
-                                <url>jdbc:mysql://root:123456@monorail.proxy.rlwy.net:44889/rainbow</url>
+                                <url>jdbc:mysql://root:123456@monorail.proxy.rlwy.net:10145/rainbow</url>
                                 <defaultSchemaName>rainbow</defaultSchemaName>
                                 <username>root</username>
                                 <password>123456</password>

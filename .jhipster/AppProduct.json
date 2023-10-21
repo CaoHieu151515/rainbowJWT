@@ -38,6 +38,12 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "appOrderItem",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "appOrderItem",
+      "relationshipType": "one-to-many"
+    },
+    {
       "otherEntityName": "appCategory",
       "relationshipName": "category",
       "relationshipType": "many-to-one"

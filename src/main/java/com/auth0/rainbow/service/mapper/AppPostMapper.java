@@ -81,14 +81,6 @@ public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
         if (appUser == null) {
             return null;
         }
-        // AppUserDTO appUserDTO = new AppUserDTO();
-        // appUserDTO.setId(appUser.getId());
-        // appUserDTO.setName(appUser.getName());
-        // appUserDTO.setGender(appUser.getGender());
-        // appUserDTO.setDob(appUser.getDob());
-        // appUserDTO.setStatus(appUser.getStatus());
-        // appUserDTO.setAvailableCourses(null);
-        // appUserDTO.setCourses(null);
 
         return AppUserMapper.INSTANCE.toDto(appUser);
     }

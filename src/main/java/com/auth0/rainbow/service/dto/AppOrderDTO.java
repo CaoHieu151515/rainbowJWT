@@ -1,13 +1,18 @@
 package com.auth0.rainbow.service.dto;
 
+import com.auth0.rainbow.domain.AppOrderItem;
+import com.auth0.rainbow.domain.AppPayment;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the {@link com.auth0.rainbow.domain.AppOrder} entity.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class AppOrderDTO implements Serializable {
 
@@ -21,7 +26,22 @@ public class AppOrderDTO implements Serializable {
 
     private Long paymentID;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private AppUserDTO user;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private Set<AppPayment> paymentss;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private Set<AppOrderItemDTO> orderItemss;
+
+    public Set<AppOrderItemDTO> getorderItemss() {
+        return orderItemss;
+    }
+
+    public void setorderItemss(Set<AppOrderItemDTO> orderItemss) {
+        this.orderItemss = orderItemss;
+    }
 
     public Long getId() {
         return id;

@@ -74,10 +74,6 @@ public class AppPostServiceImpl implements AppPostService {
         log.debug("Request to save AppPost : {}", appPostDTO);
         AppPost appPost = appPostMapper.toEntity(appPostDTO);
 
-        // if (appPostDTO.getImages()!=null){
-        //   appPost.setImages(createimage(appPostDTO.getImages()));
-        // }
-
         log.debug("Request to save AppPost : {}", GetCurrentAppUser());
         appPost.setUser(GetCurrentAppUser());
 
@@ -135,16 +131,6 @@ public class AppPostServiceImpl implements AppPostService {
     public Optional<AppPostDTO> findOne(Long id) {
         log.debug("Request to get AppPost : {}", id);
         return appPostRepository.findById(id).map(appPostMapper::toPOSTDTO);
-        // AppPost appPost = appPostRepository.findById(id).orElse(null);
-        // Set<AppPostImage> appPostImages = appPostRepository.findImagesByPostId(id);
-        // Set<AppPostImageDTO> appPostImageDTOs = appPostImages.stream()
-        //         .map(appPostImage -> AppPostMapper.INSTANCE.toDtoImage(appPostImage))
-        //         .collect(Collectors.toSet());
-
-        // AppPostDTO appPostDTO = AppPostMapper.INSTANCE.toDto(appPost);
-        // appPostDTO.setImages(appPostImageDTOs);
-        // return Optional.ofNullable(appPostDTO);
-
     }
 
     @Override

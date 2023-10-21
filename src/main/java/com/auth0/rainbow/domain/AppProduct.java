@@ -37,6 +37,10 @@ public class AppProduct implements Serializable {
     @Column(name = "status")
     private String status;
 
+    @OneToMany(mappedBy = "product")
+    @JsonIgnoreProperties(value = { "order", "product" }, allowSetters = true)
+    private Set<AppOrderItem> appOrderItems = new HashSet<>();
+
     @ManyToOne
     private AppCategory category;
 
@@ -125,6 +129,37 @@ public class AppProduct implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Set<AppOrderItem> getAppOrderItems() {
+        return this.appOrderItems;
+    }
+
+    public void setAppOrderItems(Set<AppOrderItem> appOrderItems) {
+        if (this.appOrderItems != null) {
+            this.appOrderItems.forEach(i -> i.setProduct(null));
+        }
+        if (appOrderItems != null) {
+            appOrderItems.forEach(i -> i.setProduct(this));
+        }
+        this.appOrderItems = appOrderItems;
+    }
+
+    public AppProduct appOrderItems(Set<AppOrderItem> appOrderItems) {
+        this.setAppOrderItems(appOrderItems);
+        return this;
+    }
+
+    public AppProduct addAppOrderItem(AppOrderItem appOrderItem) {
+        this.appOrderItems.add(appOrderItem);
+        appOrderItem.setProduct(this);
+        return this;
+    }
+
+    public AppProduct removeAppOrderItem(AppOrderItem appOrderItem) {
+        this.appOrderItems.remove(appOrderItem);
+        appOrderItem.setProduct(null);
+        return this;
     }
 
     public AppCategory getCategory() {

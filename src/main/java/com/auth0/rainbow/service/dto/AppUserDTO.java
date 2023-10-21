@@ -1,5 +1,6 @@
 package com.auth0.rainbow.service.dto;
 
+import com.auth0.rainbow.domain.AppOrder;
 import com.auth0.rainbow.domain.AppPost;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
@@ -32,6 +33,17 @@ public class AppUserDTO implements Serializable {
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<AppAvailableCourseDTO> availableCourses;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private Set<AppOrderDTO> orders;
+
+    public Set<AppOrderDTO> getorders() {
+        return orders;
+    }
+
+    public void setorders(Set<AppOrderDTO> orders) {
+        this.orders = orders;
+    }
 
     public Long getId() {
         return id;

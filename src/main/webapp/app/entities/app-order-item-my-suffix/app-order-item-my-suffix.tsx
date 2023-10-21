@@ -56,8 +56,8 @@ export const AppOrderItemMySuffix = () => {
                 <th>Price</th>
                 <th>Unit</th>
                 <th>Note</th>
-                <th>Product</th>
                 <th>Order</th>
+                <th>Product</th>
                 <th />
               </tr>
             </thead>
@@ -74,14 +74,14 @@ export const AppOrderItemMySuffix = () => {
                   <td>{appOrderItem.unit}</td>
                   <td>{appOrderItem.note}</td>
                   <td>
+                    {appOrderItem.order ? <Link to={`/app-order-my-suffix/${appOrderItem.order.id}`}>{appOrderItem.order.id}</Link> : ''}
+                  </td>
+                  <td>
                     {appOrderItem.product ? (
                       <Link to={`/app-product-my-suffix/${appOrderItem.product.id}`}>{appOrderItem.product.id}</Link>
                     ) : (
                       ''
                     )}
-                  </td>
-                  <td>
-                    {appOrderItem.order ? <Link to={`/app-order-my-suffix/${appOrderItem.order.id}`}>{appOrderItem.order.id}</Link> : ''}
                   </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

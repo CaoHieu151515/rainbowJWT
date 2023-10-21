@@ -44,10 +44,10 @@ export const AppOrderItemMySuffixDetail = () => {
             <span id="note">Note</span>
           </dt>
           <dd>{appOrderItemEntity.note}</dd>
-          <dt>Product</dt>
-          <dd>{appOrderItemEntity.product ? appOrderItemEntity.product.id : ''}</dd>
           <dt>Order</dt>
           <dd>{appOrderItemEntity.order ? appOrderItemEntity.order.id : ''}</dd>
+          <dt>Product</dt>
+          <dd>{appOrderItemEntity.product ? appOrderItemEntity.product.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/app-order-item-my-suffix" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

@@ -26,10 +26,10 @@
             <column name="note" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="product_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_app_order_item__product_id" />
-            </column>
             <column name="order_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="product_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->

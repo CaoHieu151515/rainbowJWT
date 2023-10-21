@@ -8,16 +8,16 @@
     -->
     <changeSet id="20231016022003-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="product_id"
-                                 baseTableName="app_order_item"
-                                 constraintName="fk_app_order_item__product_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="app_product"/>
-
         <addForeignKeyConstraint baseColumnNames="order_id"
                                  baseTableName="app_order_item"
                                  constraintName="fk_app_order_item__order_id"
                                  referencedColumnNames="id"
                                  referencedTableName="app_order"/>
+
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="app_order_item"
+                                 constraintName="fk_app_order_item__product_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="app_product"/>
     </changeSet>
 </databaseChangeLog>

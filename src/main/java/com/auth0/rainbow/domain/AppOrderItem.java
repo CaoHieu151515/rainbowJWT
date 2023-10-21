@@ -32,14 +32,13 @@ public class AppOrderItem implements Serializable {
     @Column(name = "note")
     private String note;
 
-    @JsonIgnoreProperties(value = { "category", "images", "carts" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private AppProduct product;
-
     @ManyToOne
     @JsonIgnoreProperties(value = { "orderItems", "payments", "user" }, allowSetters = true)
     private AppOrder order;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "appOrderItems", "category", "images", "carts" }, allowSetters = true)
+    private AppProduct product;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -108,19 +107,6 @@ public class AppOrderItem implements Serializable {
         this.note = note;
     }
 
-    public AppProduct getProduct() {
-        return this.product;
-    }
-
-    public void setProduct(AppProduct appProduct) {
-        this.product = appProduct;
-    }
-
-    public AppOrderItem product(AppProduct appProduct) {
-        this.setProduct(appProduct);
-        return this;
-    }
-
     public AppOrder getOrder() {
         return this.order;
     }
@@ -131,6 +117,19 @@ public class AppOrderItem implements Serializable {
 
     public AppOrderItem order(AppOrder appOrder) {
         this.setOrder(appOrder);
+        return this;
+    }
+
+    public AppProduct getProduct() {
+        return this.product;
+    }
+
+    public void setProduct(AppProduct appProduct) {
+        this.product = appProduct;
+    }
+
+    public AppOrderItem product(AppProduct appProduct) {
+        this.setProduct(appProduct);
         return this;
     }
 

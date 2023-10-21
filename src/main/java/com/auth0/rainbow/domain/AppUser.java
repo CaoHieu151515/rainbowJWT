@@ -34,7 +34,7 @@ public class AppUser implements Serializable {
     @Column(name = "status")
     private String status;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JsonIgnoreProperties(value = { "orderItems", "payments", "user" }, allowSetters = true)
     private Set<AppOrder> orders = new HashSet<>();
 

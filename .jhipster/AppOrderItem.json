@@ -34,15 +34,15 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "appProduct",
-      "ownerSide": true,
-      "relationshipName": "product",
-      "relationshipType": "one-to-one"
-    },
-    {
       "otherEntityName": "appOrder",
       "otherEntityRelationshipName": "orderItems",
       "relationshipName": "order",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "appProduct",
+      "otherEntityRelationshipName": "appOrderItem",
+      "relationshipName": "product",
       "relationshipType": "many-to-one"
     }
   ],
