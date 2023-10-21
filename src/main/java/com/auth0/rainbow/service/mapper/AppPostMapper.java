@@ -8,6 +8,8 @@ import com.auth0.rainbow.service.dto.AppPostDTO;
 import com.auth0.rainbow.service.dto.AppPostImageDTO;
 import com.auth0.rainbow.service.dto.AppQuestionDTO;
 import com.auth0.rainbow.service.dto.AppUserDTO;
+import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.mapstruct.*;
@@ -53,13 +55,13 @@ public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
 
     @Named("mapToimagesUpdate")
     static Set<AppPostImageDTO> mapToUserUpdate(Set<AppPostImage> appPostImages) {
+        if (appPostImages == null) {
+            return Collections.emptySet();
+        }
         return appPostImages
             .stream()
+            .filter(Objects::nonNull)
             .map(appPostImage -> {
-                if (appPostImage == null) {
-                    return null;
-                }
-
                 return AppPostImageMapper.INSTANCE.toDto(appPostImage);
             })
             .collect(Collectors.toSet());

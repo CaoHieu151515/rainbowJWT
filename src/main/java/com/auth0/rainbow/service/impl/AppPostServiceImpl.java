@@ -3,15 +3,21 @@ package com.auth0.rainbow.service.impl;
 import com.auth0.rainbow.domain.AppPost;
 import com.auth0.rainbow.domain.AppPostImage;
 import com.auth0.rainbow.domain.AppUser;
+import com.auth0.rainbow.domain.LinkAccountUser;
+import com.auth0.rainbow.domain.User;
 import com.auth0.rainbow.repository.AppPostImageRepository;
 import com.auth0.rainbow.repository.AppPostRepository;
 import com.auth0.rainbow.repository.AppUserRepository;
+import com.auth0.rainbow.repository.LinkAccountUserRepository;
 import com.auth0.rainbow.service.AppPostService;
+import com.auth0.rainbow.service.UserService;
 import com.auth0.rainbow.service.dto.AppPostDTO;
 import com.auth0.rainbow.service.dto.AppPostImageDTO;
+import com.auth0.rainbow.service.dto.AppUserDTO;
 import com.auth0.rainbow.service.mapper.AppPostImageMapper;
 import com.auth0.rainbow.service.mapper.AppPostMapper;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -41,46 +47,56 @@ public class AppPostServiceImpl implements AppPostService {
 
     private final AppPostImageRepository appPostImageRepository;
 
+    private final UserService userService;
+
+    private final LinkAccountUserRepository linkAccountUserRepository;
+
     public AppPostServiceImpl(
         AppPostRepository appPostRepository,
         AppPostMapper appPostMapper,
         AppPostImageMapper appPostImageMapper,
         AppUserRepository appUserRepository,
-        AppPostImageRepository appPostImageRepository
+        AppPostImageRepository appPostImageRepository,
+        UserService userService,
+        LinkAccountUserRepository linkAccountUserRepository
     ) {
         this.appPostRepository = appPostRepository;
         this.appPostImageMapper = appPostImageMapper;
         this.appPostMapper = appPostMapper;
         this.appUserRepository = appUserRepository;
         this.appPostImageRepository = appPostImageRepository;
+        this.userService = userService;
+        this.linkAccountUserRepository = linkAccountUserRepository;
     }
 
     @Override
     public AppPostDTO save(AppPostDTO appPostDTO) {
         log.debug("Request to save AppPost : {}", appPostDTO);
         AppPost appPost = appPostMapper.toEntity(appPostDTO);
-        Optional<AppUser> optionalEntity = appUserRepository.findOneWithEagerRelationships(appPostDTO.getUser().getId());
-        if (optionalEntity.isPresent()) {
-            log.debug("Request to update AppPost : {}", optionalEntity);
-            AppUser apuser = optionalEntity.get();
-            appPost.setUser(apuser);
-        }
+
+        // if (appPostDTO.getImages()!=null){
+        //   appPost.setImages(createimage(appPostDTO.getImages()));
+        // }
+
+        log.debug("Request to save AppPost : {}", GetCurrentAppUser());
+        appPost.setUser(GetCurrentAppUser());
+
         appPost = appPostRepository.save(appPost);
-        return appPostMapper.toDto(appPost);
+
+        return appPostMapper.toPOSTUpdateDTO(appPost);
     }
-
-    // @Override
-    // public AppPostImageDTO saveimage(Set<AppPostImageDTO> images);{
-    //     log.debug("Request to save images : {}", images);
-
-    //     return AppPostImageMapper.toDto(images);
-    // }
 
     @Override
     public AppPostDTO update(AppPostDTO appPostDTO) {
         log.debug("Request to update AppPost : {}", appPostDTO);
         AppPost appPost = appPostMapper.toEntity(appPostDTO);
 
+        //xóa hết ảnh hiện có
+        AppPost existingPost = appPostRepository.findById(appPostDTO.getId()).orElse(null);
+        deleteExistingImages(existingPost);
+        //Lưu ảnh mới
+        appPost.setImages(saveimage(appPostDTO.getImages(), appPost));
+        //gán lại AppUser
         Optional<AppUser> optionalEntity = appUserRepository.findOneWithEagerRelationships(appPostDTO.getUser().getId());
         if (optionalEntity.isPresent()) {
             log.debug("Request to update AppPost : {}", optionalEntity);
@@ -153,8 +169,56 @@ public class AppPostServiceImpl implements AppPostService {
     }
 
     @Override
-    public AppPostImageDTO saveimage(Set<AppPostImageDTO> images) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveimage'");
+    public Set<AppPostImage> saveimage(Set<AppPostImageDTO> images, AppPost appPost) {
+        Set<AppPostImage> imageEntities = new HashSet<>();
+        for (AppPostImageDTO imageDTO : images) {
+            AppPostImage imageEntity = new AppPostImage();
+            imageEntity.setImageUrl(imageDTO.getImageUrl());
+            imageEntity.setPost(appPost);
+            imageEntities.add(imageEntity);
+        }
+
+        // Save each image entity in the database
+        for (AppPostImage image : imageEntities) {
+            appPostImageRepository.save(image);
+        }
+
+        return imageEntities;
+    }
+
+    private Set<AppPostImage> createimage(Set<AppPostImageDTO> images) {
+        Set<AppPostImage> imageEntities = new HashSet<>();
+        for (AppPostImageDTO imageDTO : images) {
+            AppPostImage imageEntity = new AppPostImage();
+            imageEntity.setImageUrl(imageDTO.getImageUrl());
+            imageEntities.add(imageEntity);
+        }
+
+        // Save each image entity in the database
+        for (AppPostImage image : imageEntities) {
+            appPostImageRepository.save(image);
+        }
+
+        return imageEntities;
+    }
+
+    private void deleteExistingImages(AppPost existingPost) {
+        if (existingPost != null) {
+            Set<AppPostImage> existingImages = existingPost.getImages();
+            for (AppPostImage image : existingImages) {
+                appPostImageRepository.delete(image);
+            }
+        }
+    }
+
+    private AppUser GetCurrentAppUser() {
+        Optional<User> optionalUser = userService.getUserWithAuthorities();
+        User currentUser = optionalUser.orElseThrow(() -> new RuntimeException("User not found"));
+
+        LinkAccountUser LinkAc = linkAccountUserRepository.findByUserId(currentUser.getId());
+
+        AppUser appUser = LinkAc.getAppUser();
+        log.debug("Current AppUser", appUser);
+        return appUser;
     }
 }
