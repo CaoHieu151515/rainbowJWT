@@ -53,26 +53,6 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
     @BeanMapping(ignoreByDefault = true)
     Set<AppOrderDTO> mapToUserOrderSet(Set<AppOrder> appOrderItem);
 
-    // @Named("toOrderDto")
-    // @Mappings({
-    //     @Mapping(target = "orders", source = "orders", qualifiedByName = "mapToUserOrderSet"),
-    // })
-    // AppUserDTO toOrderDto(AppUser s);
-
-    // @Named("mapToUserOrderSet")
-    // default Set<AppOrderDTO> mapToUserOrderSet(Set<AppOrder> appOrders) {
-    //     if (appOrders == null) {
-    //         return Collections.emptySet();
-    //     }
-    //     return appOrders.stream()
-    //             .map(order -> {
-    //                 AppOrderDTO orderDTO = AppOrderMapper.INSTANCE.toUserDto(order);
-    //                 orderDTO.setUser(null); // Ngăn chặn ánh xạ đệ quy vô hạn
-    //                 return orderDTO;
-    //             })
-    //             .collect(Collectors.toSet());
-    // }
-
     @Mapping(target = "removeCourses", ignore = true)
     @Mapping(target = "removeAvailableCourses", ignore = true)
     AppUser toEntity(AppUserDTO appUserDTO);
@@ -115,13 +95,16 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
 
     @Named("appAvailableCourseIdSet")
     default Set<AppAvailableCourseDTO> toDtoAppAvailableCourseIdSet(Set<AppAvailableCourse> appAvailableCourse) {
+        if (appAvailableCourse == null) {
+            return null;
+        }
+
         return appAvailableCourse.stream().map(this::toDtoAppAvailableCourseId).collect(Collectors.toSet());
     }
 
     @Named("toAppUserDTO")
     @Mappings(
         {
-            // Map các trường khác ở đây
             @Mapping(target = "courses", source = "courses", qualifiedByName = "mapToAppCourseSet"),
             @Mapping(target = "availableCourses", source = "availableCourses", qualifiedByName = "mapToAppAvailableCourseSet"),
         }

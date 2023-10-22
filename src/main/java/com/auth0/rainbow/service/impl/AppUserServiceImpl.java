@@ -1,13 +1,21 @@
 package com.auth0.rainbow.service.impl;
 
+import com.auth0.rainbow.domain.AppAvailableCourse;
+import com.auth0.rainbow.domain.AppCourse;
 import com.auth0.rainbow.domain.AppUser;
+import com.auth0.rainbow.repository.AppAvailableCourseRepository;
+import com.auth0.rainbow.repository.AppCourseRepository;
 import com.auth0.rainbow.repository.AppUserRepository;
 import com.auth0.rainbow.service.AppUserService;
+import com.auth0.rainbow.service.dto.AppAvailableCourseDTO;
+import com.auth0.rainbow.service.dto.AppCourseDTO;
 import com.auth0.rainbow.service.dto.AppUserDTO;
 import com.auth0.rainbow.service.mapper.AppUserMapper;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
@@ -29,10 +37,19 @@ public class AppUserServiceImpl implements AppUserService {
     private final AppUserRepository appUserRepository;
 
     private final AppUserMapper appUserMapper;
+    private final AppCourseRepository appCourseRepository;
+    private final AppAvailableCourseRepository appAvailableCourseRepository;
 
-    public AppUserServiceImpl(AppUserRepository appUserRepository, AppUserMapper appUserMapper) {
+    public AppUserServiceImpl(
+        AppUserRepository appUserRepository,
+        AppUserMapper appUserMapper,
+        AppCourseRepository appCourseRepository,
+        AppAvailableCourseRepository appAvailableCourseRepository
+    ) {
         this.appUserRepository = appUserRepository;
         this.appUserMapper = appUserMapper;
+        this.appCourseRepository = appCourseRepository;
+        this.appAvailableCourseRepository = appAvailableCourseRepository;
     }
 
     @Override
@@ -47,8 +64,23 @@ public class AppUserServiceImpl implements AppUserService {
     public AppUserDTO update(AppUserDTO appUserDTO) {
         log.debug("Request to update AppUser : {}", appUserDTO);
         AppUser appUser = appUserMapper.toEntity(appUserDTO);
+
+        if (appUserDTO.getCourses() != null) {
+            Set<AppCourse> courses = new HashSet<>();
+            for (AppCourseDTO courseDTO : appUserDTO.getCourses()) {
+                courses.add(appCourseRepository.findById(courseDTO.getId()).orElse(null));
+            }
+            appUser.setCourses(courses);
+        }
+        if (appUserDTO.getAvailableCourses() != null) {
+            Set<AppAvailableCourse> availableCourses = new HashSet<>();
+            for (AppAvailableCourseDTO availableCourseDTO : appUserDTO.getAvailableCourses()) {
+                availableCourses.add(appAvailableCourseRepository.findById(availableCourseDTO.getId()).orElse(null));
+            }
+            appUser.setAvailableCourses(availableCourses);
+        }
         appUser = appUserRepository.save(appUser);
-        return appUserMapper.toAppUserDTO(appUser);
+        return appUserMapper.toDto(appUser);
     }
 
     @Override

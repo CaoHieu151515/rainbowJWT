@@ -1,6 +1,5 @@
 package com.auth0.rainbow.service.dto;
 
-import com.auth0.rainbow.domain.AppQuestionVideoInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.Objects;

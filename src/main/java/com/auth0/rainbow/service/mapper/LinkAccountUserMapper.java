@@ -24,12 +24,12 @@ public interface LinkAccountUserMapper extends EntityMapper<LinkAccountUserDTO, 
     LinkAccountUserDTO toDto(LinkAccountUser s);
 
     @Named("userId")
-    @BeanMapping(ignoreByDefault = false)
+    @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     UserDTO toDtoUserId(User user);
 
     @Named("appUserId")
-    @BeanMapping(ignoreByDefault = false)
+    @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     AppUserDTO toDtoAppUserId(AppUser appUser);
 

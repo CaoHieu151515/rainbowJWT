@@ -15,6 +15,8 @@ public interface LinkAccountUserRepository extends JpaRepository<LinkAccountUser
     @Query("select linkAccountUser from LinkAccountUser linkAccountUser where linkAccountUser.user.login = ?#{principal.username}")
     List<LinkAccountUser> findByUserIsCurrentUser();
 
+    Optional<LinkAccountUser> findOptionalByUserId(Long userId);
+
     LinkAccountUser findByUserId(Long userId);
 
     Optional<LinkAccountUser> findOneByUserId(Long userId);

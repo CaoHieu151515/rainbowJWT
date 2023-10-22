@@ -1,0 +1,379 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="Hi (generated)" id="1697990333999-1">
+        <createTable tableName="app_available_course">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_available_coursePK"/>
+            </column>
+            <column name="courses_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-2">
+        <createTable tableName="app_cart">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_cartPK"/>
+            </column>
+            <column name="quantity" type="INT"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-3">
+        <createTable tableName="app_category">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_categoryPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-4">
+        <createTable tableName="app_course">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_coursePK"/>
+            </column>
+            <column name="image" type="VARCHAR(255)"/>
+            <column name="level" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-5">
+        <createTable tableName="app_lesson">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_lessonPK"/>
+            </column>
+            <column name="course_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-6">
+        <createTable tableName="app_lesson_info">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_lesson_infoPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="lesson_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-7">
+        <createTable tableName="app_lesson_pdf">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_lesson_pdfPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="pdf_url" type="VARCHAR(255)"/>
+            <column name="lesson_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-8">
+        <createTable tableName="app_lesson_video">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_lesson_videoPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="video_url" type="VARCHAR(255)"/>
+            <column name="lesson_info_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-9">
+        <createTable tableName="app_multiple_choice_answer">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_multiple_choice_answerPK"/>
+            </column>
+            <column name="answer_text" type="VARCHAR(255)"/>
+            <column name="is_correct" type="BIT"/>
+            <column name="question_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-10">
+        <createTable tableName="app_order">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_orderPK"/>
+            </column>
+            <column name="created_at" type="datetime(6)"/>
+            <column name="payment_id" type="BIGINT"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="total" type="DECIMAL(21, 2)"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-11">
+        <createTable tableName="app_order_item">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_order_itemPK"/>
+            </column>
+            <column name="note" type="VARCHAR(255)"/>
+            <column name="price" type="DECIMAL(21, 2)"/>
+            <column name="quantity" type="INT"/>
+            <column name="unit" type="VARCHAR(255)"/>
+            <column name="order_id" type="BIGINT"/>
+            <column name="product_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-12">
+        <createTable tableName="app_payment">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_paymentPK"/>
+            </column>
+            <column name="amount" type="DECIMAL(21, 2)"/>
+            <column name="method" type="VARCHAR(255)"/>
+            <column name="note" type="VARCHAR(255)"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="order_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-13">
+        <createTable tableName="app_post">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_postPK"/>
+            </column>
+            <column name="author" type="VARCHAR(255)"/>
+            <column name="confirm" type="BIT"/>
+            <column name="content" type="VARCHAR(255)"/>
+            <column name="date_written" type="datetime(6)"/>
+            <column name="is_featured" type="BIT"/>
+            <column name="published_date" type="datetime(6)"/>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-14">
+        <createTable tableName="app_post_image">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_post_imagePK"/>
+            </column>
+            <column name="image_url" type="VARCHAR(255)"/>
+            <column name="post_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-15">
+        <createTable tableName="app_product">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_productPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="price" type="DECIMAL(21, 2)"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="unit" type="INT"/>
+            <column name="category_id" type="BIGINT"/>
+            <column name="images_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-16">
+        <createTable tableName="app_product_image">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_product_imagePK"/>
+            </column>
+            <column name="image_url" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-17">
+        <createTable tableName="app_question">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_questionPK"/>
+            </column>
+            <column name="question_name" type="VARCHAR(255)"/>
+            <column name="question_text" type="VARCHAR(255)"/>
+            <column name="lesson_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-18">
+        <createTable tableName="app_question_video_info">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_question_video_infoPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="quenstion_video" type="VARCHAR(255)"/>
+            <column name="app_question_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-19">
+        <createTable tableName="app_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_userPK"/>
+            </column>
+            <column name="dob" type="datetime(6)"/>
+            <column name="gender" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="status" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-20">
+        <createTable tableName="jhi_authority">
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="jhi_authorityPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-21">
+        <createTable tableName="jhi_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="jhi_userPK"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="datetime(6)"/>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="datetime(6)"/>
+            <column name="activated" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="activation_key" type="VARCHAR(20)"/>
+            <column name="email" type="VARCHAR(254)"/>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="image_url" type="VARCHAR(256)"/>
+            <column name="lang_key" type="VARCHAR(10)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="login" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reset_date" type="datetime(6)"/>
+            <column name="reset_key" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-22">
+        <createTable tableName="jhi_user_authority">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="jhi_user_authorityPK"/>
+            </column>
+            <column name="authority_name" type="VARCHAR(50)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="jhi_user_authorityPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-23">
+        <createTable tableName="link_account_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="link_account_userPK"/>
+            </column>
+            <column name="app_user_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-24">
+        <createTable tableName="rel_app_cart__products">
+            <column name="app_cart_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="rel_app_cart__productsPK"/>
+            </column>
+            <column name="products_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="rel_app_cart__productsPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-25">
+        <createTable tableName="rel_app_user__available_courses">
+            <column name="app_user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="rel_app_user__available_coursesPK"/>
+            </column>
+            <column name="available_courses_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="rel_app_user__available_coursesPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-26">
+        <createTable tableName="rel_app_user__courses">
+            <column name="app_user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="rel_app_user__coursesPK"/>
+            </column>
+            <column name="courses_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="rel_app_user__coursesPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-27">
+        <addUniqueConstraint columnNames="user_id" constraintName="UC_APP_CARTUSER_ID_COL" tableName="app_cart"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-28">
+        <addUniqueConstraint columnNames="app_question_id" constraintName="UC_APP_QUESTION_VIDEO_INFOAPP_QUESTION_ID_COL" tableName="app_question_video_info"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-29">
+        <addUniqueConstraint columnNames="email" constraintName="UC_JHI_USEREMAIL_COL" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-30">
+        <addUniqueConstraint columnNames="login" constraintName="UC_JHI_USERLOGIN_COL" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-31">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="app_order_item" constraintName="FK22qsm7glcufrru5f94yrebofi" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_product" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-32">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="jhi_user_authority" constraintName="FK290okww5jujghp4el5i7mgwu0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-33">
+        <addForeignKeyConstraint baseColumnNames="lesson_id" baseTableName="app_question" constraintName="FK32bdfdvtlw8a8u2l6pjiy6r9t" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_lesson" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-34">
+        <addForeignKeyConstraint baseColumnNames="course_id" baseTableName="app_lesson" constraintName="FK42b7eajo8xevcq7n6ecu5byvs" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_course" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-35">
+        <addForeignKeyConstraint baseColumnNames="authority_name" baseTableName="jhi_user_authority" constraintName="FK4psxl0jtx6nr7rhqbynr6itoc" deferrable="false" initiallyDeferred="false" referencedColumnNames="name" referencedTableName="jhi_authority" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-36">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="link_account_user" constraintName="FK5ldc10r02t3edkadkc0sb06em" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-37">
+        <addForeignKeyConstraint baseColumnNames="question_id" baseTableName="app_multiple_choice_answer" constraintName="FK6mjthirjw4pusk06s2fvlp66q" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_question" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-38">
+        <addForeignKeyConstraint baseColumnNames="order_id" baseTableName="app_order_item" constraintName="FK7i6akh4pavus34ajv9natir4l" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_order" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-39">
+        <addForeignKeyConstraint baseColumnNames="available_courses_id" baseTableName="rel_app_user__available_courses" constraintName="FK8kncigj51pgwe2rp1gg4poe4n" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_available_course" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-40">
+        <addForeignKeyConstraint baseColumnNames="lesson_info_id" baseTableName="app_lesson_video" constraintName="FKdcyxlqqahev1b6n86s4ic9c9l" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_lesson_info" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-41">
+        <addForeignKeyConstraint baseColumnNames="app_user_id" baseTableName="rel_app_user__available_courses" constraintName="FKddnhb8r4udduw989hehttn4u8" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_user" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-42">
+        <addForeignKeyConstraint baseColumnNames="courses_id" baseTableName="app_available_course" constraintName="FKdw23cx6tj6fyw3ybyi64n5hh1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_course" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-43">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="app_cart" constraintName="FKdx8m08msd4qcq27m2vj5ik6ag" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_user" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-44">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="app_order" constraintName="FKesrwi8i75102xo4k9ykicpp7v" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_user" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-45">
+        <addForeignKeyConstraint baseColumnNames="lesson_id" baseTableName="app_lesson_info" constraintName="FKfdvb774m71s4o8f2awobprvgw" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_lesson" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-46">
+        <addForeignKeyConstraint baseColumnNames="app_user_id" baseTableName="link_account_user" constraintName="FKhy0grm3vu8mn4udlg0ctckq2x" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_user" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-47">
+        <addForeignKeyConstraint baseColumnNames="lesson_id" baseTableName="app_lesson_pdf" constraintName="FKibnn2l9ceqsrqsvar5r4hoqhr" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_lesson_info" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-48">
+        <addForeignKeyConstraint baseColumnNames="app_user_id" baseTableName="rel_app_user__courses" constraintName="FKjn10cv6dthildyoe9oyd004dc" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_user" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-49">
+        <addForeignKeyConstraint baseColumnNames="courses_id" baseTableName="rel_app_user__courses" constraintName="FKjtobm8ilxpru40o0o8lb5jum8" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_course" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-50">
+        <addForeignKeyConstraint baseColumnNames="order_id" baseTableName="app_payment" constraintName="FKk73wh526t2tonjyswvqihuswj" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_order" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-51">
+        <addForeignKeyConstraint baseColumnNames="products_id" baseTableName="rel_app_cart__products" constraintName="FKo1m7o8hmhvqw1wuwignv4vch4" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_product" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-52">
+        <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="app_product" constraintName="FKo2pkxloh8kvblon3twluh87t0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_category" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-53">
+        <addForeignKeyConstraint baseColumnNames="app_cart_id" baseTableName="rel_app_cart__products" constraintName="FKoo57yqfusy562y9tcodeaoi8p" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_cart" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-54">
+        <addForeignKeyConstraint baseColumnNames="app_question_id" baseTableName="app_question_video_info" constraintName="FKpb9xf75aibklhuhvc73u5awjb" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_question" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-55">
+        <addForeignKeyConstraint baseColumnNames="post_id" baseTableName="app_post_image" constraintName="FKqycl2x8bbj33acmn5h2f0nnyw" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_post" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-56">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="app_post" constraintName="FKs0u8hv4rnn4cgr8oh58fi3ecf" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_user" validate="true"/>
+    </changeSet>
+    <changeSet author="Hi (generated)" id="1697990333999-57">
+        <addForeignKeyConstraint baseColumnNames="images_id" baseTableName="app_product" constraintName="FKtq55r3addhr8oiiet74y9yhvs" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_product_image" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

@@ -13,8 +13,6 @@ import com.auth0.rainbow.service.AppPostService;
 import com.auth0.rainbow.service.UserService;
 import com.auth0.rainbow.service.dto.AppPostDTO;
 import com.auth0.rainbow.service.dto.AppPostImageDTO;
-import com.auth0.rainbow.service.dto.AppUserDTO;
-import com.auth0.rainbow.service.mapper.AppPostImageMapper;
 import com.auth0.rainbow.service.mapper.AppPostMapper;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,7 +35,7 @@ public class AppPostServiceImpl implements AppPostService {
 
     private final Logger log = LoggerFactory.getLogger(AppPostServiceImpl.class);
 
-    private final AppPostImageMapper appPostImageMapper;
+    // private final AppPostImageMapper appPostImageMapper;
 
     private final AppPostRepository appPostRepository;
 
@@ -54,14 +52,14 @@ public class AppPostServiceImpl implements AppPostService {
     public AppPostServiceImpl(
         AppPostRepository appPostRepository,
         AppPostMapper appPostMapper,
-        AppPostImageMapper appPostImageMapper,
+        // AppPostImageMapper appPostImageMapper,
         AppUserRepository appUserRepository,
         AppPostImageRepository appPostImageRepository,
         UserService userService,
         LinkAccountUserRepository linkAccountUserRepository
     ) {
         this.appPostRepository = appPostRepository;
-        this.appPostImageMapper = appPostImageMapper;
+        // this.appPostImageMapper = appPostImageMapper;
         this.appPostMapper = appPostMapper;
         this.appUserRepository = appUserRepository;
         this.appPostImageRepository = appPostImageRepository;
@@ -172,21 +170,21 @@ public class AppPostServiceImpl implements AppPostService {
         return imageEntities;
     }
 
-    private Set<AppPostImage> createimage(Set<AppPostImageDTO> images) {
-        Set<AppPostImage> imageEntities = new HashSet<>();
-        for (AppPostImageDTO imageDTO : images) {
-            AppPostImage imageEntity = new AppPostImage();
-            imageEntity.setImageUrl(imageDTO.getImageUrl());
-            imageEntities.add(imageEntity);
-        }
+    // private Set<AppPostImage> createimage(Set<AppPostImageDTO> images) {
+    //     Set<AppPostImage> imageEntities = new HashSet<>();
+    //     for (AppPostImageDTO imageDTO : images) {
+    //         AppPostImage imageEntity = new AppPostImage();
+    //         imageEntity.setImageUrl(imageDTO.getImageUrl());
+    //         imageEntities.add(imageEntity);
+    //     }
 
-        // Save each image entity in the database
-        for (AppPostImage image : imageEntities) {
-            appPostImageRepository.save(image);
-        }
+    //     // Save each image entity in the database
+    //     for (AppPostImage image : imageEntities) {
+    //         appPostImageRepository.save(image);
+    //     }
 
-        return imageEntities;
-    }
+    //     return imageEntities;
+    // }
 
     private void deleteExistingImages(AppPost existingPost) {
         if (existingPost != null) {

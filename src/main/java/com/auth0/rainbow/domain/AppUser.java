@@ -34,7 +34,7 @@ public class AppUser implements Serializable {
     @Column(name = "status")
     private String status;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = { "orderItems", "payments", "user" }, allowSetters = true)
     private Set<AppOrder> orders = new HashSet<>();
 
@@ -42,7 +42,7 @@ public class AppUser implements Serializable {
     @JsonIgnoreProperties(value = { "images", "user" }, allowSetters = true)
     private Set<AppPost> posts = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "rel_app_user__courses",
         joinColumns = @JoinColumn(name = "app_user_id"),
@@ -51,7 +51,7 @@ public class AppUser implements Serializable {
     @JsonIgnoreProperties(value = { "courses", "users" }, allowSetters = true)
     private Set<AppCourse> courses = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "rel_app_user__available_courses",
         joinColumns = @JoinColumn(name = "app_user_id"),
