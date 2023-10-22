@@ -6,7 +6,6 @@ import java.util.Random;
 
 public class RandomNumberGenerator {
 
-    private static final int RANDOM_NUMBER_LENGTH = 8;
     private static final Random random = new Random();
 
     public static Long generateUniqueRandomNumber(List<AppOrder> appOrders) {

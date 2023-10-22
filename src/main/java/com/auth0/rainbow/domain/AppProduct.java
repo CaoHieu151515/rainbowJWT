@@ -41,10 +41,10 @@ public class AppProduct implements Serializable {
     @JsonIgnoreProperties(value = { "order", "product" }, allowSetters = true)
     private Set<AppOrderItem> appOrderItems = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private AppCategory category;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private AppProductImage images;
 
     @ManyToMany(mappedBy = "products")

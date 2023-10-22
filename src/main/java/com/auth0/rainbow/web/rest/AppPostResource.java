@@ -3,7 +3,6 @@ package com.auth0.rainbow.web.rest;
 import com.auth0.rainbow.repository.AppPostRepository;
 import com.auth0.rainbow.service.AppPostService;
 import com.auth0.rainbow.service.dto.AppPostDTO;
-import com.auth0.rainbow.service.dto.AppPostImageDTO;
 import com.auth0.rainbow.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;

@@ -2,7 +2,6 @@ package com.auth0.rainbow.service;
 
 import com.auth0.rainbow.domain.AppPost;
 import com.auth0.rainbow.domain.AppPostImage;
-import com.auth0.rainbow.domain.AppUser;
 import com.auth0.rainbow.service.dto.AppPostDTO;
 import com.auth0.rainbow.service.dto.AppPostImageDTO;
 import java.util.List;

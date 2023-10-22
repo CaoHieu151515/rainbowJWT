@@ -1,6 +1,5 @@
 package com.auth0.rainbow.service.mapper;
 
-import com.auth0.rainbow.domain.AppLesson;
 import com.auth0.rainbow.domain.AppLessonInfo;
 import com.auth0.rainbow.domain.AppLessonPDF;
 import com.auth0.rainbow.domain.AppLessonVideo;

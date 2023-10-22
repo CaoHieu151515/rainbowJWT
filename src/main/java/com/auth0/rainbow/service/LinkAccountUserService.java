@@ -1,6 +1,5 @@
 package com.auth0.rainbow.service;
 
-import com.auth0.rainbow.service.dto.AppUserDTO;
 import com.auth0.rainbow.service.dto.LinkAccountUserDTO;
 import java.util.List;
 import java.util.Optional;

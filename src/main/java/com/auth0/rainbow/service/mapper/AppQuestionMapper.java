@@ -19,7 +19,6 @@ public interface AppQuestionMapper extends EntityMapper<AppQuestionDTO, AppQuest
     AppQuestionMapper INSTANCE = Mappers.getMapper(AppQuestionMapper.class);
     AppMultipleChoiceAnswerMapper oMultipleChoiceAnswerMapper = Mappers.getMapper(AppMultipleChoiceAnswerMapper.class);
     AppQuestionVideoInfoMapper othQuestionVideoInfoMapper = Mappers.getMapper(AppQuestionVideoInfoMapper.class);
-    AppQuestionDTO toDto(AppQuestion s);
 
     @Named("toChoiceDTO")
     @Mappings(
