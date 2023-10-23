@@ -37,6 +37,9 @@ public class AppProduct implements Serializable {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "course_id")
+    private Long courseId;
+
     @OneToMany(mappedBy = "product")
     @JsonIgnoreProperties(value = { "order", "product" }, allowSetters = true)
     private Set<AppOrderItem> appOrderItems = new HashSet<>();
@@ -129,6 +132,19 @@ public class AppProduct implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Long getCourseId() {
+        return this.courseId;
+    }
+
+    public AppProduct courseId(Long courseId) {
+        this.setCourseId(courseId);
+        return this;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
     }
 
     public Set<AppOrderItem> getAppOrderItems() {
@@ -248,6 +264,7 @@ public class AppProduct implements Serializable {
             ", unit=" + getUnit() +
             ", description='" + getDescription() + "'" +
             ", status='" + getStatus() + "'" +
+            ", courseId=" + getCourseId() +
             "}";
     }
 }

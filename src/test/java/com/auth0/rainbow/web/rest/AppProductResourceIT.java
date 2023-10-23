@@ -48,6 +48,9 @@ class AppProductResourceIT {
     private static final String DEFAULT_STATUS = "AAAAAAAAAA";
     private static final String UPDATED_STATUS = "BBBBBBBBBB";
 
+    private static final Long DEFAULT_COURSE_ID = 1L;
+    private static final Long UPDATED_COURSE_ID = 2L;
+
     private static final String ENTITY_API_URL = "/api/app-products";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -80,7 +83,8 @@ class AppProductResourceIT {
             .price(DEFAULT_PRICE)
             .unit(DEFAULT_UNIT)
             .description(DEFAULT_DESCRIPTION)
-            .status(DEFAULT_STATUS);
+            .status(DEFAULT_STATUS)
+            .courseId(DEFAULT_COURSE_ID);
         return appProduct;
     }
 
@@ -96,7 +100,8 @@ class AppProductResourceIT {
             .price(UPDATED_PRICE)
             .unit(UPDATED_UNIT)
             .description(UPDATED_DESCRIPTION)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .courseId(UPDATED_COURSE_ID);
         return appProduct;
     }
 
@@ -124,6 +129,7 @@ class AppProductResourceIT {
         assertThat(testAppProduct.getUnit()).isEqualTo(DEFAULT_UNIT);
         assertThat(testAppProduct.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testAppProduct.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testAppProduct.getCourseId()).isEqualTo(DEFAULT_COURSE_ID);
     }
 
     @Test
@@ -161,7 +167,8 @@ class AppProductResourceIT {
             .andExpect(jsonPath("$.[*].price").value(hasItem(sameNumber(DEFAULT_PRICE))))
             .andExpect(jsonPath("$.[*].unit").value(hasItem(DEFAULT_UNIT)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)))
+            .andExpect(jsonPath("$.[*].courseId").value(hasItem(DEFAULT_COURSE_ID.intValue())));
     }
 
     @Test
@@ -180,7 +187,8 @@ class AppProductResourceIT {
             .andExpect(jsonPath("$.price").value(sameNumber(DEFAULT_PRICE)))
             .andExpect(jsonPath("$.unit").value(DEFAULT_UNIT))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS))
+            .andExpect(jsonPath("$.courseId").value(DEFAULT_COURSE_ID.intValue()));
     }
 
     @Test
@@ -207,7 +215,8 @@ class AppProductResourceIT {
             .price(UPDATED_PRICE)
             .unit(UPDATED_UNIT)
             .description(UPDATED_DESCRIPTION)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .courseId(UPDATED_COURSE_ID);
         AppProductDTO appProductDTO = appProductMapper.toDto(updatedAppProduct);
 
         restAppProductMockMvc
@@ -227,6 +236,7 @@ class AppProductResourceIT {
         assertThat(testAppProduct.getUnit()).isEqualTo(UPDATED_UNIT);
         assertThat(testAppProduct.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testAppProduct.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testAppProduct.getCourseId()).isEqualTo(UPDATED_COURSE_ID);
     }
 
     @Test
@@ -325,6 +335,7 @@ class AppProductResourceIT {
         assertThat(testAppProduct.getUnit()).isEqualTo(UPDATED_UNIT);
         assertThat(testAppProduct.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testAppProduct.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testAppProduct.getCourseId()).isEqualTo(DEFAULT_COURSE_ID);
     }
 
     @Test
@@ -344,7 +355,8 @@ class AppProductResourceIT {
             .price(UPDATED_PRICE)
             .unit(UPDATED_UNIT)
             .description(UPDATED_DESCRIPTION)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .courseId(UPDATED_COURSE_ID);
 
         restAppProductMockMvc
             .perform(
@@ -363,6 +375,7 @@ class AppProductResourceIT {
         assertThat(testAppProduct.getUnit()).isEqualTo(UPDATED_UNIT);
         assertThat(testAppProduct.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testAppProduct.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testAppProduct.getCourseId()).isEqualTo(UPDATED_COURSE_ID);
     }
 
     @Test

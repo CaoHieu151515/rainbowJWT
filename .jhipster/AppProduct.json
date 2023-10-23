@@ -29,6 +29,10 @@
     {
       "fieldName": "status",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "courseId",
+      "fieldType": "Long"
     }
   ],
   "fluentMethods": true,

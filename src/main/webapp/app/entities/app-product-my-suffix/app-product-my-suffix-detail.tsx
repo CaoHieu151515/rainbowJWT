@@ -48,6 +48,10 @@ export const AppProductMySuffixDetail = () => {
             <span id="status">Status</span>
           </dt>
           <dd>{appProductEntity.status}</dd>
+          <dt>
+            <span id="courseId">Course Id</span>
+          </dt>
+          <dd>{appProductEntity.courseId}</dd>
           <dt>Category</dt>
           <dd>{appProductEntity.category ? appProductEntity.category.id : ''}</dd>
           <dt>Images</dt>

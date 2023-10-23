@@ -35,7 +35,7 @@ public class AppCart implements Serializable {
         joinColumns = @JoinColumn(name = "app_cart_id"),
         inverseJoinColumns = @JoinColumn(name = "products_id")
     )
-    @JsonIgnoreProperties(value = { "category", "images", "carts" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "appOrderItems", "category", "images", "carts" }, allowSetters = true)
     private Set<AppProduct> products = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

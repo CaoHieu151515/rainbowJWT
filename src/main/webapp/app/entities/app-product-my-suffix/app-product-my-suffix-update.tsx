@@ -106,6 +106,7 @@ export const AppProductMySuffixUpdate = () => {
                 type="text"
               />
               <ValidatedField label="Status" id="app-product-my-suffix-status" name="status" data-cy="status" type="text" />
+              <ValidatedField label="Course Id" id="app-product-my-suffix-courseId" name="courseId" data-cy="courseId" type="text" />
               <ValidatedField id="app-product-my-suffix-category" name="category" data-cy="category" label="Category" type="select">
                 <option value="" key="0" />
                 {appCategories

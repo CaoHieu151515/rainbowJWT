@@ -10,6 +10,7 @@ export interface IAppProductMySuffix {
   unit?: number | null;
   description?: string | null;
   status?: string | null;
+  courseId?: number | null;
   appOrderItems?: IAppOrderItemMySuffix[] | null;
   category?: IAppCategoryMySuffix | null;
   images?: IAppProductImageMySuffix | null;

@@ -143,6 +143,9 @@ export const AppProductMySuffix = () => {
                   <th className="hand" onClick={sort('status')}>
                     Status <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={sort('courseId')}>
+                    Course Id <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th>
                     Category <FontAwesomeIcon icon="sort" />
                   </th>
@@ -165,6 +168,7 @@ export const AppProductMySuffix = () => {
                     <td>{appProduct.unit}</td>
                     <td>{appProduct.description}</td>
                     <td>{appProduct.status}</td>
+                    <td>{appProduct.courseId}</td>
                     <td>
                       {appProduct.category ? (
                         <Link to={`/app-category-my-suffix/${appProduct.category.id}`}>{appProduct.category.id}</Link>

@@ -22,6 +22,8 @@ public class AppProductDTO implements Serializable {
 
     private String status;
 
+    private Long courseId;
+
     private AppCategoryDTO category;
 
     private AppProductImageDTO images;
@@ -74,6 +76,14 @@ public class AppProductDTO implements Serializable {
         this.status = status;
     }
 
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
+
     public AppCategoryDTO getCategory() {
         return category;
     }
@@ -121,6 +131,7 @@ public class AppProductDTO implements Serializable {
             ", unit=" + getUnit() +
             ", description='" + getDescription() + "'" +
             ", status='" + getStatus() + "'" +
+            ", courseId=" + getCourseId() +
             ", category=" + getCategory() +
             ", images=" + getImages() +
             "}";
