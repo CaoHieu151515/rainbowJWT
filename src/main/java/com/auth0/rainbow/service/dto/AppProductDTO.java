@@ -1,5 +1,6 @@
 package com.auth0.rainbow.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -7,6 +8,7 @@ import java.util.Objects;
 /**
  * A DTO for the {@link com.auth0.rainbow.domain.AppProduct} entity.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class AppProductDTO implements Serializable {
 
@@ -22,6 +24,7 @@ public class AppProductDTO implements Serializable {
 
     private String status;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Long courseId;
 
     private AppCategoryDTO category;
