@@ -69,7 +69,7 @@ management:
           ]
   endpoint:
     health:
-      show-details: when_authorized
+      show-details: WHEN_AUTHORIZED
       roles: 'ROLE_ADMIN'
       probes:
         enabled: true
@@ -159,7 +159,7 @@ spring:
     allow-bean-definition-overriding: true
   mvc:
     pathmatch:
-      matching-strategy: ant_path_matcher
+      matching-strategy: ant-path-matcher
   task:
     execution:
       thread-name-prefix: rainbow-task-

@@ -83,7 +83,7 @@ public class AppUserResource {
     ) throws URISyntaxException {
         log.debug("REST request to update AppUser : {}, {}", id, appUserDTO);
 
-        System.console().printf(ENTITY_NAME, appUserDTO);
+        // System.console().printf(ENTITY_NAME, appUserDTO);
 
         if (appUserDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
