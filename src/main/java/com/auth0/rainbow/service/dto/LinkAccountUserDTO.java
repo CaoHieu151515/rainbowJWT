@@ -55,6 +55,16 @@ public class LinkAccountUserDTO implements Serializable {
         return Objects.equals(this.id, linkAccountUserDTO.id);
     }
 
+    public LinkAccountUserDTO removeUser() {
+        this.user = null;
+        return this;
+    }
+
+    public LinkAccountUserDTO removeAppUser() {
+        this.appUser = null;
+        return this;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(this.id);

@@ -75,6 +75,8 @@ public class AppPostServiceImpl implements AppPostService {
         log.debug("Request to save AppPost : {}", GetCurrentAppUser());
         appPost.setUser(GetCurrentAppUser());
 
+        log.debug("Request to update AppPost : {}", appPost.getUser());
+
         appPost.setImages(saveimage(appPostDTO.getImages(), appPost));
         appPost = appPostRepository.save(appPost);
 

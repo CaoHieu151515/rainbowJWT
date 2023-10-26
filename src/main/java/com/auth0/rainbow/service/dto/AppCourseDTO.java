@@ -1,5 +1,6 @@
 package com.auth0.rainbow.service.dto;
 
+import com.auth0.rainbow.domain.AppUser;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,6 +25,17 @@ public class AppCourseDTO implements Serializable {
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<AppLessonDTO> appLesson;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private Set<AppUser> users;
+
+    public Set<AppUser> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<AppUser> users) {
+        this.users = users;
+    }
 
     public Long getId() {
         return id;
@@ -79,6 +91,18 @@ public class AppCourseDTO implements Serializable {
             return false;
         }
         return Objects.equals(this.id, appCourseDTO.id);
+    }
+
+    public void removeCourses(AppLessonDTO appLesson) {
+        if (this.appLesson != null) {
+            this.appLesson.remove(appLesson);
+        }
+    }
+
+    public void removeUsers(AppUser appUser) {
+        if (this.users != null) {
+            this.users.remove(appUser);
+        }
     }
 
     @Override

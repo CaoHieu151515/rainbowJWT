@@ -7,6 +7,7 @@ import com.auth0.rainbow.service.dto.AppPostDTO;
 import com.auth0.rainbow.service.dto.AppPostImageDTO;
 import com.auth0.rainbow.service.dto.AppUserDTO;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,6 +29,7 @@ public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
     AppPostImageMapper ortherAppProductImageMapper = Mappers.getMapper(AppPostImageMapper.class);
 
     @Mapping(target = "user", source = "user", qualifiedByName = "appUserId")
+    @Mapping(target = "images", source = "images", qualifiedByName = "mapToimages")
     AppPostDTO toDto(AppPost s);
 
     @Named("appUserId")
@@ -49,10 +51,8 @@ public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
         if (appUser == null) {
             return null;
         }
-        AppUserDTO appUserDTO = new AppUserDTO();
-        appUserDTO.setId(appUser.getId());
 
-        return appUserDTO;
+        return AppUserMapper.INSTANCE.toUserPostDTO(appUser);
     }
 
     @Named("mapToimagesUpdate")
@@ -84,7 +84,7 @@ public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
             return null;
         }
 
-        return AppUserMapper.INSTANCE.toUserPostDTO(appUser);
+        return AppUserMapper.INSTANCE.toDto(appUser);
     }
 
     @Named("mapToimages")

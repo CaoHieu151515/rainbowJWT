@@ -67,6 +67,16 @@ public class LinkAccountUser implements Serializable {
         return this;
     }
 
+    public LinkAccountUser removeUser(User user) {
+        this.user = null;
+        return this;
+    }
+
+    public LinkAccountUser removeAppUser(AppUser appUser) {
+        this.appUser = null;
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

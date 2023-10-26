@@ -1,7 +1,9 @@
 package com.auth0.rainbow.service.impl;
 
 import com.auth0.rainbow.domain.AppAvailableCourse;
+import com.auth0.rainbow.domain.AppCourse;
 import com.auth0.rainbow.repository.AppAvailableCourseRepository;
+import com.auth0.rainbow.repository.AppCourseRepository;
 import com.auth0.rainbow.service.AppAvailableCourseService;
 import com.auth0.rainbow.service.dto.AppAvailableCourseDTO;
 import com.auth0.rainbow.service.mapper.AppAvailableCourseMapper;
@@ -27,20 +29,30 @@ public class AppAvailableCourseServiceImpl implements AppAvailableCourseService 
 
     private final AppAvailableCourseMapper appAvailableCourseMapper;
 
+    private final AppCourseRepository appCourseRepository;
+
     public AppAvailableCourseServiceImpl(
         AppAvailableCourseRepository appAvailableCourseRepository,
-        AppAvailableCourseMapper appAvailableCourseMapper
+        AppAvailableCourseMapper appAvailableCourseMapper,
+        AppCourseRepository appCourseRepository
     ) {
         this.appAvailableCourseRepository = appAvailableCourseRepository;
         this.appAvailableCourseMapper = appAvailableCourseMapper;
+        this.appCourseRepository = appCourseRepository;
     }
 
     @Override
     public AppAvailableCourseDTO save(AppAvailableCourseDTO appAvailableCourseDTO) {
         log.debug("Request to save AppAvailableCourse : {}", appAvailableCourseDTO);
         AppAvailableCourse appAvailableCourse = appAvailableCourseMapper.toEntity(appAvailableCourseDTO);
+
+        Optional<AppCourse> optionalCourse = appCourseRepository.findById(appAvailableCourse.getCourses().getId());
+        AppCourse course = optionalCourse.orElseThrow(() -> new IllegalArgumentException("Course not found"));
+
+        appAvailableCourse.setCourses(course);
+
         appAvailableCourse = appAvailableCourseRepository.save(appAvailableCourse);
-        return appAvailableCourseMapper.toAvaiCourseDTO(appAvailableCourse);
+        return appAvailableCourseMapper.toDto(appAvailableCourse);
     }
 
     @Override

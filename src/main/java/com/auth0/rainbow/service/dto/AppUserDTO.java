@@ -26,10 +26,8 @@ public class AppUserDTO implements Serializable {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<AppPostDTO> userposts;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<AppCourseDTO> courses;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<AppAvailableCourseDTO> availableCourses;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -105,6 +103,26 @@ public class AppUserDTO implements Serializable {
 
     public void setUserposts(Set<AppPostDTO> userposts) {
         this.userposts = userposts;
+    }
+
+    public AppUserDTO removePosts() {
+        this.userposts = null;
+        return this;
+    }
+
+    public AppUserDTO removeCourses() {
+        this.courses = null;
+        return this;
+    }
+
+    public AppUserDTO removeAvailableCourses() {
+        this.availableCourses = null;
+        return this;
+    }
+
+    public AppUserDTO removeOrders() {
+        this.orders = null;
+        return this;
     }
 
     @Override

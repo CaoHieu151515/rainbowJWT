@@ -22,13 +22,24 @@ public interface AppLessonMapper extends EntityMapper<AppLessonDTO, AppLesson> {
 
     AppLessonInfoMapper othInfoMapper = Mappers.getMapper(AppLessonInfoMapper.class);
 
+    @Mapping(target = "appQuestion", source = "lessons", qualifiedByName = "mapToQuestionSet")
+    @Mapping(target = "appLesonInf", source = "lessonInfos", qualifiedByName = "mapToessonInfoSet")
+    @Mapping(target = "course", ignore = true)
     AppLessonDTO toDto(AppLesson s);
+
+    @Mapping(target = "lessons", source = "appQuestion")
+    @Mapping(target = "lessonInfos", source = "appLesonInf")
+    @Mapping(target = "course", ignore = true)
+    @Mapping(target = "removeLessons", ignore = true)
+    @Mapping(target = "removeLessonInfos", ignore = true)
+    AppLesson toEntity(AppLessonDTO appLessonDTO);
 
     @Named("toLessonDTO")
     @Mappings(
         {
             @Mapping(target = "appQuestion", source = "lessons", qualifiedByName = "mapToQuestionSet"),
             @Mapping(target = "appLesonInf", source = "lessonInfos", qualifiedByName = "mapToessonInfoSet"),
+            @Mapping(target = "course", ignore = true),
         }
     )
     AppLessonDTO toLessonDTO(AppLesson appLesson);

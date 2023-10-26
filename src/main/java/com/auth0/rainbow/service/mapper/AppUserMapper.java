@@ -34,15 +34,19 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
 
     AppOrderMapper otheOrderMapper = Mappers.getMapper(AppOrderMapper.class);
 
-    @Mapping(target = "courses", source = "courses", qualifiedByName = "appCourseIdSet")
-    @Mapping(target = "availableCourses", source = "availableCourses", qualifiedByName = "appAvailableCourseIdSet")
+    @Mapping(target = "courses", ignore = true)
+    @Mapping(target = "availableCourses", ignore = true)
     @Mapping(target = "orders", ignore = true)
     @Mapping(target = "userposts", ignore = true)
     AppUserDTO toDto(AppUser s);
 
+    @Mapping(target = "courses", ignore = true)
+    @Mapping(target = "availableCourses", ignore = true)
     @Mapping(target = "removeCourses", ignore = true)
     @Mapping(target = "removeAvailableCourses", ignore = true)
+    @Mapping(source = "orders", target = "orders")
     @Mapping(target = "removeOrders", ignore = true)
+    @Mapping(source = "userposts", target = "posts")
     @Mapping(target = "removePosts", ignore = true)
     AppUser toEntity(AppUserDTO appUserDTO);
 

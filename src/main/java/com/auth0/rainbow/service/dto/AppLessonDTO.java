@@ -55,6 +55,18 @@ public class AppLessonDTO implements Serializable {
         this.course = course;
     }
 
+    public void removeLessonInfos(AppLessonInfoDTO appLessonInfo) {
+        if (this.appLesonInf != null) {
+            this.appLesonInf.remove(appLessonInfo);
+        }
+    }
+
+    public void removeLessons(AppQuestionDTO appQuestion) {
+        if (this.appQuestion != null) {
+            this.appQuestion.remove(appQuestion);
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
