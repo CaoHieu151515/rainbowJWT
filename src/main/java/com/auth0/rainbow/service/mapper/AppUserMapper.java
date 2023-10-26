@@ -3,20 +3,20 @@ package com.auth0.rainbow.service.mapper;
 import com.auth0.rainbow.domain.AppAvailableCourse;
 import com.auth0.rainbow.domain.AppCourse;
 import com.auth0.rainbow.domain.AppOrder;
-import com.auth0.rainbow.domain.AppOrderItem;
 import com.auth0.rainbow.domain.AppPost;
 import com.auth0.rainbow.domain.AppUser;
 import com.auth0.rainbow.service.dto.AppAvailableCourseDTO;
 import com.auth0.rainbow.service.dto.AppCourseDTO;
 import com.auth0.rainbow.service.dto.AppOrderDTO;
-import com.auth0.rainbow.service.dto.AppOrderItemDTO;
 import com.auth0.rainbow.service.dto.AppPostDTO;
 import com.auth0.rainbow.service.dto.AppUserDTO;
-import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.checkerframework.checker.units.qual.A;
-import org.mapstruct.*;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -37,7 +37,14 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
     @Mapping(target = "courses", source = "courses", qualifiedByName = "appCourseIdSet")
     @Mapping(target = "availableCourses", source = "availableCourses", qualifiedByName = "appAvailableCourseIdSet")
     @Mapping(target = "orders", ignore = true)
+    @Mapping(target = "userposts", ignore = true)
     AppUserDTO toDto(AppUser s);
+
+    @Mapping(target = "removeCourses", ignore = true)
+    @Mapping(target = "removeAvailableCourses", ignore = true)
+    @Mapping(target = "removeOrders", ignore = true)
+    @Mapping(target = "removePosts", ignore = true)
+    AppUser toEntity(AppUserDTO appUserDTO);
 
     @Named("toOrderDto")
     @Mappings(
@@ -45,6 +52,7 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
             @Mapping(target = "orders", source = "orders", qualifiedByName = "mapToUserOrderSet"),
             @Mapping(target = "courses", ignore = true),
             @Mapping(target = "availableCourses", ignore = true),
+            @Mapping(target = "userposts", ignore = true),
         }
     )
     AppUserDTO toOrderDto(AppUser s);
@@ -52,10 +60,6 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
     @Named("mapToUserOrderSet")
     @BeanMapping(ignoreByDefault = true)
     Set<AppOrderDTO> mapToUserOrderSet(Set<AppOrder> appOrderItem);
-
-    @Mapping(target = "removeCourses", ignore = true)
-    @Mapping(target = "removeAvailableCourses", ignore = true)
-    AppUser toEntity(AppUserDTO appUserDTO);
 
     @Named("appCourseId")
     @BeanMapping(ignoreByDefault = true)
@@ -68,7 +72,14 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
     AppAvailableCourseDTO toDtoAppAvailableCourseId(AppAvailableCourse appAvailableCourse);
 
     @Named("toUserPostDTO")
-    @Mappings({ @Mapping(target = "userposts", source = "posts", qualifiedByName = "mapToUserSet") })
+    @Mappings(
+        {
+            @Mapping(target = "userposts", source = "posts", qualifiedByName = "mapToUserSet"),
+            @Mapping(target = "orders", ignore = true),
+            @Mapping(target = "courses", ignore = true),
+            @Mapping(target = "availableCourses", ignore = true),
+        }
+    )
     AppUserDTO toUserPostDTO(AppUser appUser);
 
     @Named("mapToUserSet")
@@ -80,6 +91,7 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
                     return null;
                 }
                 userposts.setUser(null);
+
                 return AppPostMapper.INSTANCE.toPOSTDTO(userposts);
             })
             .collect(Collectors.toSet());
@@ -107,6 +119,8 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
         {
             @Mapping(target = "courses", source = "courses", qualifiedByName = "mapToAppCourseSet"),
             @Mapping(target = "availableCourses", source = "availableCourses", qualifiedByName = "mapToAppAvailableCourseSet"),
+            @Mapping(target = "orders", ignore = true),
+            @Mapping(target = "userposts", ignore = true),
         }
     )
     AppUserDTO toAppUserDTO(AppUser appUser);
