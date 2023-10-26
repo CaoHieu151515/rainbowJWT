@@ -27,30 +27,6 @@ public interface AppCourseMapper extends EntityMapper<AppCourseDTO, AppCourse> {
     @Mapping(target = "users", ignore = true)
     AppCourseDTO toDto(AppCourse s);
 
-    // default AppCourse partialUpdate(AppCourse appCourse, AppCourseDTO appCourseDTO) {
-    //     if (appCourseDTO == null) {
-    //         return appCourse;
-    //     }
-    //     if (appCourse == null) {
-    //         appCourse = new AppCourse();
-    //     }
-
-    //     // Update fields if they are present in the DTO
-    //     if (appCourseDTO.getName() != null) {
-    //         appCourse.setName(appCourseDTO.getName());
-    //     }
-    //     if (appCourseDTO.getLevel() != null) {
-    //         appCourse.setLevel(appCourseDTO.getLevel());
-    //     }
-    //     if (appCourseDTO.getImage() != null) {
-    //         appCourse.setImage(appCourseDTO.getImage());
-    //     }
-
-    //     // Handle other fields accordingly
-
-    //     return appCourse;
-    // }
-
     @Named("toCourseDTO")
     @Mappings(
         { @Mapping(target = "appLesson", source = "courses", qualifiedByName = "mapToLesonSet"), @Mapping(target = "users", ignore = true) }

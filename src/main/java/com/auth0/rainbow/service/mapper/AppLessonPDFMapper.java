@@ -14,7 +14,7 @@ import org.mapstruct.factory.Mappers;
 public interface AppLessonPDFMapper extends EntityMapper<AppLessonPDFDTO, AppLessonPDF> {
     AppLessonPDFMapper INSTANCE = Mappers.getMapper(AppLessonPDFMapper.class);
 
-    @Mapping(target = "lesson", source = "lesson", qualifiedByName = "appLessonInfoId")
+    @Mapping(target = "lesson", source = "lesson", qualifiedByName = "appLessonInfoId", ignore = true)
     AppLessonPDFDTO toDto(AppLessonPDF s);
 
     @Named("appLessonInfoId")

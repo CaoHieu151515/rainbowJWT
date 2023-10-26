@@ -25,6 +25,7 @@ public interface AppQuestionMapper extends EntityMapper<AppQuestionDTO, AppQuest
         {
             @Mapping(target = "multiChoice", source = "questions", qualifiedByName = "mapToMultiChoiceSet"),
             @Mapping(target = "appQuestionvideo", source = "appQuestion", qualifiedByName = "mapToVideoSet"),
+            @Mapping(target = "lesson", ignore = true),
         }
     )
     AppQuestionDTO toChoiceDTO(AppQuestion appQuestion);
@@ -37,7 +38,7 @@ public interface AppQuestionMapper extends EntityMapper<AppQuestionDTO, AppQuest
                 if (multiChoice == null) {
                     return null;
                 }
-                multiChoice.setQuestion(null);
+
                 return AppMultipleChoiceAnswerMapper.INSTANCE.toDto(multiChoice);
             })
             .collect(Collectors.toSet());

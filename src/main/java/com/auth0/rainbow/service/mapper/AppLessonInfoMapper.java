@@ -19,6 +19,10 @@ public interface AppLessonInfoMapper extends EntityMapper<AppLessonInfoDTO, AppL
     AppLessonInfoMapper INSTANCE = Mappers.getMapper(AppLessonInfoMapper.class);
     AppLessonVideoMapper othAppLessonVideoMapper = Mappers.getMapper(AppLessonVideoMapper.class);
     AppLessonPDFMapper othAppLessonPDFMapper = Mappers.getMapper(AppLessonPDFMapper.class);
+
+    @Mapping(target = "lessonvideo", source = "videos", qualifiedByName = "mapToVideoSet")
+    @Mapping(target = "pdfss", source = "pdfs", qualifiedByName = "mapTopdfSet")
+    @Mapping(target = "lessonDTO", ignore = true)
     AppLessonInfoDTO toDto(AppLessonInfo s);
 
     @Named("toVideoDTO")
@@ -26,6 +30,7 @@ public interface AppLessonInfoMapper extends EntityMapper<AppLessonInfoDTO, AppL
         {
             @Mapping(target = "lessonvideo", source = "videos", qualifiedByName = "mapToVideoSet"),
             @Mapping(target = "pdfss", source = "pdfs", qualifiedByName = "mapTopdfSet"),
+            @Mapping(target = "lessonDTO", ignore = true),
         }
     )
     AppLessonInfoDTO toVideoDTO(AppLessonInfo appLessonInfo);
@@ -38,7 +43,7 @@ public interface AppLessonInfoMapper extends EntityMapper<AppLessonInfoDTO, AppL
                 if (lessonvideo == null) {
                     return null;
                 }
-                lessonvideo.setLessonInfo(null);
+
                 return AppLessonVideoMapper.INSTANCE.toDto(lessonvideo);
             })
             .collect(Collectors.toSet());
@@ -52,7 +57,6 @@ public interface AppLessonInfoMapper extends EntityMapper<AppLessonInfoDTO, AppL
                 if (pdfss == null) {
                     return null;
                 }
-                pdfss.setLesson(null);
                 return AppLessonPDFMapper.INSTANCE.toDto(pdfss);
             })
             .collect(Collectors.toSet());
