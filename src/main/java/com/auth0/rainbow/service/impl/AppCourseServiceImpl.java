@@ -60,7 +60,7 @@ public class AppCourseServiceImpl implements AppCourseService {
                 return existingAppCourse;
             })
             .map(appCourseRepository::save)
-            .map(appCourseMapper::toDto);
+            .map(appCourseMapper::toCourseDTO);
     }
 
     @Override

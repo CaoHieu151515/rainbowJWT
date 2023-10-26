@@ -102,11 +102,11 @@ public class AppUserServiceImpl implements AppUserService {
     @Transactional(readOnly = true)
     public Page<AppUserDTO> findAll(Pageable pageable) {
         log.debug("Request to get all AppUsers");
-        return appUserRepository.findAll(pageable).map(appUserMapper::toDto);
+        return appUserRepository.findAll(pageable).map(appUserMapper::toAppUsershortDTO);
     }
 
     public Page<AppUserDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return appUserRepository.findAllWithEagerRelationships(pageable).map(appUserMapper::toAppUserDTO);
+        return appUserRepository.findAllWithEagerRelationships(pageable).map(appUserMapper::toAppUsershortDTO);
     }
 
     /**
@@ -127,7 +127,7 @@ public class AppUserServiceImpl implements AppUserService {
     @Transactional(readOnly = true)
     public Optional<AppUserDTO> findOne(Long id) {
         log.debug("Request to get AppUser : {}", id);
-        return appUserRepository.findOneWithEagerRelationships(id).map(appUserMapper::toAppUserDTO);
+        return appUserRepository.findOneWithEagerRelationships(id).map(appUserMapper::toAppUsershortDTO);
     }
 
     @Override

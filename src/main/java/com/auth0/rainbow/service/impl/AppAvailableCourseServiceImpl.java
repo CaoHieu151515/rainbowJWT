@@ -75,7 +75,7 @@ public class AppAvailableCourseServiceImpl implements AppAvailableCourseService 
                 return existingAppAvailableCourse;
             })
             .map(appAvailableCourseRepository::save)
-            .map(appAvailableCourseMapper::toAvaiCourseDTO);
+            .map(appAvailableCourseMapper::toDto);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class AppAvailableCourseServiceImpl implements AppAvailableCourseService 
         return appAvailableCourseRepository
             .findAll()
             .stream()
-            .map(appAvailableCourseMapper::toAvaiCourseDTO)
+            .map(appAvailableCourseMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -93,7 +93,7 @@ public class AppAvailableCourseServiceImpl implements AppAvailableCourseService 
     @Transactional(readOnly = true)
     public Optional<AppAvailableCourseDTO> findOne(Long id) {
         log.debug("Request to get AppAvailableCourse : {}", id);
-        return appAvailableCourseRepository.findById(id).map(appAvailableCourseMapper::toAvaiCourseDTO);
+        return appAvailableCourseRepository.findById(id).map(appAvailableCourseMapper::toDto);
     }
 
     @Override

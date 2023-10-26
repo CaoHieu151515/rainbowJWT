@@ -60,5 +60,5 @@ public interface AppPostService {
      */
     void delete(Long id);
 
-    Set<AppPostImage> saveimage(Set<AppPostImageDTO> images, AppPost appPost);
+    Set<AppPostImage> saveimage(Set<AppPostImageDTO> images);
 }

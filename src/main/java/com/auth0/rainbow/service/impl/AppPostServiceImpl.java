@@ -77,7 +77,7 @@ public class AppPostServiceImpl implements AppPostService {
 
         log.debug("Request to update AppPost : {}", appPost.getUser());
 
-        appPost.setImages(saveimage(appPostDTO.getImages(), appPost));
+        appPost.setImages(saveimage(appPostDTO.getImages()));
         appPost = appPostRepository.save(appPost);
 
         return appPostMapper.toPOSTUpdateDTO(appPost);
@@ -92,17 +92,15 @@ public class AppPostServiceImpl implements AppPostService {
         AppPost existingPost = appPostRepository.findById(appPostDTO.getId()).orElse(null);
         deleteExistingImages(existingPost);
         //Lưu ảnh mới
-        appPost.setImages(saveimage(appPostDTO.getImages(), appPost));
+
         //gán lại AppUser
-        Optional<AppUser> optionalEntity = appUserRepository.findOneWithEagerRelationships(appPostDTO.getUser().getId());
-        if (optionalEntity.isPresent()) {
-            log.debug("Request to update AppPost : {}", optionalEntity);
-            AppUser apuser = optionalEntity.get();
-            appPost.setUser(apuser);
-        }
+
+        LinkAccountUser tempUser = linkAccountUserRepository.findByUserId(appPostDTO.getUser().getId());
+        appPost.setUser(tempUser.getAppUser());
+        appPost.setImages(saveimage(appPostDTO.getImages()));
 
         appPost = appPostRepository.save(appPost);
-        return appPostMapper.toPOSTDTO(appPost);
+        return appPostMapper.toPOSTUpdateDTO(appPost);
     }
 
     @Override
@@ -156,12 +154,11 @@ public class AppPostServiceImpl implements AppPostService {
     }
 
     @Override
-    public Set<AppPostImage> saveimage(Set<AppPostImageDTO> images, AppPost appPost) {
+    public Set<AppPostImage> saveimage(Set<AppPostImageDTO> images) {
         Set<AppPostImage> imageEntities = new HashSet<>();
         for (AppPostImageDTO imageDTO : images) {
             AppPostImage imageEntity = new AppPostImage();
             imageEntity.setImageUrl(imageDTO.getImageUrl());
-            imageEntity.setPost(appPost);
             imageEntities.add(imageEntity);
         }
 

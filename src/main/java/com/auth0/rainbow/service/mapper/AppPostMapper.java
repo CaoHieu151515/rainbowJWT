@@ -39,10 +39,7 @@ public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
 
     @Named("toPOSTUpdateDTO")
     @Mappings(
-        {
-            @Mapping(target = "user", source = "user", qualifiedByName = "mapToUserUpdate"),
-            @Mapping(target = "images", source = "images", qualifiedByName = "mapToimagesUpdate"),
-        }
+        { @Mapping(target = "user", ignore = true), @Mapping(target = "images", source = "images", qualifiedByName = "mapToimagesUpdate") }
     )
     AppPostDTO toPOSTUpdateDTO(AppPost AppPost);
 
@@ -100,4 +97,31 @@ public interface AppPostMapper extends EntityMapper<AppPostDTO, AppPost> {
             })
             .collect(Collectors.toSet());
     }
+    // @Named("toEntity")
+    // default AppPost toEntity(AppPostDTO appPostDTO) {
+    //     if (appPostDTO == null) {
+    //         return null;
+    //     }
+
+    //     AppPost appPost = new AppPost();
+    //     appPost.setId(appPostDTO.getId());
+
+    //     AppUserDTO appUserDTO = appPostDTO.getUser();
+    //     if (appUserDTO != null) {
+    //         appPost.setUser(AppUserMapper.INSTANCE.toEntity(appUserDTO));
+    //     }
+
+    //     Set<AppPostImageDTO> appPostImageDTOs = appPostDTO.getImages();
+    //     if (appPostImageDTOs != null) {
+    //         Set<AppPostImage> appPostImages = appPostImageDTOs
+    //             .stream()
+    //             .map(AppPostImageMapper.INSTANCE::toEntity)
+    //             .collect(Collectors.toSet());
+    //         appPost.setImages(appPostImages);
+    //     } else {
+    //         appPost.setImages(new HashSet<>());
+    //     }
+
+    //     return appPost;
+    // }
 }

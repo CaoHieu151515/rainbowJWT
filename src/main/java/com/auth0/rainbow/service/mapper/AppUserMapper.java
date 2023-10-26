@@ -137,7 +137,7 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
                 if (appCourse == null) {
                     return null;
                 }
-                return AppCourseMapper.INSTANCE.toDto(appCourse);
+                return AppCourseMapper.INSTANCE.toCourseDTO(appCourse);
             })
             .collect(Collectors.toSet());
     }
@@ -151,6 +151,43 @@ public interface AppUserMapper extends EntityMapper<AppUserDTO, AppUser> {
                     return null;
                 }
                 return AppAvailableCourseMapper.INSTANCE.toAvaiCourseDTO(appAvailableCourse);
+            })
+            .collect(Collectors.toSet());
+    }
+
+    @Named("toAppUsershortDTO")
+    @Mappings(
+        {
+            @Mapping(target = "courses", source = "courses", qualifiedByName = "mapToAppshortCourseSet"),
+            @Mapping(target = "availableCourses", source = "availableCourses", qualifiedByName = "mapToAppAvailableCourseshortSet"),
+            @Mapping(target = "orders", ignore = true),
+            @Mapping(target = "userposts", ignore = true),
+        }
+    )
+    AppUserDTO toAppUsershortDTO(AppUser appUser);
+
+    @Named("mapToAppshortCourseSet")
+    static Set<AppCourseDTO> mapToAppshortCourseSet(Set<AppCourse> appCourses) {
+        return appCourses
+            .stream()
+            .map(appCourse -> {
+                if (appCourse == null) {
+                    return null;
+                }
+                return AppCourseMapper.INSTANCE.toDto(appCourse);
+            })
+            .collect(Collectors.toSet());
+    }
+
+    @Named("mapToAppAvailableCourseshortSet")
+    static Set<AppAvailableCourseDTO> mapToAppAvailableCourseshortSet(Set<AppAvailableCourse> appAvailableCourses) {
+        return appAvailableCourses
+            .stream()
+            .map(appAvailableCourse -> {
+                if (appAvailableCourse == null) {
+                    return null;
+                }
+                return AppAvailableCourseMapper.INSTANCE.toDto(appAvailableCourse);
             })
             .collect(Collectors.toSet());
     }
