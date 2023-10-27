@@ -3,6 +3,7 @@ package com.auth0.rainbow.service;
 import com.auth0.rainbow.service.dto.AppAvailableCourseDTO;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.http.ResponseEntity;
 
 /**
  * Service Interface for managing {@link com.auth0.rainbow.domain.AppAvailableCourse}.
@@ -53,4 +54,6 @@ public interface AppAvailableCourseService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    ResponseEntity<String> receiveCourse(Long id);
 }

@@ -2,17 +2,27 @@ package com.auth0.rainbow.service.impl;
 
 import com.auth0.rainbow.domain.AppAvailableCourse;
 import com.auth0.rainbow.domain.AppCourse;
+import com.auth0.rainbow.domain.AppUser;
+import com.auth0.rainbow.domain.LinkAccountUser;
+import com.auth0.rainbow.domain.User;
 import com.auth0.rainbow.repository.AppAvailableCourseRepository;
 import com.auth0.rainbow.repository.AppCourseRepository;
+import com.auth0.rainbow.repository.AppUserRepository;
+import com.auth0.rainbow.repository.LinkAccountUserRepository;
 import com.auth0.rainbow.service.AppAvailableCourseService;
+import com.auth0.rainbow.service.UserService;
 import com.auth0.rainbow.service.dto.AppAvailableCourseDTO;
 import com.auth0.rainbow.service.mapper.AppAvailableCourseMapper;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
+import javax.persistence.EntityNotFoundException;
+import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,14 +41,26 @@ public class AppAvailableCourseServiceImpl implements AppAvailableCourseService 
 
     private final AppCourseRepository appCourseRepository;
 
+    private final AppUserRepository appUserRepository;
+
+    private final UserService userService;
+
+    private final LinkAccountUserRepository linkAccountUserRepository;
+
     public AppAvailableCourseServiceImpl(
         AppAvailableCourseRepository appAvailableCourseRepository,
         AppAvailableCourseMapper appAvailableCourseMapper,
-        AppCourseRepository appCourseRepository
+        AppCourseRepository appCourseRepository,
+        AppUserRepository appUserRepository,
+        UserService userService,
+        LinkAccountUserRepository linkAccountUserRepository
     ) {
         this.appAvailableCourseRepository = appAvailableCourseRepository;
         this.appAvailableCourseMapper = appAvailableCourseMapper;
         this.appCourseRepository = appCourseRepository;
+        this.appUserRepository = appUserRepository;
+        this.userService = userService;
+        this.linkAccountUserRepository = linkAccountUserRepository;
     }
 
     @Override
@@ -100,5 +122,42 @@ public class AppAvailableCourseServiceImpl implements AppAvailableCourseService 
     public void delete(Long id) {
         log.debug("Request to delete AppAvailableCourse : {}", id);
         appAvailableCourseRepository.deleteById(id);
+    }
+
+    @Override
+    public ResponseEntity<String> receiveCourse(Long id) {
+        try {
+            AppCourse course = appCourseRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Course not found"));
+
+            AppAvailableCourse availableCourse = new AppAvailableCourse();
+            availableCourse.setCourses(course);
+
+            AppUser appUser = GetCurrentAppUser();
+
+            Set<AppAvailableCourse> currentAvailableCourses = appUser.getAvailableCourses();
+            currentAvailableCourses.add(availableCourse);
+            appUser.setAvailableCourses(currentAvailableCourses);
+
+            appAvailableCourseRepository.save(availableCourse);
+
+            appUserRepository.save(appUser);
+
+            return ResponseEntity.ok("Course received successfully.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.SC_NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR).body("An error occurred while receiving the course.");
+        }
+    }
+
+    private AppUser GetCurrentAppUser() {
+        Optional<User> optionalUser = userService.getUserWithAuthorities();
+        User currentUser = optionalUser.orElseThrow(() -> new RuntimeException("User not found"));
+
+        LinkAccountUser LinkAc = linkAccountUserRepository.findByUserId(currentUser.getId());
+
+        AppUser appUser = LinkAc.getAppUser();
+        log.debug("Current AppUser", appUser);
+        return appUser;
     }
 }

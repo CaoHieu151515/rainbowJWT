@@ -41,8 +41,6 @@ public class AppPostServiceImpl implements AppPostService {
 
     private final AppPostMapper appPostMapper;
 
-    private final AppUserRepository appUserRepository;
-
     private final AppPostImageRepository appPostImageRepository;
 
     private final UserService userService;
@@ -61,7 +59,6 @@ public class AppPostServiceImpl implements AppPostService {
         this.appPostRepository = appPostRepository;
         // this.appPostImageMapper = appPostImageMapper;
         this.appPostMapper = appPostMapper;
-        this.appUserRepository = appUserRepository;
         this.appPostImageRepository = appPostImageRepository;
         this.userService = userService;
         this.linkAccountUserRepository = linkAccountUserRepository;

@@ -173,4 +173,9 @@ public class AppAvailableCourseResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @PostMapping("/receive-course")
+    public ResponseEntity<String> receiveCourse(@RequestParam Long id) {
+        return appAvailableCourseService.receiveCourse(id);
+    }
 }
