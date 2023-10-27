@@ -82,4 +82,33 @@ public interface LinkAccountUserMapper extends EntityMapper<LinkAccountUserDTO, 
     @Mapping(target = "removeUser", ignore = true)
     @Mapping(target = "removeAppUser", ignore = true)
     LinkAccountUser toEntity(LinkAccountUserDTO linkAccountUserDTO);
+
+    @Named("toLinkUserInfoDTO")
+    @Mappings(
+        {
+            @Mapping(target = "user", source = "user", qualifiedByName = "mapToUserinfo"),
+            @Mapping(target = "appUser", source = "appUser", qualifiedByName = "mapToAppuserinfo"),
+        }
+    )
+    LinkAccountUserDTO toLinkUserInfoDTO(LinkAccountUser linkAccountUser);
+
+    @Named("mapToUserinfo")
+    static UserDTO mapToUserinfo(User user) {
+        UserDTO UserDTO = new UserDTO();
+        UserDTO.setId(user.getId());
+        UserDTO.setLogin(user.getLogin());
+        UserDTO.setFirstName(user.getFirstName());
+        UserDTO.setLastName(user.getLastName());
+        UserDTO.setImageUrl(user.getImageUrl());
+        UserDTO.setEmail(user.getEmail());
+        return UserDTO;
+    }
+
+    @Named("mapToAppuserinfo")
+    static AppUserDTO mapToAppuserinfo(AppUser appUser) {
+        if (appUser == null) {
+            return null;
+        }
+        return AppUserMapper.INSTANCE.toDto(appUser);
+    }
 }

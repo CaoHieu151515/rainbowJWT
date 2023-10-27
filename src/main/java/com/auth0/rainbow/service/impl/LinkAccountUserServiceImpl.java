@@ -2,6 +2,7 @@ package com.auth0.rainbow.service.impl;
 
 import com.auth0.rainbow.domain.AppUser;
 import com.auth0.rainbow.domain.LinkAccountUser;
+import com.auth0.rainbow.domain.User;
 import com.auth0.rainbow.repository.AppUserRepository;
 import com.auth0.rainbow.repository.LinkAccountUserRepository;
 import com.auth0.rainbow.repository.UserRepository;
@@ -49,7 +50,7 @@ public class LinkAccountUserServiceImpl implements LinkAccountUserService {
         log.debug("Request to save LinkAccountUser : {}", linkAccountUserDTO);
         LinkAccountUser linkAccountUser = linkAccountUserMapper.toEntity(linkAccountUserDTO);
         linkAccountUser = linkAccountUserRepository.save(linkAccountUser);
-        return linkAccountUserMapper.toLinkDTO(linkAccountUser);
+        return linkAccountUserMapper.toLinkUserInfoDTO(linkAccountUser);
     }
 
     @Override
@@ -60,19 +61,33 @@ public class LinkAccountUserServiceImpl implements LinkAccountUserService {
             linkAccountUser.setAppUser(null);
         } else {
             Optional<AppUser> optionalAppUser = appUserRepository.findOneWithEagerRelationships(linkAccountUser.getAppUser().getId());
-            optionalAppUser.get();
+            AppUser appuser = optionalAppUser.get();
+
+            appuser.setName(linkAccountUser.getAppUser().getName());
+            appuser.setGender(linkAccountUser.getAppUser().getGender());
+            appuser.setDob(linkAccountUser.getAppUser().getDob());
+            appuser.setStatus(linkAccountUser.getAppUser().getStatus());
+            linkAccountUser.setAppUser(appuser);
         }
 
         if (linkAccountUser.getUser() == null) {
             linkAccountUser.setUser(null);
-        } else linkAccountUser.setUser(userRepository.findOneById(linkAccountUser.getUser().getId()));
+        } else {
+            User user = userRepository.findOneById(linkAccountUser.getUser().getId());
+            user.setFirstName(linkAccountUser.getUser().getFirstName());
+            user.setLastName(linkAccountUser.getUser().getLastName());
+            user.setEmail(linkAccountUser.getUser().getEmail());
+            user.setImageUrl(linkAccountUser.getUser().getImageUrl());
+
+            linkAccountUser.setUser(user);
+        }
 
         linkAccountUser = linkAccountUserRepository.save(linkAccountUser);
         if (linkAccountUser.getAppUser() == null && linkAccountUser.getUser() == null) {
             delete(linkAccountUser.getId());
         }
 
-        return linkAccountUserMapper.toDto(linkAccountUser);
+        return linkAccountUserMapper.toLinkUserInfoDTO(linkAccountUser);
     }
 
     @Override
@@ -105,7 +120,7 @@ public class LinkAccountUserServiceImpl implements LinkAccountUserService {
     @Transactional(readOnly = true)
     public Optional<LinkAccountUserDTO> findOne(Long id) {
         log.debug("Request to get LinkAccountUser : {}", id);
-        return linkAccountUserRepository.findById(id).map(linkAccountUserMapper::toDto);
+        return linkAccountUserRepository.findById(id).map(linkAccountUserMapper::toLinkUserInfoDTO);
     }
 
     @Override
@@ -114,6 +129,14 @@ public class LinkAccountUserServiceImpl implements LinkAccountUserService {
         log.debug("Request to get LinkAccountUser : {}", id);
 
         return linkAccountUserRepository.findOneByUserId(id).map(linkAccountUserMapper::toLinkPostDTO);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<LinkAccountUserDTO> findUserinfo(Long id) {
+        log.debug("Request to get LinkAccountUser : {}", id);
+
+        return linkAccountUserRepository.findOneByUserId(id).map(linkAccountUserMapper::toLinkUserInfoDTO);
     }
 
     @Override
