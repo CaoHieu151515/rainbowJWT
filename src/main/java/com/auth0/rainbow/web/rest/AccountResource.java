@@ -10,6 +10,7 @@ import com.auth0.rainbow.service.dto.PasswordChangeDTO;
 import com.auth0.rainbow.web.rest.errors.*;
 import com.auth0.rainbow.web.rest.vm.KeyAndPasswordVM;
 import com.auth0.rainbow.web.rest.vm.ManagedUserVM;
+import java.net.URI;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -75,11 +76,15 @@ public class AccountResource {
      * @throws RuntimeException {@code 500 (Internal Server Error)} if the user couldn't be activated.
      */
     @GetMapping("/activate")
-    public void activateAccount(@RequestParam(value = "key") String key) {
+    public ResponseEntity<Void> activateAccount(@RequestParam(value = "key") String key) {
         Optional<User> user = userService.activateRegistration(key);
         if (!user.isPresent()) {
             throw new AccountResourceException("No user was found for this activation key");
         }
+        String redirectUrl = "https://www.google.com";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create(redirectUrl));
+        return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
     /**

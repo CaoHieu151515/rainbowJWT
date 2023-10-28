@@ -16,7 +16,7 @@ export const ActivatePage = () => {
     dispatch(activateAction(key));
     return () => {
       dispatch(reset());
-      window.location.href = 'https://google.com'; // Thay thế bằng URL của trang back-end của bạn
+      window.location.href = 'https://vnrainbow.vercel.app'; // Thay thế bằng URL của trang back-end của bạn
     };
   }, []);
 
