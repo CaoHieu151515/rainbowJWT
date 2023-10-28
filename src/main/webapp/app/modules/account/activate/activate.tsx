@@ -10,10 +10,6 @@ export const ActivatePage = () => {
 
   const [searchParams] = useSearchParams();
 
-  useEffect(() => {
-    window.location.href = 'https://vnrainbow.vercel.app'; // Thay thế bằng URL của trang bạn muốn chuyển hướng đến
-  }, []);
-
   const { activationSuccess, activationFailure } = useAppSelector(state => state.activate);
 
   return (
@@ -36,5 +32,7 @@ export const ActivatePage = () => {
     </div>
   );
 };
-
+useEffect(() => {
+  window.location.href = 'https://vnrainbow.vercel.app'; // Thay thế bằng URL của trang bạn muốn chuyển hướng đến
+}, []);
 export default ActivatePage;
