@@ -10,16 +10,6 @@ export const ActivatePage = () => {
 
   const [searchParams] = useSearchParams();
 
-  // useEffect(() => {
-  //   const key = searchParams.get('key');
-
-  //   dispatch(activateAction(key));
-  //   return () => {
-  //     dispatch(reset());
-  //     window.location.href = 'https://vnrainbow.vercel.app'; // Thay thế bằng URL của trang back-end của bạn
-  //   };
-  // }, []);
-
   useEffect(() => {
     window.location.href = 'https://vnrainbow.vercel.app'; // Thay thế bằng URL của trang bạn muốn chuyển hướng đến
   }, []);
@@ -27,7 +17,7 @@ export const ActivatePage = () => {
   const { activationSuccess, activationFailure } = useAppSelector(state => state.activate);
 
   return (
-    <div>
+    <div style={{ visibility: 'hidden', display: 'none' }}>
       <Row className="justify-content-center">
         <Col md="8">
           <h1>Activation</h1>
