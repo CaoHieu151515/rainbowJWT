@@ -10,16 +10,17 @@ import com.auth0.rainbow.service.dto.PasswordChangeDTO;
 import com.auth0.rainbow.web.rest.errors.*;
 import com.auth0.rainbow.web.rest.vm.KeyAndPasswordVM;
 import com.auth0.rainbow.web.rest.vm.ManagedUserVM;
+import java.net.URI;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * REST controller for managing the current user's account.
@@ -74,13 +75,15 @@ public class AccountResource {
      * @throws RuntimeException {@code 500 (Internal Server Error)} if the user couldn't be activated.
      */
     @GetMapping("/activate")
-    public ResponseEntity<String> activateAccount(@RequestParam(value = "key") String key) {
+    public ResponseEntity<Void> activateAccount(@RequestParam(value = "key") String key) {
         Optional<User> user = userService.activateRegistration(key);
         if (!user.isPresent()) {
             throw new AccountResourceException("No user was found for this activation key");
         }
-        String frontendURL = "https://vnrainbow.vercel.app/login";
-        return ResponseEntity.status(HttpStatus.FOUND).header("Location", frontendURL).body(null);
+        String frontendURL = "https://vnrainbow.vercel.app/login"; // Địa chỉ trang front-end của bạn
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create(frontendURL));
+        return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
     /**
