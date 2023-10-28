@@ -14,6 +14,8 @@ public class AppLessonDTO implements Serializable {
 
     private Long id;
 
+    private String videoUrl;
+
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private AppCourseDTO course;
 
@@ -22,6 +24,15 @@ public class AppLessonDTO implements Serializable {
     private Set<AppLessonInfoDTO> appLesonInf;
 
     //...
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    // Setter
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
 
     public Set<AppQuestionDTO> getappQuestion() { // sử dụng tên 'getAppQuestion' thay vì 'getAppQuestionDTO'
         return appQuestion;
