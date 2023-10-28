@@ -66,15 +66,18 @@ public class UserService {
 
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
-        return userRepository
-            .findOneByActivationKey(key)
-            .map(user -> {
-                // activate given user for the registration key.
-                user.setActivated(true);
-                user.setActivationKey(null);
-                log.debug("Activated user: {}", user);
-                return user;
-            });
+        Optional<User> userOptional = userRepository.findOneByActivationKey(key);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            // activate given user for the registration key.
+            user.setActivated(true);
+            user.setActivationKey(null);
+            log.debug("Activated user: {}", user);
+            return Optional.of(user);
+        } else {
+            log.debug("No user found for activation key: {}", key);
+            return Optional.empty();
+        }
     }
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
