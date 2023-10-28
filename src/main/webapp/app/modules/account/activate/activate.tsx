@@ -30,9 +30,14 @@ export const ActivatePage = () => {
     const key = searchParams.get('key');
 
     dispatch(activateAction(key));
-    return () => {
-      dispatch(reset());
-    };
+    const delay = 2000; // Độ trễ 2 giây
+    setTimeout(() => {
+      window.location.href = 'https://vnrainbow.vercel.app'; // Thay thế bằng URL của trang bạn muốn chuyển hướng đến
+    }, delay);
+    dispatch(reset());
+    // return () => {
+    //   dispatch(reset());
+    // };
   }, []);
 
   const { activationSuccess, activationFailure } = useAppSelector(state => state.activate);
