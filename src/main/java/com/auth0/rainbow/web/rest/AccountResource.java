@@ -79,7 +79,7 @@ public class AccountResource {
         if (!user.isPresent()) {
             throw new AccountResourceException("No user was found for this activation key");
         }
-        String frontendURL = "https://vnrainbow.vercel.app";
+        String frontendURL = "https://vnrainbow.vercel.app/login";
         return ResponseEntity.status(HttpStatus.FOUND).header("Location", frontendURL).body(null);
     }
 
