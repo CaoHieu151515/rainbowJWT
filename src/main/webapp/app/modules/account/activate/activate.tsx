@@ -10,14 +10,18 @@ export const ActivatePage = () => {
 
   const [searchParams] = useSearchParams();
 
-  useEffect(() => {
-    const key = searchParams.get('key');
+  // useEffect(() => {
+  //   const key = searchParams.get('key');
 
-    dispatch(activateAction(key));
-    return () => {
-      dispatch(reset());
-      window.location.href = 'https://vnrainbow.vercel.app'; // Thay thế bằng URL của trang back-end của bạn
-    };
+  //   dispatch(activateAction(key));
+  //   return () => {
+  //     dispatch(reset());
+  //     window.location.href = 'https://vnrainbow.vercel.app'; // Thay thế bằng URL của trang back-end của bạn
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    window.location.href = 'https://vnrainbow.vercel.app'; // Thay thế bằng URL của trang bạn muốn chuyển hướng đến
   }, []);
 
   const { activationSuccess, activationFailure } = useAppSelector(state => state.activate);
