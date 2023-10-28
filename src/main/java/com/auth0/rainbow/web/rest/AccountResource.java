@@ -75,15 +75,11 @@ public class AccountResource {
      * @throws RuntimeException {@code 500 (Internal Server Error)} if the user couldn't be activated.
      */
     @GetMapping("/activate")
-    public ResponseEntity<Void> activateAccount(@RequestParam(value = "key") String key) {
+    public void activateAccount(@RequestParam(value = "key") String key) {
         Optional<User> user = userService.activateRegistration(key);
         if (!user.isPresent()) {
             throw new AccountResourceException("No user was found for this activation key");
         }
-        String redirectUrl = "https://vnrainbow.vercel.app";
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", redirectUrl);
-        return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
     /**
