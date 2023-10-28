@@ -87,6 +87,7 @@ export const AppLessonMySuffixUpdate = () => {
               {!isNew ? (
                 <ValidatedField name="id" required readOnly id="app-lesson-my-suffix-id" label="Id" validate={{ required: true }} />
               ) : null}
+              <ValidatedField label="Video Url" id="app-lesson-my-suffix-videoUrl" name="videoUrl" data-cy="videoUrl" type="text" />
               <ValidatedField id="app-lesson-my-suffix-course" name="course" data-cy="course" label="Course" type="select">
                 <option value="" key="0" />
                 {appCourses

@@ -26,7 +26,7 @@ public class AppMultipleChoiceAnswer implements Serializable {
     private Boolean isCorrect;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "questions", "lesson" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "questions", "appQuestion", "lesson" }, allowSetters = true)
     private AppQuestion question;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

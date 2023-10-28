@@ -52,6 +52,7 @@ export const AppLessonMySuffix = () => {
             <thead>
               <tr>
                 <th>Id</th>
+                <th>Video Url</th>
                 <th>Course</th>
                 <th />
               </tr>
@@ -64,6 +65,7 @@ export const AppLessonMySuffix = () => {
                       {appLesson.id}
                     </Button>
                   </td>
+                  <td>{appLesson.videoUrl}</td>
                   <td>{appLesson.course ? <Link to={`/app-course-my-suffix/${appLesson.course.id}`}>{appLesson.course.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

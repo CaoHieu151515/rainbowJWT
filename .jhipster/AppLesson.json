@@ -9,6 +9,10 @@
     {
       "fieldName": "id",
       "fieldType": "Long"
+    },
+    {
+      "fieldName": "videoUrl",
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,

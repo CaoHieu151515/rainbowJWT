@@ -4,6 +4,7 @@ import { IAppCourseMySuffix } from 'app/shared/model/app-course-my-suffix.model'
 
 export interface IAppLessonMySuffix {
   id?: number;
+  videoUrl?: string | null;
   lessons?: IAppQuestionMySuffix[] | null;
   lessonInfos?: IAppLessonInfoMySuffix[] | null;
   course?: IAppCourseMySuffix | null;

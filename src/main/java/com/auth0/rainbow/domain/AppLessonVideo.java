@@ -26,7 +26,7 @@ public class AppLessonVideo implements Serializable {
     private String description;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "videos", "lesson" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "videos", "pdfs", "lesson" }, allowSetters = true)
     private AppLessonInfo lessonInfo;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

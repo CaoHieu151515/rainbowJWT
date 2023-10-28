@@ -21,12 +21,15 @@ public class AppLesson implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "video_url")
+    private String videoUrl;
+
     @OneToMany(mappedBy = "lesson")
-    @JsonIgnoreProperties(value = { "questions", "lesson" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "questions", "appQuestion", "lesson" }, allowSetters = true)
     private Set<AppQuestion> lessons = new HashSet<>();
 
     @OneToMany(mappedBy = "lesson")
-    @JsonIgnoreProperties(value = { "videos", "lesson" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "videos", "pdfs", "lesson" }, allowSetters = true)
     private Set<AppLessonInfo> lessonInfos = new HashSet<>();
 
     @ManyToOne
@@ -46,6 +49,19 @@ public class AppLesson implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getVideoUrl() {
+        return this.videoUrl;
+    }
+
+    public AppLesson videoUrl(String videoUrl) {
+        this.setVideoUrl(videoUrl);
+        return this;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 
     public Set<AppQuestion> getLessons() {
@@ -147,6 +163,7 @@ public class AppLesson implements Serializable {
     public String toString() {
         return "AppLesson{" +
             "id=" + getId() +
+            ", videoUrl='" + getVideoUrl() + "'" +
             "}";
     }
 }
