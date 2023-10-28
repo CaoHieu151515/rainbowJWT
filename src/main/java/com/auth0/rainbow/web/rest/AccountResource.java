@@ -10,7 +10,6 @@ import com.auth0.rainbow.service.dto.PasswordChangeDTO;
 import com.auth0.rainbow.web.rest.errors.*;
 import com.auth0.rainbow.web.rest.vm.KeyAndPasswordVM;
 import com.auth0.rainbow.web.rest.vm.ManagedUserVM;
-import java.net.URI;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -21,6 +20,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * REST controller for managing the current user's account.
@@ -80,9 +80,9 @@ public class AccountResource {
         if (!user.isPresent()) {
             throw new AccountResourceException("No user was found for this activation key");
         }
-        String frontendURL = "https://vnrainbow.vercel.app/login"; // Địa chỉ trang front-end của bạn
+        String redirectUrl = "https://vnrainbow.vercel.app";
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create(frontendURL));
+        headers.add("Location", redirectUrl);
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
