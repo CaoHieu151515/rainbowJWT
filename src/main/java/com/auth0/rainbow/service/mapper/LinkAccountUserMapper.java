@@ -66,6 +66,10 @@ public interface LinkAccountUserMapper extends EntityMapper<LinkAccountUserDTO, 
         UserDTO UserDTO = new UserDTO();
         UserDTO.setId(user.getId());
         UserDTO.setLogin(user.getLogin());
+        UserDTO.setFirstName(user.getFirstName());
+        UserDTO.setLastName(user.getLastName());
+        UserDTO.setEmail(user.getEmail());
+        UserDTO.setImageUrl(user.getImageUrl());
         return UserDTO;
     }
 
