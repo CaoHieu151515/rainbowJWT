@@ -14,7 +14,7 @@ import org.mapstruct.factory.Mappers;
 public interface AppLessonVideoMapper extends EntityMapper<AppLessonVideoDTO, AppLessonVideo> {
     AppLessonVideoMapper INSTANCE = Mappers.getMapper(AppLessonVideoMapper.class);
 
-    @Mapping(target = "lessonInfo", source = "lessonInfo", qualifiedByName = "appLessonInfoId", ignore = true)
+    @Mapping(target = "lessonInfo", source = "lessonInfo", qualifiedByName = "appLessonInfoId")
     AppLessonVideoDTO toDto(AppLessonVideo s);
 
     @Named("appLessonInfoId")

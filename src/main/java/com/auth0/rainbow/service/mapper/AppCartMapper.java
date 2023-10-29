@@ -19,8 +19,8 @@ public interface AppCartMapper extends EntityMapper<AppCartDTO, AppCart> {
     @Mapping(target = "products", source = "products", qualifiedByName = "appProductIdSet")
     AppCartDTO toDto(AppCart s);
 
-    @Mapping(target = "removeProducts", ignore = true)
-    AppCart toEntity(AppCartDTO appCartDTO);
+    // @Mapping(target = "removeProducts", ignore = true)
+    // AppCart toEntity(AppCartDTO appCartDTO);
 
     @Named("appUserId")
     @BeanMapping(ignoreByDefault = true)

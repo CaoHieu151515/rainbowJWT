@@ -22,6 +22,9 @@ public class AppQuestionDTO implements Serializable {
 
     private AppQuestionVideoInfoDTO appQuestionvideo;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private AppLessonDTO lesson;
+
     public AppQuestionVideoInfoDTO getAppQuestionvideo() {
         return appQuestionvideo;
     }
@@ -37,9 +40,6 @@ public class AppQuestionDTO implements Serializable {
     public void setmultiChoice(Set<AppMultipleChoiceAnswerDTO> multiChoice) {
         this.multiChoice = multiChoice;
     }
-
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private AppLessonDTO lesson;
 
     public Long getId() {
         return id;

@@ -17,11 +17,11 @@ public interface AppCourseMapper extends EntityMapper<AppCourseDTO, AppCourse> {
     AppCourseMapper INSTANCE = Mappers.getMapper(AppCourseMapper.class);
     AppLessonMapper otherAppLessonMapper = Mappers.getMapper(AppLessonMapper.class);
 
-    @Mapping(source = "appLesson", target = "courses")
-    @Mapping(target = "users", ignore = true)
-    @Mapping(target = "removeCourses", ignore = true)
-    @Mapping(target = "removeUsers", ignore = true)
-    AppCourse toEntity(AppCourseDTO appCourseDTO);
+    // @Mapping(source = "appLesson", target = "courses")
+    // @Mapping(target = "users", ignore = true)
+    // @Mapping(target = "removeCourses", ignore = true)
+    // @Mapping(target = "removeUsers", ignore = true)
+    // AppCourse toEntity(AppCourseDTO appCourseDTO);
 
     @Mapping(target = "appLesson", ignore = true)
     @Mapping(target = "users", ignore = true)
@@ -42,7 +42,7 @@ public interface AppCourseMapper extends EntityMapper<AppCourseDTO, AppCourse> {
                     return null;
                 }
 
-                return AppLessonMapper.INSTANCE.toDto(appLesson);
+                return AppLessonMapper.INSTANCE.toLessonDTO(appLesson);
             })
             .collect(Collectors.toSet());
     }

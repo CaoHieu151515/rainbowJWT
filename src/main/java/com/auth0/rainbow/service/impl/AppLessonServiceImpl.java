@@ -1,6 +1,8 @@
 package com.auth0.rainbow.service.impl;
 
+import com.auth0.rainbow.domain.AppCourse;
 import com.auth0.rainbow.domain.AppLesson;
+import com.auth0.rainbow.repository.AppCourseRepository;
 import com.auth0.rainbow.repository.AppLessonRepository;
 import com.auth0.rainbow.service.AppLessonService;
 import com.auth0.rainbow.service.dto.AppLessonDTO;
@@ -27,15 +29,29 @@ public class AppLessonServiceImpl implements AppLessonService {
 
     private final AppLessonMapper appLessonMapper;
 
-    public AppLessonServiceImpl(AppLessonRepository appLessonRepository, AppLessonMapper appLessonMapper) {
+    private final AppCourseRepository appCourseRepository;
+
+    public AppLessonServiceImpl(
+        AppLessonRepository appLessonRepository,
+        AppLessonMapper appLessonMapper,
+        AppCourseRepository appCourseRepository
+    ) {
         this.appLessonRepository = appLessonRepository;
         this.appLessonMapper = appLessonMapper;
+        this.appCourseRepository = appCourseRepository;
     }
 
     @Override
     public AppLessonDTO save(AppLessonDTO appLessonDTO) {
         log.debug("Request to save AppLesson : {}", appLessonDTO);
         AppLesson appLesson = appLessonMapper.toEntity(appLessonDTO);
+        Optional<AppCourse> appCourseOptional = appCourseRepository.findById(appLessonDTO.getId());
+
+        if (appCourseOptional.isPresent()) {
+            AppCourse appCourse = appCourseOptional.get();
+            appLesson.setCourse(appCourse);
+        }
+
         appLesson = appLessonRepository.save(appLesson);
         return appLessonMapper.toDto(appLesson);
     }
@@ -44,6 +60,12 @@ public class AppLessonServiceImpl implements AppLessonService {
     public AppLessonDTO update(AppLessonDTO appLessonDTO) {
         log.debug("Request to update AppLesson : {}", appLessonDTO);
         AppLesson appLesson = appLessonMapper.toEntity(appLessonDTO);
+        Optional<AppCourse> appCourseOptional = appCourseRepository.findById(appLessonDTO.getId());
+
+        if (appCourseOptional.isPresent()) {
+            AppCourse appCourse = appCourseOptional.get();
+            appLesson.setCourse(appCourse);
+        }
         appLesson = appLessonRepository.save(appLesson);
         return appLessonMapper.toDto(appLesson);
     }
