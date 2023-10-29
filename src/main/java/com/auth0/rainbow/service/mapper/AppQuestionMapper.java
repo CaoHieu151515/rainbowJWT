@@ -39,6 +39,7 @@ public interface AppQuestionMapper extends EntityMapper<AppQuestionDTO, AppQuest
                     return null;
                 }
 
+                multiChoice.setQuestion(null);
                 return AppMultipleChoiceAnswerMapper.INSTANCE.toDto(multiChoice);
             })
             .collect(Collectors.toSet());
