@@ -147,6 +147,10 @@ public class AppPostServiceImpl implements AppPostService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete AppPost : {}", id);
+
+        AppPost existingPost = appPostRepository.findById(id).orElse(null);
+        deleteExistingImages(existingPost);
+
         appPostRepository.deleteById(id);
     }
 
