@@ -1,6 +1,7 @@
 package com.auth0.rainbow.repository;
 
 import com.auth0.rainbow.domain.AppAvailableCourse;
+import com.auth0.rainbow.domain.AppCourse;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface AppAvailableCourseRepository extends JpaRepository<AppAvailableCourse, Long> {}
+public interface AppAvailableCourseRepository extends JpaRepository<AppAvailableCourse, Long> {
+    AppAvailableCourse findByCourses(AppCourse appCourse);
+}

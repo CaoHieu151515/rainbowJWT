@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * A DTO for the {@link com.auth0.rainbow.domain.AppUser} entity.
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
+// @JsonInclude(JsonInclude.Include.NON_NULL)
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class AppUserDTO implements Serializable {
 
