@@ -124,25 +124,30 @@ public class AppAvailableCourseServiceImpl implements AppAvailableCourseService 
         appAvailableCourseRepository.deleteById(id);
     }
 
-    @Override
     public ResponseEntity<String> receiveCourse(Long id) {
         try {
             AppCourse course = appCourseRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Course not found"));
 
-            AppAvailableCourse availableCourse = new AppAvailableCourse();
-            availableCourse.setCourses(course);
-
             AppUser appUser = GetCurrentAppUser();
-
             Set<AppAvailableCourse> currentAvailableCourses = appUser.getAvailableCourses();
-            currentAvailableCourses.add(availableCourse);
-            appUser.setAvailableCourses(currentAvailableCourses);
 
-            appAvailableCourseRepository.save(availableCourse);
+            // Kiểm tra xem người dùng đã có availableCourse và availableCourse đó chứa khóa học hay chưa
+            boolean isCourseReceived = currentAvailableCourses.stream().anyMatch(ac -> ac.getCourses().getId().equals(id));
 
-            appUserRepository.save(appUser);
+            if (isCourseReceived) {
+                return ResponseEntity.ok("User already has this course in their available courses.");
+            } else {
+                AppAvailableCourse availableCourse = new AppAvailableCourse();
+                availableCourse.setCourses(course);
 
-            return ResponseEntity.ok("Course received successfully.");
+                currentAvailableCourses.add(availableCourse);
+                appUser.setAvailableCourses(currentAvailableCourses);
+
+                appAvailableCourseRepository.save(availableCourse);
+                appUserRepository.save(appUser);
+
+                return ResponseEntity.ok("Course received successfully.");
+            }
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.SC_NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
