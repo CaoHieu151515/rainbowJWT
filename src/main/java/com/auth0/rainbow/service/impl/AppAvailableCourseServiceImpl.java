@@ -135,7 +135,7 @@ public class AppAvailableCourseServiceImpl implements AppAvailableCourseService 
             boolean isCourseReceived = currentAvailableCourses.stream().anyMatch(ac -> ac.getCourses().getId().equals(id));
 
             if (isCourseReceived) {
-                return ResponseEntity.ok("User already has this course.");
+                return ResponseEntity.status(HttpStatus.SC_BAD_REQUEST).body("User already has this course.");
             } else {
                 AppAvailableCourse availableCourse = new AppAvailableCourse();
                 availableCourse.setCourses(course);
