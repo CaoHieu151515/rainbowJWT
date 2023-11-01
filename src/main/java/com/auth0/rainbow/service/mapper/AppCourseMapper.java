@@ -46,4 +46,18 @@ public interface AppCourseMapper extends EntityMapper<AppCourseDTO, AppCourse> {
             })
             .collect(Collectors.toSet());
     }
+
+    @Named("toCourseDTO2")
+    @Mappings(
+        {
+            @Mapping(target = "appLesson", source = "courses", qualifiedByName = "mapToLesonSetid"),
+            @Mapping(target = "users", ignore = true),
+        }
+    )
+    AppCourseDTO toCourseDTO2(AppCourse appCourse);
+
+    @Named("mapToLesonSetid")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    AppLessonDTO mapToLesonSetid(AppLesson appLesson);
 }

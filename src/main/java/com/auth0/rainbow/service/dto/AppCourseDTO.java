@@ -23,7 +23,6 @@ public class AppCourseDTO implements Serializable {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String image;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Set<AppLessonDTO> appLesson;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)

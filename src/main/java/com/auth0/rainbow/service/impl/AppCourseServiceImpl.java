@@ -67,7 +67,7 @@ public class AppCourseServiceImpl implements AppCourseService {
     @Transactional(readOnly = true)
     public List<AppCourseDTO> findAll() {
         log.debug("Request to get all AppCourses");
-        return appCourseRepository.findAll().stream().map(appCourseMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        return appCourseRepository.findAll().stream().map(appCourseMapper::toCourseDTO2).collect(Collectors.toCollection(LinkedList::new));
     }
 
     @Override
