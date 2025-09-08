@@ -48,9 +48,9 @@ spring:
       # it can be set to any label, branch or commit of the configuration source Git repository
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://root:123456@monorail.proxy.rlwy.net:10145/rainbow?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
-    username: root
-    password: 123456
+    url: 
+    username: 
+    password: 
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -85,8 +85,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: rainbowcolorful23@gmail.com
-    password: dncf lxvr irxq wnsu
+    username: 
+    password: 
     properties:
       mail:
         smtp:
